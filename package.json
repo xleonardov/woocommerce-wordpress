@@ -1,0 +1,32 @@
+{
+  "name": "tailwind-theme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "preview": "npm-run-all --parallel sync wpstart tailwindwatch",
+    "sync": "browser-sync start -p 'teste.local' --files '**/*.php' 'build/*.js' 'build/*.css'",
+    "buildwp": "wp-scripts build",
+    "build": "npm-run-all --sequential buildwp tailwindbuild",
+    "wpstart": "wp-scripts start",
+    "start": "npm-run-all --parallel wpstart tailwindwatch",
+    "tailwindbuild": "tailwindcss -i ./assets/css/index.css -o ./build/index.css --minify",
+    "tailwindwatch": "tailwindcss -i ./assets/css/index.css -o ./build/index.css --watch --minify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.2",
+    "@wordpress/scripts": "^23.3.0",
+    "browser-sync": "^2.27.10",
+    "npm-run-all": "^4.1.5",
+    "tailwindcss": "^3.1.4"
+  },
+  "dependencies": {
+    "framer-motion": "5.0.0",
+    "react": "16.8.4",
+    "react-dom": "16.8.4"
+  }
+}
