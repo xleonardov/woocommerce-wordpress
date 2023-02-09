@@ -1,0 +1,16 @@
+{
+  "name": "wlb/base",
+  "title": "willbe.co base block",
+  "description": "This is the base block structure",
+  "category": "theme",
+  "icon": "carrot",
+  "apiVersion": 2,
+  "keywords": [],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "blocks/wlb_base/block.php"
+  },
+  "supports": {
+    "anchor": true
+  }
+}

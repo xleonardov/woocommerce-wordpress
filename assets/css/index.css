@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.img-fill {
+  @apply object-cover object-center absolute inset-0 p-0 border-none m-auto block w-0 h-0 min-w-full max-w-full min-h-full max-h-full;
+}
+.btn {
+  @apply uppercase px-8 py-3 font-roboto text-center gap-2 transition-all duration-300 inline-flex;
+}
+.btn-primary {
+  @apply text-white bg-black border border-black;
+  @apply hover:text-black hover:bg-white hover:border-black;
+}
+.btn-negative {
+  @apply text-black bg-white border border-white;
+  @apply hover:text-white hover:bg-transparent hover:border-white;
+}
