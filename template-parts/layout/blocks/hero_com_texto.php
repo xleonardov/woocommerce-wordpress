@@ -8,7 +8,7 @@ $imagem = get_sub_field("imagem");
   <div class="w-full aspect-[852/1280] md:aspect-[1280/852] max-h-[60vh] md:max-h-[80vh] relative mb-4 md:mb-8">
     <img src="<?php echo $imagem ?>" class="img-fill" alt="<?php echo $titulo ?>"/> 
   </div>
-  <div class="font-garamond text-lg max-w-screen-xl mx-auto columns-1 md:columns-2 gap-8">
+  <div class="font-garamond text-lg max-w-screen-2xl mx-auto columns-1 md:columns-2 gap-8 md:gap-16 xl:gap-32">
     <?php echo $texto ?>
   </div>
 </section>

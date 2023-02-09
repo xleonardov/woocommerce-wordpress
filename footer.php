@@ -1,10 +1,10 @@
 <div class="py-4 px-4 md:px-6">
-  <div class="w-full border-t border-gray-400 grid grid-cols-3 items-center pt-4">
-    <div>
+  <div class="w-full border-t border-gray-400 grid grid-cols-1 space-y-4 md:space-y-0 md:grid-cols-3 items-center pt-4">
+    <div class="place-self-center md:place-self-start">
       <?php the_custom_logo(); ?>
     </div>
-    <div class="font-roboto text-sm flex justify-center"><?php echo date("Y");?>&nbsp;PACTO © Todos os direitos reservados</div>
-    <div class="justify-self-end"><img src="<?php echo get_theme_file_uri('/assets/images/logo_willbe.webp');?>"/></div>
+    <div class="font-roboto text-sm flex justify-center text-center"><?php echo date("Y");?>&nbsp;PACTO © Todos os direitos reservados</div>
+    <div class="justify-self-center md:justify-self-end"><img src="<?php echo get_theme_file_uri('/assets/images/logo_willbe.webp');?>"/></div>
   </div>
 </div>
 
