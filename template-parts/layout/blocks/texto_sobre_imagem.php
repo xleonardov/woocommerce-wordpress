@@ -6,7 +6,7 @@ $link_btn = get_sub_field("link_botao");
 ?>
 
 <section class="px-4 md:px-6 relative">
-  <div class="relative max-h-[80vh] aspect-[1000/1300] md:aspect-[1600/1000] w-full flex items-center justify-center">
+  <div class="relative max-h-[80vh] aspect-[4/5] md:aspect-[5/2] w-full flex items-center justify-center">
     <div class="absolute w-full h-full top-0 left-0">
       <img src="<?php echo $imagem; ?>" alt="<?php echo $titulo; ?>" class="img-fill" />
     </div>

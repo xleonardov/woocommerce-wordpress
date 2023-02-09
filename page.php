@@ -1,11 +1,13 @@
 <?php get_header(); ?>
 
 <div class="w-full">
-  <section class="px-4 md:px-6 font-roboto text-sm my-4 md:my-8">
-    <div class="border-t border-b border-gray-400 py-2">
-      <?php echo do_shortcode(' [wpseo_breadcrumb] ');?>
-    </div>
-  </section>
+  <?php if(!is_front_page()) : ?>
+    <section class="px-4 md:px-6 font-roboto text-sm my-4 md:my-8">
+      <div class="border-t border-b border-gray-400 py-2">
+        <?php echo do_shortcode(' [wpseo_breadcrumb] ');?>
+      </div>
+    </section>
+  <?php endif; ?>
   <?php
     $index = 0;
     if (have_rows('layout_de_pagina')) :
@@ -28,6 +30,12 @@
             endif;
             if (get_row_layout() == 'texto_e_btn') :
                 get_template_part('template-parts/layout/blocks/texto_e_btn', 'texto_e_btn', array('index' => $index));
+            endif;
+            if (get_row_layout() == 'imagem_texto_hashtag') :
+                get_template_part('template-parts/layout/blocks/imagem_texto_hashtag', 'imagem_texto_hashtag', array('index' => $index));
+            endif;
+            if (get_row_layout() == 'grid_texto_img_btn') :
+                get_template_part('template-parts/layout/blocks/grid_texto_img_btn', 'grid_texto_img_btn', array('index' => $index));
             endif;
             $index++;
         endwhile;

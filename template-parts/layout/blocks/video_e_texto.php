@@ -3,7 +3,7 @@ $titulo = get_sub_field("titulo");
 $video = get_sub_field("video");
 ?>
 <section class="px-4 md:px-6">
-  <div class="aspect-[852/1280] md:aspect-[1280/852] w-full max-h-[60vh]i md:max-h-[85vh] relative overflow-hidden">
+  <div class="aspect-[852/1280] md:aspect-[1280/852] w-full max-h-[60vh] md:max-h-[85vh] relative overflow-hidden">
     <video autoplay loop playsinline class="w-full h-full object-cover">
       <source src="<?php echo $video ?>" type="video/mp4"/> 
     </video>
