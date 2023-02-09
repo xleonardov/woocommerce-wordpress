@@ -29,6 +29,16 @@
   @apply text-black bg-white border border-white;
   @apply hover:text-white hover:bg-transparent hover:border-white;
 }
+.btn-menu {
+  @apply uppercase px-4 py-3 text-center gap-2 transition-all duration-300 inline-flex;
+  @apply bg-white text-black font-roboto text-xl justify-between items-center;
+  @apply hover:invert;
+}
+.btn-submenu {
+  @apply uppercase px-6 py-2 text-center gap-2 transition-all duration-300 inline-flex;
+  @apply bg-white text-black font-roboto  justify-between items-center;
+  @apply hover:invert;
+}
 
 .loop-price del span.woocommerce-Price-amount.amount {
   @apply pr-2 line-through text-gray-400;

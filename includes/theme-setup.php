@@ -32,7 +32,7 @@ function theme_add_support()
     add_theme_support('custom-logo', $logo_defaults);
     register_nav_menus(
         array(
-            'menu-1' => esc_html__('Principal', 'theme-tailwind'),
+            'main' => esc_html__('Principal', 'theme-tailwind'),
             'footer-main' => esc_html__('Footer Principal', 'theme-tailwind'),
             'footer-secondary' => esc_html__('Footer Secundário', 'theme-tailwind'),
         )
@@ -56,7 +56,7 @@ add_action('after_setup_theme', 'theme_add_support');
 
 
 if (class_exists('WooCommerce')) {
-    require get_template_directory() . '/includes/woocommerce.php';
+    include get_template_directory() . '/includes/woocommerce.php';
 }
 
 /*
