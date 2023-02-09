@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  @apply w-1 h-1;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-[30px];
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent rounded-[30px] shadow-[inset_0px_0px_0px_0px_theme(colors.bodyBackground)];
+}
+
 .img-fill {
   @apply object-cover object-center absolute inset-0 p-0 border-none m-auto block w-0 h-0 min-w-full max-w-full min-h-full max-h-full;
 }
@@ -15,4 +28,8 @@
 .btn-negative {
   @apply text-black bg-white border border-white;
   @apply hover:text-white hover:bg-transparent hover:border-white;
+}
+
+.loop-price del span.woocommerce-Price-amount.amount {
+  @apply pr-2 line-through text-gray-400;
 }
