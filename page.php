@@ -37,6 +37,12 @@
             if (get_row_layout() == 'grid_texto_img_btn'):
                 get_template_part('template-parts/layout/blocks/grid_texto_img_btn', 'grid_texto_img_btn', array('index' => $index));
             endif;
+            if (get_row_layout() == 'grid_masonry') :
+                get_template_part('template-parts/layout/blocks/grid_masonry', 'grid_masonry', array('index' => $index));
+            endif;
+            if (get_row_layout() == 'acordeao') :
+                get_template_part('template-parts/layout/blocks/acordeao', 'acordeao', array('index' => $index));
+            endif;
             $index++;
         endwhile;
     endif;

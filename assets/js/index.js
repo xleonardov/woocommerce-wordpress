@@ -253,10 +253,6 @@
       domElements.megaMenu.children[0].style.opacity = 0;
       domElements.megaMenu.children[1].style.transform = "translateX(-100%)";
       enableScroll();
-      setTimeout(() => {
-        domElements.navigationBox.classList.remove("showNav");
-        resetMenu();
-      }, 300);
     };
 
     if (domElements.hamburger) {

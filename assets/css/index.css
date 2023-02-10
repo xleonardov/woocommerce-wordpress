@@ -29,6 +29,30 @@
   @apply text-black bg-white border border-white;
   @apply hover:text-white hover:bg-transparent hover:border-white;
 }
+.btn-menu {
+  @apply uppercase px-4 py-3 text-center gap-2 transition-all duration-300 inline-flex;
+  @apply bg-white text-black font-roboto text-xl justify-between items-center;
+  @apply hover:invert;
+}
+.btn-submenu {
+  @apply uppercase px-6 py-2 text-center gap-2 transition-all duration-300 inline-flex;
+  @apply bg-white text-black font-roboto  justify-between items-center;
+  @apply hover:invert;
+}
+.btn-social {
+  @apply w-9 h-9 transition-all bg-black duration-300 border flex justify-center items-center border-black;
+  @apply cursor-pointer;
+  @apply hover:invert hover:border-white;
+}
+.btn-facebook {
+  background-image: url("../assets/images/facebook.webp");
+}
+.btn-youtube {
+  background-image: url("../assets/images/youtube.webp");
+}
+.btn-instagram {
+  background-image: url("../assets/images/instagram.webp");
+}
 
 .loop-price del span.woocommerce-Price-amount.amount {
   @apply pr-2 line-through text-gray-400;
