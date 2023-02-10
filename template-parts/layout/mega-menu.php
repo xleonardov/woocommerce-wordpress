@@ -30,11 +30,11 @@ $menu = apply_filters('mount_menu_tree', $menu_id);
                         <?php echo $menu_item->title; ?>
                       <img width="15" src="<?php echo get_theme_file_uri('/assets/images/add.webp');?>"/> 
                     </button>
-                      <ul class="flex-col w-full hidden" id="<?php echo 'sub_menu_id_'.$menu_item->ID ?>">
+                    <ul class="flex-col w-full h-0 overflow-hidden transition-all duration-300" id="<?php echo 'sub_menu_id_'.$menu_item->ID ?>">
                         <?php foreach ($menu_item->children_arr as $key => $sub_menu_item): ?>
-                          <li class="w-full">
-                            <a class="btn-submenu w-full" href="<?php echo $sub_menu_item->url; ?>"><?php echo $sub_menu_item->title;?></a>
-                          </li>
+                        <li class="w-full">
+                          <a class="btn-submenu w-full" href="<?php echo $sub_menu_item->url; ?>"><?php echo $sub_menu_item->title;?></a>
+                        </li>
                         <?php endforeach; ?>
                     </ul>
                   <?php else: ?>
@@ -44,13 +44,13 @@ $menu = apply_filters('mount_menu_tree', $menu_id);
             <?php endforeach; ?>
           </ul>  
       </div>
-      <div class="h-20 border-t border-gray-400 flex flex-col">
+      <div class="h-24 border-t border-gray-400 flex flex-col">
           <div class="pt-3 flex-1 flex justify-center gap-4">
-            <a class="bg-black w-8 h-8">f</a>
-            <a class="bg-black w-8 h-8">f</a>
-            <a class="bg-black w-8 h-8">f</a>
+            <a class="btn-social btn-facebook" href="https://facebook.com/PactoCycling" target="_blank" rel="noopener" rel="noreferrer"></a>
+            <a class="btn-social btn-instagram" href="https://instagram.com/pacto_cycling" target="_blank" rel="noopener" rel="noreferrer"></a>
+            <a class="btn-social btn-youtube" href="https://youtube.com/@pacto8198" target="_blank" rel="noopener" rel="noreferrer"></a>
           </div> 
-        <div class="font-roboto font-light text-sm text-center py-1"><?php echo date("Y"); ?>&nbsp;PACTO © Todos os direitos reservados</div>
+        <div class="font-roboto font-light text-sm text-center py-2"><?php echo date("Y"); ?>&nbsp;PACTO © Todos os direitos reservados</div>
       </div>
     </div>
   </div>
