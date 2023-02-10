@@ -17,10 +17,10 @@
  * @version 2.4.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 ?>
-<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="checkout-button flex items-center justify-center alt wc-forward w-full bg-secondary px-4 py-2 h-12 text-white text-center transition-all duration-200 hover:bg-primary disabled:opacity-20 uppercase tracking-wide rounded-lg">
-	<?php esc_html_e( 'Proceed to checkout', 'woocommerce' ); ?>
+<a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="btn btn-primary w-full justify-center items-center">
+	<?php esc_html_e('Proceed to checkout', 'woocommerce'); ?>
 </a>

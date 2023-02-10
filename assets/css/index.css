@@ -57,3 +57,20 @@
 .loop-price del span.woocommerce-Price-amount.amount {
   @apply pr-2 line-through text-gray-400;
 }
+
+.btn-quad {
+  @apply uppercase font-roboto text-center transition-all duration-300 inline-flex;
+  @apply text-black bg-white border border-black w-10 h-10 text-xs flex items-center justify-center;
+  @apply hover:text-white hover:bg-black hover:border-black;
+}
+
+.btn-quad-selected {
+  @apply relative flex items-center justify-center w-10 h-10 text-white uppercase transition-all duration-500 font-roboto z-10 text-xs border;
+  @apply bg-black;
+}
+
+.btn-selector {
+  @apply uppercase font-roboto text-center transition-all duration-300 inline-flex;
+  @apply text-black bg-white border border-black px-4 h-10 text-xs flex items-center justify-center;
+  @apply hover:text-white hover:bg-black hover:border-black;
+}
