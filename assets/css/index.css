@@ -39,6 +39,20 @@
   @apply bg-white text-black font-roboto  justify-between items-center;
   @apply hover:invert;
 }
+.btn-social {
+  @apply w-9 h-9 transition-all bg-black duration-300 border flex justify-center items-center border-black;
+  @apply cursor-pointer;
+  @apply hover:invert hover:border-white;
+}
+.btn-facebook {
+  background-image: url("../assets/images/facebook.webp");
+}
+.btn-youtube {
+  background-image: url("../assets/images/youtube.webp");
+}
+.btn-instagram {
+  background-image: url("../assets/images/instagram.webp");
+}
 
 .loop-price del span.woocommerce-Price-amount.amount {
   @apply pr-2 line-through text-gray-400;

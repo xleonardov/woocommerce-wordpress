@@ -30,20 +30,7 @@
       results: document.getElementById("products-list"),
       termsList: document.getElementById("search-terms-list"),
       searchHistory: document.getElementById("search-history"),
-      has_sub_menu: document.querySelectorAll(".has_sub_menu"),
     };
-
-    if (domElements.has_sub_menu) {
-      domElements.has_sub_menu.forEach((sub_menu) => {
-        sub_menu.addEventListener("click", (e) => {
-          e.preventDefault();
-          let target_id = sub_menu.getAttribute("data-submenu");
-          let target_el = document.getElementById(target_id);
-          target_el.classList.toggle("flex");
-          target_el.classList.toggle("hidden");
-        });
-      });
-    }
 
     const disableScroll = () => {
       document.body.style.overflow = "hidden";
