@@ -27,20 +27,29 @@ if ($product->get_type() == 'variable') {
 	$available_variations = $product->get_available_variations();
 	foreach ($available_variations as $variation) {
 		foreach ($variation['attributes'] as $key => $attribute) {
-			array_push($tempArray, array('name' => $attribute, 'is_available' => $variation['is_in_stock']));
+			$variation_obj = new WC_Product_variation($variation['variation_id']);
+			array_push($tempArray, array('name' => $attribute, 'stock' => $variation_obj->get_stock_quantity()));
 		}
 	}
-	$temp_array = array();
-	$i = 0;
-	$key_array = array();
-	$key = 'name';
 
-	foreach ($tempArray as $val) {
-		if (!in_array($val[$key], $key_array)) {
-			$key_array[$i] = $val[$key];
-			$temp_array[$i] = $val;
-		}
-		$i++;
+	$sizes = array(
+		0 => "XXS",
+		1 => "XS",
+		2 => "S",
+		3 => "M",
+		4 => "L",
+		5 => "XL",
+		6 => "XXL",
+		7 => "3XL",
+		8 => "4XL",
+		9 => "5XL"
+	);
+
+	$new_arr = array();
+
+	foreach ($sizes as $size) {
+		$key = array_search(strtolower($size), array_column($tempArray, 'name'));
+		array_push($new_arr, $tempArray[$key]);
 	}
 }
 // Ensure visibility.
@@ -78,11 +87,11 @@ if (empty($product) || !$product->is_visible()) {
 	<div class="font-roboto relative z-20">
 		<?php if ($product->get_type() == 'variable') { ?>
 			<div class="absolute w-full bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3
-							-translate-y-full hidden lg:flex">
-				<?php foreach ($temp_array as $variation) { ?>
+																-translate-y-full hidden lg:flex">
+				<?php foreach ($new_arr as $variation) { ?>
 
 					<div
-						class="text-xs xl:text-sm uppercase font-roboto <?= $variation['is_available'] === 0 ? 'text-gray-400 line-through' : '' ?>">
+						class="text-xs xl:text-sm uppercase font-roboto <?= $variation['stock'] === 0 ? 'text-gray-400 line-through' : '' ?>">
 						<?= $variation['name'] ?>
 					</div>
 				<?php } ?>

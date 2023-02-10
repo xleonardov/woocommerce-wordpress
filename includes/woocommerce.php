@@ -403,14 +403,24 @@ add_action(
 				$arguments = $_GET;
 				if (count($arguments)) {
 					$new_args = array();
+					$new_args['tax_query'] = array("relation" => "AND");
 					foreach ($arguments as $key => $argument) {
 						if ($key === 'orderby' || $key === 'paged')
 							continue;
-
 						if ($key === 'page') {
 							$argument_string = sanitize_text_field($argument);
 							$attrs = explode("_", $argument_string);
 							$query->query_vars['posts_per_page'] = (intval($attrs[0]) * PERPAGE);
+						} elseif ($key === 'gamas') {
+							array_push(
+								$new_args,
+								array(
+									'taxonomy' => sanitize_text_field($key),
+									'field' => 'slug',
+									'terms' => $argument,
+									'operator' => 'IN',
+								)
+							);
 						} else {
 							$query->query_vars['posts_per_page'] = PERPAGE;
 							$argument_string = sanitize_text_field($argument);
@@ -431,7 +441,6 @@ add_action(
 					}
 				}
 			} else if ($query->is_search && $query->is_main_query()) {
-
 				$query->set('post_type', 'product');
 				$meta_query_args = array(
 					'relation' => 'OR',
@@ -543,6 +552,16 @@ function woocommerce_ajax_filter_products()
 					$args['orderby'] = 'menu_order title';
 					$args['order'] = 'ASC';
 			}
+		} elseif ($key === 'gamas') {
+			array_push(
+				$new_args,
+				array(
+					'taxonomy' => sanitize_text_field($key),
+					'field' => 'slug',
+					'terms' => $argument,
+					'operator' => 'IN',
+				)
+			);
 		} else {
 			array_push(
 				$new_args,
@@ -560,8 +579,8 @@ function woocommerce_ajax_filter_products()
 	if (count($new_args) > 0) {
 		array_push($args['tax_query'], $new_args);
 	}
-
 	$the_query = new WP_Query($args);
+
 	?>
 	<div id="count">
 		<?= $the_query->found_posts ?>
@@ -954,3 +973,111 @@ function checkout_fields($fields)
 add_filter('woocommerce_nif_field_required', '__return_true');
 
 add_filter('woocommerce_terms_is_checked_default', '__return_true');
+
+
+// Adds a custom rule type.
+add_filter('acf/location/rule_types', function ($choices) {
+	$choices[__("Other", 'acf')]['wc_prod_attr'] = 'WC Product Attribute';
+	return $choices;
+});
+
+// Adds custom rule values.
+add_filter('acf/location/rule_values/wc_prod_attr', function ($choices) {
+	foreach (wc_get_attribute_taxonomies() as $attr) {
+		$pa_name = wc_attribute_taxonomy_name($attr->attribute_name);
+		$choices[$pa_name] = $attr->attribute_label;
+	}
+	return $choices;
+});
+
+// Matching the custom rule.
+add_filter('acf/location/rule_match/wc_prod_attr', function ($match, $rule, $options) {
+	if (isset($options['taxonomy'])) {
+		if ('==' === $rule['operator']) {
+			$match = $rule['value'] === $options['taxonomy'];
+		} elseif ('!=' === $rule['operator']) {
+			$match = $rule['value'] !== $options['taxonomy'];
+		}
+	}
+	return $match;
+}, 10, 3);
+
+
+//			ATTRIBUTES FIELDS
+function custom_add_wc_attribute_type()
+{
+	$id = isset($_GET['edit']) ? absint($_GET['edit']) : 0;
+	$value = $id ? get_option("wc_attribute_type-$id") : '';
+	$value_show = $id ? get_option("wc_attribute_show-$id") : '';
+	?>
+	<div class="form-field">
+		<label for="type-field">Type</label>
+		<select name="type" id="type-field" value="<?php echo esc_attr($value); ?>">
+			<option value="square">Square</option>
+			<option value="radio">Radio</option>
+			<option value="color">Color</option>
+		</select>
+		<p class="description">Set your attribute display style</p>
+	</div>
+
+	<div class="form-field">
+		<label for="type-show">Show on frontend?</label>
+		<input type="checkbox" id="type-show" name="show" checked>
+		<p class="description">Chose if this filter appear on frontend.</p>
+	</div>
+<?php
+}
+add_action('woocommerce_after_add_attribute_fields', 'custom_add_wc_attribute_type');
+
+
+function custom_edit_wc_attribute_type()
+{
+	$id = isset($_GET['edit']) ? absint($_GET['edit']) : 0;
+	$value = $id ? get_option("wc_attribute_type-$id") : '';
+	$value_show = $id ? get_option("wc_attribute_show-$id") : '';
+	?>
+	<tr class="form-field">
+		<th scope="row" valign="top">
+			<label for="type-field">Type</label>
+		</th>
+		<td>
+			<select name="type" id="type-field" value="<?php echo esc_attr($value); ?>">
+				<option value="square" <?= esc_attr($value) === "square" ? "selected" : "" ?>>Square</option>
+				<option value="radio" <?= esc_attr($value) === "radio" ? "selected" : "" ?>>Radio</option>
+				<option value="color" <?= esc_attr($value) === "color" ? "selected" : "" ?>>Color</option>
+			</select>
+			<p class="description">Set your attribute display style</p>
+		</td>
+	</tr>
+
+	<tr class="form-field">
+		<th scope="row" valign="top">
+			<label for="type-show">Show</label>
+		</th>
+		<td>
+			<input type="checkbox" id="type-show" name="show" <?= esc_attr($value_show) ? "checked" : "" ?>>
+			<p class="description">Chose if this filter appear on frontend.</p>
+		</td>
+	</tr>
+<?php
+}
+
+add_action('woocommerce_after_edit_attribute_fields', 'custom_edit_wc_attribute_type');
+
+function my_save_wc_attribute_type($id)
+{
+	if (is_admin() && isset($_POST['type'])) {
+		$option = "wc_attribute_type-$id";
+		$option_show = "wc_attribute_show-$id";
+		update_option($option, sanitize_text_field($_POST['type']));
+		update_option($option_show, sanitize_text_field($_POST['show']));
+
+	}
+}
+add_action('woocommerce_attribute_added', 'my_save_wc_attribute_type');
+add_action('woocommerce_attribute_updated', 'my_save_wc_attribute_type');
+
+add_action('woocommerce_attribute_deleted', function ($id) {
+	delete_option("wc_attribute_type-$id");
+	delete_option("wc_attribute_show-$id");
+});

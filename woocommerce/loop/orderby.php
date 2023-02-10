@@ -15,22 +15,22 @@
  * @version     3.6.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
 ?>
-<form class="woocommerce-ordering ">
-	<div class="flex items-center lg:space-x-2">
-		<label class="lg:text-sm" for="orderby">
-			<?= _e( 'Ordenar Por', 'wlb_theme') ?>
-		</label>
-		<select name="orderby" id="sort_products" class="opacity-0 absolute lg:relative w-full h-full lg:w-auto  left-0 lg:opacity-100 focus:outline-none text-sm font-medium cursor-pointer" aria-label="<?php esc_attr_e( 'Shop order', 'woocommerce' ); ?>" data-taxonomy="<?=isset($term->slug) ? $term->slug : '' ?>">
-			<?php foreach ( $catalog_orderby_options as $id => $name ) : ?>
-				<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $orderby, $id ); ?>><?php echo esc_html( $name ); ?></option>
-			<?php endforeach; ?>
-		</select>
-		<input type="hidden" name="paged" value="1" />
-		<?php wc_query_string_form_fields( null, array( 'orderby', 'submit', 'paged', 'product-page' ) ); ?>
+<div>
+	<h5 class="text-xs text-gray-400 uppercase mb-2">
+		Ordenar por:
+	</h5>
+	<div class="flex flex-col space-y-1">
+		<?php foreach ($catalog_orderby_options as $id => $name): ?>
+			<div class="flex items-center space-x-2">
+				<input type="radio" id="<?php echo esc_attr($id); ?>" class="w-4 h-4" name="orderby"
+					value="<?php echo esc_attr($id); ?>" data-taxonomy="<?= isset($term->slug) ? $term->slug : '' ?>" <?php checked($orderby, $id); ?>>
+				<label for="<?php echo esc_attr($id); ?>" class="uppercase"><?php echo esc_html($name); ?></label>
+			</div>
+		<?php endforeach; ?>
 	</div>
-</form>
+</div>
