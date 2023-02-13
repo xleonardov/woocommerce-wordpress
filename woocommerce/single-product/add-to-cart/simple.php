@@ -15,44 +15,76 @@
  * @version 3.4.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 global $product;
 $icons = new Icons();
 
-if ( ! $product->is_purchasable() ) {
+if (!$product->is_purchasable()) {
 	return;
 }
 
-echo wc_get_stock_html( $product ); // WPCS: XSS ok.
+echo wc_get_stock_html($product); // WPCS: XSS ok.
 
-if ( $product->is_in_stock() ) : ?>
+$percentage = 0;
+if ($product->is_type('simple')) { //if simple product
+	if ($product->sale_price) {
+		$percentage = round(((floatval($product->regular_price) - floatval($product->sale_price)) / floatval($product->regular_price)) * 100);
+	}
+} else { //if variable product
+	$percentage = apply_filters('get_variable_sale_percentage', $product);
+}
 
-	<?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
+if ($product->is_in_stock()): ?>
 
-	<form class="cart flex space-x-4" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
-		<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
+	<?php do_action('woocommerce_before_add_to_cart_form'); ?>
+
+	<form class="cart flex space-x-4"
+		action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
+		method="post" enctype='multipart/form-data'>
+		<?php do_action('woocommerce_before_add_to_cart_button'); ?>
 
 		<?php
-		do_action( 'woocommerce_before_add_to_cart_quantity' );
-
-		woocommerce_quantity_input(
-			array(
-				'input_class' => 'qty',
-				'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
-				'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
-				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
-			)
-		);
-
-		do_action( 'woocommerce_after_add_to_cart_quantity' );
+		// do_action('woocommerce_before_add_to_cart_quantity');
+	
+		// woocommerce_quantity_input(
+		// 	array(
+		// 		'input_class' => 'qty',
+		// 		'min_value' => apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product),
+		// 		'max_value' => apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product),
+		// 		'input_value' => isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(),
+		// 		// WPCS: CSRF ok, input var ok.
+		// 	)
+		// );
+	
+		// do_action('woocommerce_after_add_to_cart_quantity');
 		?>
 
-		<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button w-full justify-center px-12 py-3 bg-secondary text-white flex space-x-4 items-center hover:bg-red-500 cursor-pointer transition-all duration-200"><?=$icons->get_icon('AiOutlineShoppingCart')?> <span><?=  _e( "Adicionar", "wlb_theme")?></span></button>
+		<div class="flex justify-between mt-8 pt-4 border-t-gray-400 border-t w-full">
+			<div class="flex w-full justify-between items-center ">
+				<div class="flex w-full items-center">
+					<div class="text-secondary price-box uppercase text-center font-roboto text-2xl">
+						<?php echo $product->get_price_html(); ?>
+					</div>
+					<?php if ($percentage) { ?>
+						<div>
+							<span class="bg-amarelo text-white rounded-sm text-sm px-1 py-px sm:px-2 sm:py-1 font-roboto">
+								<?= $percentage ?>
+							</span>
+						</div>
+					<?php } ?>
+				</div>
+			</div>
+			<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>"
+				class="single_add_to_cart_button btn btn-primary">
+				<?= _e("Adicionar", "wlb_theme") ?></button>
+		</div>
 
-		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
+
+
+		<?php do_action('woocommerce_after_add_to_cart_button'); ?>
 	</form>
 
-	<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
+	<?php do_action('woocommerce_after_add_to_cart_form'); ?>
 
 <?php endif; ?>

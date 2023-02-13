@@ -29,6 +29,10 @@
   @apply text-black bg-white border border-white;
   @apply hover:text-white hover:bg-transparent hover:border-white;
 }
+.btn-outline {
+  @apply text-black bg-white border border-black;
+  @apply hover:text-white hover:bg-black hover:border-black;
+}
 .btn-menu {
   @apply uppercase px-4 py-3 text-center gap-2 transition-all duration-300 inline-flex;
   @apply bg-white text-black font-roboto text-xl justify-between items-center;
@@ -57,6 +61,9 @@
 .loop-price del span.woocommerce-Price-amount.amount {
   @apply pr-2 line-through text-gray-400;
 }
+.loop-price ins {
+  text-decoration: none;
+}
 
 .btn-quad {
   @apply uppercase font-roboto text-center transition-all duration-300 inline-flex;
@@ -68,9 +75,53 @@
   @apply relative flex items-center justify-center w-10 h-10 text-white uppercase transition-all duration-500 font-roboto z-10 text-xs border;
   @apply bg-black;
 }
+.btn-quad-disabled {
+  @apply relative flex items-center justify-center w-10 h-10 text-black uppercase transition-all duration-500 font-roboto z-10 text-xs border opacity-50 cursor-not-allowed bg-gray-300;
+  @apply after:absolute after:w-3/4 after:h-px after:bg-black after:-rotate-45;
+}
 
 .btn-selector {
   @apply uppercase font-roboto text-center transition-all duration-300 inline-flex;
   @apply text-black bg-white border border-black px-4 h-10 text-xs flex items-center justify-center;
   @apply hover:text-white hover:bg-black hover:border-black;
+}
+
+.flex-control-nav {
+  display: none;
+}
+.price-box {
+  text-decoration: none;
+}
+.price-box del,
+.price-box ins {
+  text-decoration: none;
+}
+
+.price-box del .woocommerce-Price-amount.amount bdi {
+  @apply line-through text-gray-500 sm:text-lg mx-0 font-roboto;
+}
+
+.price-box ins .woocommerce-Price-amount.amount bdi {
+  @apply text-black mx-2 text-xl sm:text-2xl font-bold font-roboto;
+}
+
+.flex-viewport {
+  display: none !important;
+}
+a.woocommerce-product-gallery__trigger {
+  display: none !important;
+}
+
+.swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after,
+.swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after {
+  display: none;
+  content: none;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: 2.25rem;
+  height: 2.25rem;
 }

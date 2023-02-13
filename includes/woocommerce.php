@@ -21,15 +21,15 @@ function theme_woocommerce_setup()
     add_theme_support(
         'woocommerce',
         array(
-        'thumbnail_image_width' => 150,
-        'single_image_width' => 300,
-        'product_grid' => array(
+            'thumbnail_image_width' => 150,
+            'single_image_width' => 300,
+            'product_grid' => array(
                 'default_rows' => 3,
                 'min_rows' => 1,
                 'default_columns' => 4,
                 'min_columns' => 1,
                 'max_columns' => 6,
-        ),
+            ),
         )
     );
     add_theme_support('wc-product-gallery-zoom');
@@ -60,7 +60,7 @@ function woocommerce_custom_scripts()
                 'pacto-wc-functions',
                 'woocommerce_scritps_helper',
                 array(
-                'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php',
+                    'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php',
                 )
             );
             wp_enqueue_script('pacto-wc-functions');
@@ -126,8 +126,8 @@ add_filter('body_class', 'theme_woocommerce_active_body_class');
 function theme_woocommerce_related_products_args($args)
 {
     $defaults = array(
-    'posts_per_page' => 3,
-    'columns' => 3,
+        'posts_per_page' => 3,
+        'columns' => 3,
     );
 
     $args = wp_parse_args($defaults, $args);
@@ -171,7 +171,7 @@ if (!function_exists('theme_woocommerce_wrapper_after')) {
     {
         ?>
         </main><!-- #main -->
-        <?php
+    <?php
     }
 }
 add_action('woocommerce_after_main_content', 'theme_woocommerce_wrapper_after');
@@ -195,88 +195,63 @@ if (!function_exists('theme_woocommerce_floating_cart')) {
         $icons = new Icons;
         $cart = WC()->cart->get_cart();
         ?>
-    <div class="grid grid-rows-[auto_120px] h-[calc(100vh_-_80px)]">
-      <div class="bg-red-50 overflow-y-auto"></div>
-      <div class="bg-green-100">
-        <h4 class="font-roboto">TOTAL(
-          <?php echo $woocommerce->cart->cart_contents_count ?> item
-          <?php echo $woocommerce->cart->cart_contents_count > 1 ? 's' : '' ?>)
-          <span class="text-xl font-bold text-secondary pl-2">
-            <?php echo WC()->cart->get_displayed_subtotal(); ?>€
-                        </span>
-          </h4>
-          <div class="text-sm font-roboto">Custo de portes + Taxas calculadas no checkout</div>
-      </div>
-    
-    </div>
-        <div class="cart-container grid grid-rows-[1fr_120px] h-[calc(100vh_-_80px)]">
-        <?php if (count($cart) > 0) { ?>
-                <div class=" flex flex-col overflow-y-auto relative px-4 pt-4 lg:px-8 lg:pt-8">
-                    <div class="flex items-center tracking-wide ">
-                        <h4>TOTAL(
-            <?php echo $woocommerce->cart->cart_contents_count ?> item
-            <?php echo $woocommerce->cart->cart_contents_count > 1 ? 's' : '' ?>)
-                        </h4><span class="text-xl font-bold text-secondary pl-2">
-            <?php echo WC()->cart->get_displayed_subtotal(); ?>€
-                        </span>
-                    </div>
-                    <div class="pb-8 text-[12px] ">Custo de portes + Taxas calculadas no checkout</div>
-                    <div class="cart-products-list border-t-[1px]">
-            <?php foreach ($cart as $cart_item_key => $cart_item) {
-                $product = $cart_item['data'];
-                $product_id = $cart_item['product_id'];
-                $quantity = $cart_item['quantity'];
-                $price = WC()->cart->get_product_price($product);
-                $subtotal = WC()->cart->get_product_subtotal($product, $cart_item['quantity']);
-                $link = $product->get_permalink($cart_item);
-                $post_thumbnail_id = get_post_thumbnail_id($product_id);
-                $product_thumbnail = wp_get_attachment_image_src($post_thumbnail_id, $size = 'shop-feature');
-                $product_thumbnail_alt = get_post_meta($post_thumbnail_id, '_wp_attachment_image_alt', true);
-                $pn = get_field('pn', $product_id);
-                ?>
-                            <div class="cart-product grid grid-cols-[124px_auto] border-b-[1px] gap-4 py-4">
-                                <div class="cart-product-image w-[124px]">
-                                    <img src="<?php echo $product_thumbnail[0]; ?>" alt="<?php echo $product_thumbnail_alt; ?>">
+        <div class="cart-container grid grid-rows-[auto_120px] h-[calc(100vh_-_80px)]">
+            <div class="bg-red-50 overflow-y-auto">
+                <?php foreach ($cart as $cart_item_key => $cart_item) {
+                    $product = $cart_item['data'];
+                    $product_id = $cart_item['product_id'];
+                    $quantity = $cart_item['quantity'];
+                    $subtotal = WC()->cart->get_product_subtotal($product, $cart_item['quantity']);
+                    $post_thumbnail_id = get_post_thumbnail_id($product_id);
+                    $product_thumbnail = wp_get_attachment_image_src($post_thumbnail_id, $size = 'shop-feature');
+                    $product_thumbnail_alt = get_post_meta($post_thumbnail_id, '_wp_attachment_image_alt', true);
+                    $pn = get_field('pn', $product_id);
+                    ?>
+                    <div class="cart-product grid grid-cols-[124px_auto] border-b-[1px] gap-4 py-4">
+                        <div class="cart-product-image w-[124px]">
+                            <img src="<?php echo $product_thumbnail[0]; ?>" alt="<?php echo $product_thumbnail_alt; ?>">
+                        </div>
+                        <div class="cart-product-info grid grid-cols-[auto_24px]">
+                            <div>
+                                <div class="cart-product-info-name text-sm">
+                                    <a href="<?php echo get_permalink($product_id) ?>"
+                                        class="name font-medium hover:text-secondary transition-all"><?php echo $product->get_name(); ?></a>
+                                    <div class="pn text-xs">
+                                        <?php echo $pn ?>
+                                    </div>
+                                    <div class="quantity"><label>Qtd: </label>
+                                        <?php echo $quantity ?>
+                                    </div>
                                 </div>
-                                <div class="cart-product-info grid grid-cols-[auto_24px]">
-                                    <div>
-                                        <div class="cart-product-info-name text-sm">
-                                            <a href="<?php echo get_permalink($product_id) ?>"
-                                                class="name font-medium hover:text-secondary transition-all"><?php echo $product->get_name(); ?></a>
-                                            <div class="pn text-xs">
-                <?php echo $pn ?>
-                                            </div>
-                                            <div class="quantity"><label>Qtd: </label>
-                <?php echo $quantity ?>
-                                            </div>
-                                        </div>
-                                        <div class="price text-xl font-bold text-secondary">
-                <?php echo $subtotal ?>
-                                        </div>
-                                    </div>
-                                    <div class="flex justify-end">
-                                        <div class="remove_item_from_cart cursor-pointer w-4 h-4" data-product_id="<?php echo $product_id ?>"><?php echo $icons->get_icon('GrClose'); ?></div>
-                                    </div>
+                                <div class="price text-xl font-bold text-secondary">
+                                    <?php echo $subtotal ?>
                                 </div>
                             </div>
-                <?php
-            }
-            ?>
+                            <div class="flex justify-end">
+                                <div class="remove_item_from_cart cursor-pointer w-4 h-4" data-product_id="<?php echo $cart_item_key;
+                                ?>">
+                                    <?php echo $icons->get_icon('GrClose'); ?></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="flex space-x-4 w-full bg-white p-4 lg:p-8 items-end ">
-                    <a href="<?php echo wc_get_cart_url() ?>"
-                        class="text-xs max-h-12 lg:max-h-16 lg:text-base  px-6 py-3 uppercase tracking-wide  bg-gray-100 rounded-lg flex justify-center items-center"><?php echo _e("Ver e editar", "theme-tailwind") ?></a>
-                    <a href="<?php echo wc_get_checkout_url() ?>"
-                        class="text-xs max-h-12 lg:max-h-16 lg:text-base px-6 py-3 uppercase tracking-wide  bg-secondary rounded-lg text-white flex-auto text-center flex justify-center items-center"><?php echo _e("Finalizar compra", "theme-tailwind") ?></a>
-                </div>
-        <?php } else { ?>
-                <p class="tracking-wide p-4 lg:p-8">
-            <?php echo _e("Ainda não tens produtos no carrinho.", "theme-tailwind") ?>
-                </p>
-        <?php } ?>
+                <?php
+                }
+                ?>
+            </div>
+            <div class="bg-green-100">
+                <h4 class="font-roboto">TOTAL(
+                    <?php echo $woocommerce->cart->cart_contents_count ?> item
+                    <?php echo $woocommerce->cart->cart_contents_count > 1 ? 's' : '' ?>)
+                    <span class="text-xl font-bold text-secondary pl-2">
+                        <?php echo WC()->cart->get_displayed_subtotal(); ?>€
+                    </span>
+                </h4>
+                <div class="text-sm font-roboto">Custo de portes + Taxas calculadas no checkout</div>
+            </div>
+
         </div>
-        <?php
+
+    <?php
     }
 }
 
@@ -312,8 +287,8 @@ function woocommerce_ajax_add_to_cart()
         WC_AJAX::get_refreshed_fragments();
     } else {
         $data = array(
-        'error' => true,
-        'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink($product_id), $product_id)
+            'error' => true,
+            'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink($product_id), $product_id)
         );
         echo wp_send_json($data);
     }
@@ -327,16 +302,18 @@ add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_
 
 function woocommerce_ajax_remove_from_cart()
 {
-    $product_id = apply_filters('woocommerce_remove_from_cart_product_id', absint($_POST['product_id']));
-    $product_cart_id = WC()->cart->generate_cart_id($product_id);
-    $cart_item_key = WC()->cart->find_product_in_cart($product_cart_id);
+
+    $product_id = apply_filters('woocommerce_remove_from_cart_product_id', $_POST['product_id']);
+    // $product_cart_id = WC()->cart->generate_cart_id($product_id);
+    $cart_item_key = WC()->cart->find_product_in_cart($product_id);
+
     if ($cart_item_key) {
         WC()->cart->remove_cart_item($cart_item_key);
         WC_AJAX::get_refreshed_fragments();
     } else {
         $data = array(
-        'error' => true,
-        'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink($product_id), $product_id)
+            'error' => true,
+            'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink($product_id), $product_id)
         );
         echo wp_send_json($data);
     }
@@ -348,14 +325,15 @@ add_action('wp_ajax_nopriv_woocommerce_ajax_remove_from_cart', 'woocommerce_ajax
 
 function woocommerce_ajax_remove_from_cart_confirmation()
 {
-    $product_id = apply_filters('woocommerce_ajax_remove_from_cart_confirmation', absint($_POST['product_id']));
-    $product = wc_get_product($product_id);
+    $cart = WC()->cart->get_cart();
+    $product_id = apply_filters('woocommerce_ajax_remove_from_cart_confirmation', $_POST['product_id']);
+    $product = $cart[$product_id]['data'];
     $icons = new Icons;
     ?>
     <div
         class="modal-remove-product-cart fixed top-0 left-0 w-full h-screen bg-transparent z-50 flex justify-center items-center">
         <div class="overlay w-full h-screen absolute top-0 z-30"></div>
-        <div class="bg-white max-w-md w-full p-4 rounded-lg opacity-0 transition-all translate-y-[10px] z-[51]">
+        <div class="bg-white max-w-md w-full p-4  opacity-0 transition-all translate-y-[10px] z-[51] font-roboto">
             <div class="flex justify-end mb-4">
                 <div class="modal-remove-product-close cursor-pointer ">
                     <?php echo $icons->get_icon('GrClose'); ?>
@@ -373,9 +351,11 @@ function woocommerce_ajax_remove_from_cart_confirmation()
                 </span>
             </div>
             <div class="flex space-x-4 justify-end mt-8">
-                <button
-                    class="bg-secondary rounded-lg uppercase tracking-wide px-8 py-3 text-white hover:bg-red-400 transition-all"><?php echo _e("Cancelar", "theme-tailwind") ?></button>
-                <button class="bg-gray-100 rounded-lg uppercase tracking-wide px-8 py-3 hover:bg-gray-200 transition-all">
+                <button class="btn btn-primary">
+                    <?php
+                    echo _e("Cancelar", "theme-tailwind") ?>
+                </button>
+                <button class="btn btn-outline">
                     <?php echo _e("Eliminar", "theme-tailwind") ?>
                 </button>
             </div>
@@ -430,10 +410,10 @@ add_action(
                             array_push(
                                 $new_args,
                                 array(
-                                'taxonomy' => sanitize_text_field($key),
-                                'field' => 'slug',
-                                'terms' => $argument,
-                                'operator' => 'IN',
+                                    'taxonomy' => sanitize_text_field($key),
+                                    'field' => 'slug',
+                                    'terms' => $argument,
+                                    'operator' => 'IN',
                                 )
                             );
                         } else {
@@ -443,10 +423,10 @@ add_action(
                             array_push(
                                 $new_args,
                                 array(
-                                'taxonomy' => 'pa_' . sanitize_text_field($key),
-                                'field' => 'slug',
-                                'terms' => $attrs,
-                                'operator' => 'IN',
+                                    'taxonomy' => 'pa_' . sanitize_text_field($key),
+                                    'field' => 'slug',
+                                    'terms' => $attrs,
+                                    'operator' => 'IN',
                                 )
                             );
                         }
@@ -458,17 +438,17 @@ add_action(
             } else if ($query->is_search && $query->is_main_query()) {
                 $query->set('post_type', 'product');
                 $meta_query_args = array(
-                'relation' => 'OR',
-                array(
-                'key' => 'pn',
-                'value' => $query->get('s'),
-                'compare' => 'LIKE',
-                ),
-                array(
-                'key' => 'ean',
-                'value' => $query->get('s'),
-                'compare' => 'LIKE',
-                ),
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'pn',
+                        'value' => $query->get('s'),
+                        'compare' => 'LIKE',
+                    ),
+                    array(
+                        'key' => 'ean',
+                        'value' => $query->get('s'),
+                        'compare' => 'LIKE',
+                    ),
                 );
                 $query->set('meta_query', $meta_query_args);
             }
@@ -498,12 +478,12 @@ function woocommerce_ajax_filter_products()
     $tempArgs = array();
     $new_args = array();
     $args = array(
-    'post_type' => 'product',
-    'post_status' => 'publish',
-    'posts_per_page' => PERPAGE,
-    'orderby' => 'menu_order title',
-    'order' => 'ASC',
-    'tax_query' => array(),
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => PERPAGE,
+        'orderby' => 'menu_order title',
+        'order' => 'ASC',
+        'tax_query' => array(),
     );
 
     foreach ($params as $value) {
@@ -541,51 +521,51 @@ function woocommerce_ajax_filter_products()
     foreach ($arguments as $key => $argument) {
         if ($key === 'orderby') {
             switch ($argument[0]) {
-            case "date":
-                $args['orderby'] = 'date';
-                $args['order'] = 'ASC';
-                break;
-            case "price":
-                $args['meta_key'] = '_price';
-                $args['orderby'] = 'meta_value_num';
-                $args['order'] = 'ASC';
-                break;
-            case "price-desc":
-                   $args['meta_key'] = '_price';
-                   $args['orderby'] = 'meta_value_num';
-                   $args['order'] = 'DESC';
-                break;
-            case "popularity":
-                $args['meta_key'] = 'total_sales';
-                $args['orderby'] = 'meta_value_num';
-                $args['order'] = 'DESC';
-                break;
-            case "popularity":
-                $args['orderby'] = 'menu_order title';
-                $args['order'] = 'ASC';
-                break;
-            default:
-                $args['orderby'] = 'menu_order title';
-                $args['order'] = 'ASC';
+                case "date":
+                    $args['orderby'] = 'date';
+                    $args['order'] = 'ASC';
+                    break;
+                case "price":
+                    $args['meta_key'] = '_price';
+                    $args['orderby'] = 'meta_value_num';
+                    $args['order'] = 'ASC';
+                    break;
+                case "price-desc":
+                    $args['meta_key'] = '_price';
+                    $args['orderby'] = 'meta_value_num';
+                    $args['order'] = 'DESC';
+                    break;
+                case "popularity":
+                    $args['meta_key'] = 'total_sales';
+                    $args['orderby'] = 'meta_value_num';
+                    $args['order'] = 'DESC';
+                    break;
+                case "popularity":
+                    $args['orderby'] = 'menu_order title';
+                    $args['order'] = 'ASC';
+                    break;
+                default:
+                    $args['orderby'] = 'menu_order title';
+                    $args['order'] = 'ASC';
             }
         } elseif ($key === 'gamas') {
             array_push(
                 $new_args,
                 array(
-                'taxonomy' => sanitize_text_field($key),
-                'field' => 'slug',
-                'terms' => $argument,
-                'operator' => 'IN',
+                    'taxonomy' => sanitize_text_field($key),
+                    'field' => 'slug',
+                    'terms' => $argument,
+                    'operator' => 'IN',
                 )
             );
         } else {
             array_push(
                 $new_args,
                 array(
-                'taxonomy' => 'pa_' . sanitize_text_field($key),
-                'field' => 'slug',
-                'terms' => $argument,
-                'operator' => 'IN',
+                    'taxonomy' => 'pa_' . sanitize_text_field($key),
+                    'field' => 'slug',
+                    'terms' => $argument,
+                    'operator' => 'IN',
                 )
             );
         }
@@ -599,7 +579,7 @@ function woocommerce_ajax_filter_products()
 
     ?>
     <div id="count">
-    <?php echo $the_query->found_posts ?>
+        <?php echo $the_query->found_posts ?>
     </div>
     <?php
     woocommerce_product_loop_start();
@@ -610,10 +590,10 @@ function woocommerce_ajax_filter_products()
     }
     woocommerce_product_loop_end();
     $args = array(
-    'category' => $taxonomy,
-    'tax_query' => $args['tax_query'],
-    'total' => $the_query->max_num_pages,
-    'current' => 1
+        'category' => $taxonomy,
+        'tax_query' => $args['tax_query'],
+        'total' => $the_query->max_num_pages,
+        'current' => 1
     );
     wc_get_template('loop/pagination.php', $args);
     wp_die();
@@ -635,7 +615,7 @@ function woocommerce_ajax_rerender_filters()
     $new_args = array();
 
     $args = array(
-    'tax_query' => array(),
+        'tax_query' => array(),
     );
 
     foreach ($params as $value) {
@@ -665,10 +645,10 @@ function woocommerce_ajax_rerender_filters()
             array_push(
                 $new_args,
                 array(
-                'taxonomy' => 'pa_' . sanitize_text_field($key),
-                'field' => 'slug',
-                'terms' => $argument,
-                'operator' => 'IN',
+                    'taxonomy' => 'pa_' . sanitize_text_field($key),
+                    'field' => 'slug',
+                    'terms' => $argument,
+                    'operator' => 'IN',
                 )
             );
         }
@@ -686,158 +666,158 @@ function woocommerce_ajax_rerender_filters()
 
     ?>
     <div class="overflow-auto">
-    <?php
-    $query_args = array(
-    'status' => 'publish',
-    'limit' => -1,
-    'orderby' => 'menu_order title',
-    'order' => 'ASC',
-    'tax_query' => $args['tax_query']
-    );
-
-    if (isset($taxonomy) && strlen($taxonomy) > 0) {
-        $query_args['category'] = array($taxonomy);
-    }
-
-    $data = array();
-
-
-
-    if (count($new_args) > 0) {
-        foreach (wc_get_products($query_args) as $product) {
-            foreach ($product->get_attributes() as $tax => $attribute) {
-                if (in_array($tax, $toIgnore)) {
-                    continue;
-                }
-                $attribute_obj = get_taxonomy($tax);
-                $attribute_name = $attribute_obj->labels->singular_name;
-                $data[$tax]['name'] = $attribute_obj->labels->singular_name;
-                $data[$tax]['slug'] = $attribute_obj->name;
-                foreach ($attribute->get_terms() as $term) {
-                    $term_obj = new \stdClass();
-                    $term_obj->name = $term->name;
-                    $term_obj->slug = $term->slug;
-                    $term_obj->term_id = $term->term_id;
-                    $term_obj->count = 1;
-                    if (array_key_exists($tax, $data)) {
-                        if (array_key_exists('terms', $data[$tax])) {
-                            if (array_key_exists($term->term_id, $data[$tax]['terms'])) {
-                                     $term_obj->count = $data[$tax]['terms'][$term->term_id]->count + 1;
-                            }
-                        }
-                    }
-                    $data[$tax]['terms'][$term->term_id] = $term_obj;
-                }
-            }
-        }
-    } else {
-        $table_name = $wpdb->prefix . 'sorefoz_attributes_categories_lookup';
-        $queryString = "";
+        <?php
+        $query_args = array(
+            'status' => 'publish',
+            'limit' => -1,
+            'orderby' => 'menu_order title',
+            'order' => 'ASC',
+            'tax_query' => $args['tax_query']
+        );
 
         if (isset($taxonomy) && strlen($taxonomy) > 0) {
-            $queryString = 'SELECT * FROM ' . $table_name . ' WHERE tax_slug = "' . $taxonomy . '" ORDER BY attr_name ASC;';
-        } else {
-            $queryString = 'SELECT * FROM ' . $table_name . ' ;';
+            $query_args['category'] = array($taxonomy);
         }
 
-        $query = $wpdb->get_results($queryString);
+        $data = array();
 
-        foreach ($query as $row) {
-            $attribute = array(
-            "name" => $row->attr_name,
-            "slug" => $row->attr_slug,
-            "terms" => []
-            );
-            $data[$row->attr_slug] = $attribute;
-        }
 
-        foreach ($data as $attribute) {
-            foreach ($query as $row) {
-                if ($attribute["slug"] !== $row->attr_slug) {
-                    continue;
+
+        if (count($new_args) > 0) {
+            foreach (wc_get_products($query_args) as $product) {
+                foreach ($product->get_attributes() as $tax => $attribute) {
+                    if (in_array($tax, $toIgnore)) {
+                        continue;
+                    }
+                    $attribute_obj = get_taxonomy($tax);
+                    $attribute_name = $attribute_obj->labels->singular_name;
+                    $data[$tax]['name'] = $attribute_obj->labels->singular_name;
+                    $data[$tax]['slug'] = $attribute_obj->name;
+                    foreach ($attribute->get_terms() as $term) {
+                        $term_obj = new \stdClass();
+                        $term_obj->name = $term->name;
+                        $term_obj->slug = $term->slug;
+                        $term_obj->term_id = $term->term_id;
+                        $term_obj->count = 1;
+                        if (array_key_exists($tax, $data)) {
+                            if (array_key_exists('terms', $data[$tax])) {
+                                if (array_key_exists($term->term_id, $data[$tax]['terms'])) {
+                                    $term_obj->count = $data[$tax]['terms'][$term->term_id]->count + 1;
+                                }
+                            }
+                        }
+                        $data[$tax]['terms'][$term->term_id] = $term_obj;
+                    }
                 }
-                $term = new \stdClass();
-                $term->name = $row->term_name;
-                $term->slug = $row->term_slug;
-                $term->count = $row->product_count;
-                $data[$row->attr_slug]["terms"][$row->term_slug] = $term;
+            }
+        } else {
+            $table_name = $wpdb->prefix . 'sorefoz_attributes_categories_lookup';
+            $queryString = "";
+
+            if (isset($taxonomy) && strlen($taxonomy) > 0) {
+                $queryString = 'SELECT * FROM ' . $table_name . ' WHERE tax_slug = "' . $taxonomy . '" ORDER BY attr_name ASC;';
+            } else {
+                $queryString = 'SELECT * FROM ' . $table_name . ' ;';
+            }
+
+            $query = $wpdb->get_results($queryString);
+
+            foreach ($query as $row) {
+                $attribute = array(
+                    "name" => $row->attr_name,
+                    "slug" => $row->attr_slug,
+                    "terms" => []
+                );
+                $data[$row->attr_slug] = $attribute;
+            }
+
+            foreach ($data as $attribute) {
+                foreach ($query as $row) {
+                    if ($attribute["slug"] !== $row->attr_slug) {
+                        continue;
+                    }
+                    $term = new \stdClass();
+                    $term->name = $row->term_name;
+                    $term->slug = $row->term_slug;
+                    $term->count = $row->product_count;
+                    $data[$row->attr_slug]["terms"][$row->term_slug] = $term;
+                }
             }
         }
-    }
 
-    ksort($data);
+        ksort($data);
 
 
-    if (count($new_args) > 0) {
-        ?>
+        if (count($new_args) > 0) {
+            ?>
             <div class="mb-4 p-4">
                 <ul>
-        <?php
-        foreach ($new_args as $arg) {
-            if ($arg["terms"][0] === "orderby") {
-                continue;
-            }
-            $slug = $arg["terms"][0];
-            $foundField = array_filter(
-                $data[$arg["taxonomy"]]['terms'], function ($field) use ($slug) {
-                    return $field->slug === $slug;
-                }
-            );
-            $firstKey = array_key_first($foundField);
-            ?>
+                    <?php
+                    foreach ($new_args as $arg) {
+                        if ($arg["terms"][0] === "orderby") {
+                            continue;
+                        }
+                        $slug = $arg["terms"][0];
+                        $foundField = array_filter(
+                            $data[$arg["taxonomy"]]['terms'],
+                            function ($field) use ($slug) {
+                                return $field->slug === $slug;
+                            }
+                        );
+                        $firstKey = array_key_first($foundField);
+                        ?>
                         <li class="flex mb-2">
-                            <div
-                                class="clear-filter flex flex-row text-white bg-secondary py-1 px-2 rounded-full items-center space-x-1 cursor-pointer"
+                            <div class="clear-filter flex flex-row text-white bg-secondary py-1 px-2 rounded-full items-center space-x-1 cursor-pointer"
                                 data-value="<?php echo $arg['terms'][0] ?>" data-attribute="<?php echo $arg["taxonomy"] ?>"
                                 data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>">
                                 <div class="pointer-events-none">
-            <?php echo $icons->get_icon('AiOutlineCloseCircle') ?>
+                                    <?php echo $icons->get_icon('AiOutlineCloseCircle') ?>
                                 </div>
                                 <div class="pointer-events-none text-sm">
-            <?php echo $foundField[$firstKey]->name ?>
+                                    <?php echo $foundField[$firstKey]->name ?>
                                 </div>
                             </div>
                         </li>
-        <?php } ?>
+                    <?php } ?>
                 </ul>
                 <button class="clear-all-filters text-sm text-secondary"
                     data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>">Limpar tudo (<?php echo count($new_args) ?>)</button>
             </div>
         <?php
-    }
-    foreach ($data as $key => $attribute) { ?>
+        }
+        foreach ($data as $key => $attribute) { ?>
             <div class="mb-4 p-4">
                 <h4 class="font-bold uppercase mb-4 border-b">
-        <?php echo $attribute['name'] ?>
+                    <?php echo $attribute['name'] ?>
                 </h4>
                 <ul
                     class="filters-box overflow-hidden transition-all duration-200 <?php echo count($attribute["terms"]) > 5 ? 'max-h-[160px]' : '' ?>">
-        <?php
-        // var_dump($attribute["terms"]);
-        foreach ($attribute["terms"] as $term) { ?>
+                    <?php
+                    // var_dump($attribute["terms"]);
+                    foreach ($attribute["terms"] as $term) { ?>
                         <li class="flex items-center space-x-2 mb-2">
                             <div class="relative w-6 h-6">
                                 <input type="checkbox" name="sidefilter" id="<?php echo $attribute['slug'] . '_' . $term->slug ?>"
                                     value="<?php echo $term->slug ?>" data-attribute="<?php echo $attribute['slug'] ?>"
                                     data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>"
                                     class="appearance-none border border-gray-400 rounded-lg cursor-pointer w-6 h-6 checked:bg-secondary filter-checkbox"
-            <?php
-            $cleanSlug = str_replace('pa_', '', $attribute['slug']);
-            if (isset($arguments[$cleanSlug])) {
-                if (in_array($term->slug, $arguments[$cleanSlug])) {
-                    echo 'checked="checked"';
-                }
-            }
-            ?>>
+                                    <?php
+                                    $cleanSlug = str_replace('pa_', '', $attribute['slug']);
+                                    if (isset($arguments[$cleanSlug])) {
+                                        if (in_array($term->slug, $arguments[$cleanSlug])) {
+                                            echo 'checked="checked"';
+                                        }
+                                    }
+                                    ?>>
                             </div>
                             <label class="text-sm" for="<?php echo $attribute['slug'] . '_' . $term->slug ?>">
-            <?php echo $term->name ?> (<?php echo $term->count ?>)
+                                <?php echo $term->name ?> (<?php echo $term->count ?>)
                             </label>
                         </li>
-        <?php } ?>
+                    <?php } ?>
                 </ul>
             </div>
-    <?php } ?>
+        <?php } ?>
     </div>
     <?php
     wp_die();
@@ -860,11 +840,11 @@ function search_products()
     if (count($searchTerm) > 0) {
         $post_list = get_posts(
             array(
-            'post_type' => 'product',
-            'orderby' => 'ID',
-            'sort_order' => 'asc',
-            'posts_per_page' => 6,
-            'product_cat' => $searchTerm[0]->slug
+                'post_type' => 'product',
+                'orderby' => 'ID',
+                'sort_order' => 'asc',
+                'posts_per_page' => 6,
+                'product_cat' => $searchTerm[0]->slug
             )
         );
     } else {
@@ -929,21 +909,21 @@ function search_products()
     if (count($post_list) === 0) {
         $post_list = get_posts(
             array(
-            'numberposts' => 6,
-            'post_type' => 'product',
-            'meta_query' => array(
-            'relation' => 'OR',
-            array(
-            'key' => 'pn',
-            'value' => $wpdb->esc_like($keyword),
-            'compare' => 'LIKE',
+                'numberposts' => 6,
+                'post_type' => 'product',
+                'meta_query' => array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'pn',
+                        'value' => $wpdb->esc_like($keyword),
+                        'compare' => 'LIKE',
                     ),
                     array(
                         'key' => 'ean',
                         'value' => $wpdb->esc_like($keyword),
                         'compare' => 'LIKE',
                     ),
-            ),
+                ),
             )
         );
     }
@@ -999,7 +979,8 @@ add_filter('woocommerce_terms_is_checked_default', '__return_true');
 
 // Adds a custom rule type.
 add_filter(
-    'acf/location/rule_types', function ($choices) {
+    'acf/location/rule_types',
+    function ($choices) {
         $choices[__("Other", 'acf')]['wc_prod_attr'] = 'WC Product Attribute';
         return $choices;
     }
@@ -1007,7 +988,8 @@ add_filter(
 
 // Adds custom rule values.
 add_filter(
-    'acf/location/rule_values/wc_prod_attr', function ($choices) {
+    'acf/location/rule_values/wc_prod_attr',
+    function ($choices) {
         foreach (wc_get_attribute_taxonomies() as $attr) {
             $pa_name = wc_attribute_taxonomy_name($attr->attribute_name);
             $choices[$pa_name] = $attr->attribute_label;
@@ -1018,7 +1000,8 @@ add_filter(
 
 // Matching the custom rule.
 add_filter(
-    'acf/location/rule_match/wc_prod_attr', function ($match, $rule, $options) {
+    'acf/location/rule_match/wc_prod_attr',
+    function ($match, $rule, $options) {
         if (isset($options['taxonomy'])) {
             if ('==' === $rule['operator']) {
                 $match = $rule['value'] === $options['taxonomy'];
@@ -1027,7 +1010,9 @@ add_filter(
             }
         }
         return $match;
-    }, 10, 3
+    },
+    10,
+    3
 );
 
 
@@ -1053,7 +1038,7 @@ function custom_add_wc_attribute_type()
         <input type="checkbox" id="type-show" name="show" checked>
         <p class="description">Chose if this filter appear on frontend.</p>
     </div>
-    <?php
+<?php
 }
 add_action('woocommerce_after_add_attribute_fields', 'custom_add_wc_attribute_type');
 
@@ -1087,7 +1072,7 @@ function custom_edit_wc_attribute_type()
             <p class="description">Chose if this filter appear on frontend.</p>
         </td>
     </tr>
-    <?php
+<?php
 }
 
 add_action('woocommerce_after_edit_attribute_fields', 'custom_edit_wc_attribute_type');
@@ -1106,8 +1091,33 @@ add_action('woocommerce_attribute_added', 'my_save_wc_attribute_type');
 add_action('woocommerce_attribute_updated', 'my_save_wc_attribute_type');
 
 add_action(
-    'woocommerce_attribute_deleted', function ($id) {
+    'woocommerce_attribute_deleted',
+    function ($id) {
         delete_option("wc_attribute_type-$id");
         delete_option("wc_attribute_show-$id");
     }
 );
+
+function get_variable_sale_percentage($product)
+{
+    //get variables
+    $variation_min_regular_price = $product->get_variation_regular_price('min', true);
+    $variation_max_regular_price = $product->get_variation_regular_price('max', true);
+    $variation_min_sale_price = $product->get_variation_sale_price('min', true);
+    $variation_max_sale_price = $product->get_variation_sale_price('max', true);
+
+    //get highest and lowest percentages
+    $lower_percentage = round((($variation_min_regular_price - $variation_min_sale_price) / $variation_min_regular_price) * 100);
+    $higher_percentage = round((($variation_max_regular_price - $variation_max_sale_price) / $variation_max_regular_price) * 100);
+
+    //sort array
+    $percentages = array($lower_percentage, $higher_percentage);
+    sort($percentages);
+
+    if ($percentages[0] != $percentages[1] && $percentages[0]) {
+        return $percentages[0] . '% - ' . $percentages[1] . '%';
+    } else {
+        return $percentages[1];
+    }
+}
+add_filter('get_variable_sale_percentage', 'get_variable_sale_percentage');

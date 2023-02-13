@@ -21,6 +21,7 @@ global $product;
 $icons = new Icons();
 $id = $product->get_id();
 
+
 if ($product->get_type() == 'variable') {
 
     $tempArray = [];
@@ -31,18 +32,18 @@ if ($product->get_type() == 'variable') {
             array_push($tempArray, array('name' => $attribute, 'stock' => $variation_obj->get_stock_quantity()));
         }
     }
-    
+
     $sizes = array(
-    0 => "XXS",
-    1 => "XS",
-    2 => "S",
-    3 => "M",
-    4 => "L",
-    5 => "XL",
-    6 => "XXL",
-    7 => "3XL",
-    8 => "4XL",
-    9 => "5XL"
+        0 => "XXS",
+        1 => "XS",
+        2 => "S",
+        3 => "M",
+        4 => "L",
+        5 => "XL",
+        6 => "XXL",
+        7 => "3XL",
+        8 => "4XL",
+        9 => "5XL"
     );
 
     $new_arr = array();
@@ -87,21 +88,21 @@ if (empty($product) || !$product->is_visible()) {
     <div class="font-roboto relative z-20">
         <?php if ($product->get_type() == 'variable') { ?>
             <div class="absolute w-full bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3
-                                                                -translate-y-full hidden lg:flex">
-            <?php foreach ($tempArray as $variation) { ?>
+                                                                        -translate-y-full hidden lg:flex">
+                <?php foreach ($tempArray as $variation) { ?>
 
                     <div
                         class="text-xs xl:text-sm uppercase font-roboto <?php echo $variation['stock'] === 0 ? 'text-gray-400 line-through' : '' ?>">
-                <?php echo $variation['name'] ?>
+                        <?php echo $variation['name'] ?>
                     </div>
-            <?php } ?>
+                <?php } ?>
             </div>
         <?php } else { ?>
             <div
                 class="absolute w-full  bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3 -translate-y-full hidden lg:flex">
                 <div
                     class="text-xs xl:text-sm uppercase font-roboto <?php echo $product->get_stock_quantity() === 0 ? 'text-gray-400 line-through' : '' ?>">
-            <?php echo __('Tamanho único', 'theme-tailwind'); ?>
+                    <?php echo __('Tamanho único', 'theme-tailwind'); ?>
                 </div>
             </div>
         <?php } ?>
