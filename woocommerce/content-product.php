@@ -23,113 +23,113 @@ $id = $product->get_id();
 
 if ($product->get_type() == 'variable') {
 
-	$tempArray = [];
-	$available_variations = $product->get_available_variations();
-	foreach ($available_variations as $variation) {
-		foreach ($variation['attributes'] as $key => $attribute) {
-			$variation_obj = new WC_Product_variation($variation['variation_id']);
-			array_push($tempArray, array('name' => $attribute, 'stock' => $variation_obj->get_stock_quantity()));
-		}
-	}
+    $tempArray = [];
+    $available_variations = $product->get_available_variations();
+    foreach ($available_variations as $variation) {
+        foreach ($variation['attributes'] as $key => $attribute) {
+            $variation_obj = new WC_Product_variation($variation['variation_id']);
+            array_push($tempArray, array('name' => $attribute, 'stock' => $variation_obj->get_stock_quantity()));
+        }
+    }
+    
+    $sizes = array(
+    0 => "XXS",
+    1 => "XS",
+    2 => "S",
+    3 => "M",
+    4 => "L",
+    5 => "XL",
+    6 => "XXL",
+    7 => "3XL",
+    8 => "4XL",
+    9 => "5XL"
+    );
 
-	$sizes = array(
-		0 => "XXS",
-		1 => "XS",
-		2 => "S",
-		3 => "M",
-		4 => "L",
-		5 => "XL",
-		6 => "XXL",
-		7 => "3XL",
-		8 => "4XL",
-		9 => "5XL"
-	);
+    $new_arr = array();
 
-	$new_arr = array();
-
-	foreach ($sizes as $size) {
-		$key = array_search(strtolower($size), array_column($tempArray, 'name'));
-		array_push($new_arr, $tempArray[$key]);
-	}
+    foreach ($sizes as $size) {
+        $key = array_search(strtolower($size), array_column($tempArray, 'name'));
+        array_push($new_arr, $tempArray[$key]);
+    }
 }
 // Ensure visibility.
 if (empty($product) || !$product->is_visible()) {
-	return;
+    return;
 }
 ?>
-<li <?php wc_product_class('col-span-1 border-b px-0 pb-4 md:pb-8 group relative', $product); ?>>
-	<?php
-	/**
-	 * Hook: woocommerce_before_shop_loop_item.
-	 *
-	 * @hooked woocommerce_template_loop_product_link_open - 10
-	 */
-	do_action('woocommerce_before_shop_loop_item');
+<li <?php wc_product_class('col-span-1 border-b border-gray-400 px-0 pb-4 md:pb-8 group relative', $product); ?>>
+    <?php
+    /**
+     * Hook: woocommerce_before_shop_loop_item.
+     *
+     * @hooked woocommerce_template_loop_product_link_open - 10
+     */
+    do_action('woocommerce_before_shop_loop_item');
 
-	// /**
-	//  * Hook: woocommerce_before_shop_loop_item_title.
-	//  *
-	//  * @hooked woocommerce_show_product_loop_sale_flash - 10
-	//  * @hooked woocommerce_template_loop_product_thumbnail - 10
-	//  */
-	// do_action( 'woocommerce_before_shop_loop_item_title' );
-	$post_thumbnail_id = $product->get_image_id();
-	$image = wp_get_attachment_image_url($post_thumbnail_id, 'full');
-	?>
+    // /**
+    //  * Hook: woocommerce_before_shop_loop_item_title.
+    //  *
+    //  * @hooked woocommerce_show_product_loop_sale_flash - 10
+    //  * @hooked woocommerce_template_loop_product_thumbnail - 10
+    //  */
+    // do_action( 'woocommerce_before_shop_loop_item_title' );
+    $post_thumbnail_id = $product->get_image_id();
+    $image = wp_get_attachment_image_url($post_thumbnail_id, 'full');
+    ?>
 
-	<div class="relative w-full">
-		<div class="overflow-hidden aspect-productImg relative md:mx-6">
-			<div class="aspect-productImg absolute bg-white w-full">
-				<img src="<?= $image ?>" class="image-fill" alt="<?= $product->get_name() ?>" />
-			</div>
-		</div>
-	</div>
-	<div class="font-roboto relative z-20">
-		<?php if ($product->get_type() == 'variable') { ?>
-			<div class="absolute w-full bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3
-																-translate-y-full hidden lg:flex">
-				<?php foreach ($new_arr as $variation) { ?>
+    <div class="relative w-full">
+        <div class="overflow-hidden aspect-productImg relative md:mx-6">
+            <div class="aspect-productImg absolute bg-white w-full">
+                <img src="<?php echo $image ?>" class="image-fill" alt="<?php echo $product->get_name() ?>" />
+            </div>
+        </div>
+    </div>
+    <div class="font-roboto relative z-20">
+        <?php if ($product->get_type() == 'variable') { ?>
+            <div class="absolute w-full bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3
+                                                                -translate-y-full hidden lg:flex">
+            <?php foreach ($tempArray as $variation) { ?>
 
-					<div
-						class="text-xs xl:text-sm uppercase font-roboto <?= $variation['stock'] === 0 ? 'text-gray-400 line-through' : '' ?>">
-						<?= $variation['name'] ?>
-					</div>
-				<?php } ?>
-			</div>
-		<?php } else { ?>
-			<div
-				class="absolute w-full  bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3 -translate-y-full hidden lg:flex">
-				<div
-					class="text-xs xl:text-sm uppercase font-roboto <?= $product->get_stock_quantity() === 0 ? 'text-gray-400 line-through' : '' ?>">
-					<?= __('Tamanho único', 'theme-tailwind'); ?>
-				</div>
-			</div>
-		<?php } ?>
+                    <div
+                        class="text-xs xl:text-sm uppercase font-roboto <?php echo $variation['stock'] === 0 ? 'text-gray-400 line-through' : '' ?>">
+                <?php echo $variation['name'] ?>
+                    </div>
+            <?php } ?>
+            </div>
+        <?php } else { ?>
+            <div
+                class="absolute w-full  bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3 -translate-y-full hidden lg:flex">
+                <div
+                    class="text-xs xl:text-sm uppercase font-roboto <?php echo $product->get_stock_quantity() === 0 ? 'text-gray-400 line-through' : '' ?>">
+            <?php echo __('Tamanho único', 'theme-tailwind'); ?>
+                </div>
+            </div>
+        <?php } ?>
 
-		<h3 class="text-sm md:text-base uppercase px-2 text-center mb-2">
-			<?= $product->get_name() ?>
-		</h3>
-		<div class="text-center">
-			<?php
+        <h3 class="text-sm md:text-base uppercase px-2 text-center mb-2">
+            <?php echo $product->get_name() ?>
+        </h3>
+        <div class="text-center">
+            <?php
 
-			/**
-			 * Hook: woocommerce_after_shop_loop_item_title.
-			 *
-			 * @hooked woocommerce_template_loop_rating - 5
-			 * @hooked woocommerce_template_loop_price - 10
-			 */
-			do_action('woocommerce_after_shop_loop_item_title'); ?>
-		</div>
-	</div>
-	<?php
+            /**
+             * Hook: woocommerce_after_shop_loop_item_title.
+             *
+             * @hooked woocommerce_template_loop_rating - 5
+             * @hooked woocommerce_template_loop_price - 10
+             */
+            do_action('woocommerce_after_shop_loop_item_title'); ?>
+        </div>
+    </div>
+    <?php
 
-	/**
-	 * Hook: woocommerce_after_shop_loop_item.
-	 *
-	 * @hooked woocommerce_template_loop_product_link_close - 5
-	 * @hooked woocommerce_template_loop_add_to_cart - 10
-	 */
-	do_action('woocommerce_after_shop_loop_item');
-	?>
+    /**
+     * Hook: woocommerce_after_shop_loop_item.
+     *
+     * @hooked woocommerce_template_loop_product_link_close - 5
+     * @hooked woocommerce_template_loop_add_to_cart - 10
+     */
+    do_action('woocommerce_after_shop_loop_item');
+    ?>
 
 </li>

@@ -37,6 +37,7 @@ function theme_add_support()
             'main' => esc_html__('Principal', 'theme-tailwind'),
             'footer-main' => esc_html__('Footer Principal', 'theme-tailwind'),
             'footer-secondary' => esc_html__('Footer Secundário', 'theme-tailwind'),
+            'footer-tertiatry' => esc_html__('Footer Terciário', 'theme-tailwind'),
         )
     );
 
