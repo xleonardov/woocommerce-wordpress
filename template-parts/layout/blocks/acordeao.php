@@ -11,12 +11,14 @@ $items = get_sub_field("items");
       <ul class="w-full relative">
         <?php foreach ($items as $key => $item): ?>
           <li class="w-full border-b border-gray-400 py-2 px-2 md:px-4">
-          <button data-target="<?php echo 'acordeao_'.$index.'_'.$key?>" class="btn-acordeao w-full flex justify-between items-center font-roboto uppercase text-xl py-2">
-              <?php echo $item['titulo']; ?>
-              <div class="is_open hidden">
+            <button data-target="<?php echo 'acordeao_'.$index.'_'.$key?>" class="btn-acordeao w-full flex justify-between items-center font-roboto uppercase text-xl py-2">
+              <div class="text-left">
+                <?php echo $item['titulo']; ?>
+              </div>
+              <div class="is_open hidden flex-none">
                 <img width="15" src="<?php echo $icon_aberto?>" />
               </div>
-              <div class="is_close">
+              <div class="is_close flex-none">
                 <img width="15" src="<?php echo $icon_fechado?>" />
               </div>
             </button>
