@@ -8,13 +8,17 @@
           e.preventDefault();
           let target_id = sub_menu.getAttribute("data-submenu");
           let target_el = document.getElementById(target_id);
-          let target_childs = target_el.children.length;
-          let height =
-            target_childs *
-            target_el.children[0].getBoundingClientRect().height;
-          if (target_el.getBoundingClientRect().height !== 0)
+          let icon_fechado = sub_menu.querySelector(".is_close");
+          let icon_aberto = sub_menu.querySelector(".is_open");
+          if (icon_fechado.classList.contains("hidden")) {
+            icon_fechado.classList.remove("hidden");
+            icon_aberto.classList.add("hidden");
             target_el.style.height = "0px";
-          else target_el.style.height = `${height}px`;
+          } else {
+            icon_fechado.classList.add("hidden");
+            icon_aberto.classList.remove("hidden");
+            target_el.style.height = target_el.scrollHeight + "px";
+          }
         });
       });
     }
