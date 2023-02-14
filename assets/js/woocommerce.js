@@ -17,6 +17,7 @@
       filtersForm: document.querySelector("#filters-form"),
       openFiltersDrawer: document.querySelector(".open-filters-drawer"),
       filtersDrawer: document.querySelector(".filters-drawer"),
+      floatingCart: document.querySelector(".floating-cart"),
     };
 
     const disableScroll = () => {

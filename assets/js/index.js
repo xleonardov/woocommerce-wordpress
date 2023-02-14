@@ -50,6 +50,12 @@
         domElements.floatingCart.children[1].replaceWith(
           domElements.floatingCart.children[1].cloneNode(true)
         );
+        let closeCartBtn = document.querySelectorAll(".close-floating-cart");
+        closeCartBtn.forEach((item) => {
+          item.addEventListener("click", () => {
+            closeCart(domElements.floatingCart);
+          });
+        });
       }, 200);
     };
 
@@ -82,9 +88,9 @@
 
         cartContent.innerHTML =
           cartContentUpdated.children[0].children[1].children[0].innerHTML;
-        setTimeout(() => {
-          openCart();
-        }, 100);
+        // setTimeout(() => {
+        //   openCart();
+        // }, 100);
       } catch (error) {
         console.log(error);
       }
@@ -95,7 +101,6 @@
         action: "woocommerce_ajax_remove_from_cart_confirmation",
       };
       data.product_id = product_id;
-
       try {
         const res = await fetch(`${woocommerce_scritps_helper.ajaxurl}`, {
           method: "POST",
@@ -160,10 +165,6 @@
         closeCart();
       });
       domElements.floatingCart.children[1].style.transform = "translateX(0px)";
-      let closeCartBtn = document.querySelector(".close-floating-cart");
-      closeCartBtn.addEventListener("click", () => {
-        closeCart(domElements.floatingCart);
-      });
 
       let allRemoveItems = document.querySelectorAll(".remove_item_from_cart");
 
@@ -171,6 +172,13 @@
         it.addEventListener("click", async (e) => {
           e.preventDefault();
           await modalRemoveItemFromCart(it.dataset.product_id);
+        });
+      });
+
+      let closeCartBtn = document.querySelectorAll(".close-floating-cart");
+      closeCartBtn.forEach((item) => {
+        item.addEventListener("click", () => {
+          closeCart(domElements.floatingCart);
         });
       });
       disableScroll();
@@ -225,9 +233,9 @@
               cartContentUpdated.children[0].children[1].children[0].innerHTML;
             setTimeout(() => {
               openCart();
-              addToCart.parentNode.querySelector(
-                "input[name='quantity']"
-              ).value = 1;
+              // addToCart.parentNode.querySelector(
+              //   "input[name='quantity']"
+              // ).value = 1;
             }, 100);
             if (data.variation_id) {
               let currentSelected =
@@ -243,6 +251,95 @@
             console.log(error);
           }
         });
+      });
+    }
+
+    const tamanhoOptions = document.querySelectorAll(".tamanho_option");
+    if (tamanhoOptions) {
+      tamanhoOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          tamanhoOptions.forEach((item) => {
+            item.classList.remove("btn-quad-selected");
+          });
+          let variationAlert = document.querySelector(".variation-alert");
+          variationAlert.style.opacity = 0;
+
+          let variation_input = document.querySelector(
+            "input[name='variation_id']"
+          );
+          variation_input.value = option.getAttribute("data-value");
+
+          if (!option.classList.contains("btn-quad-selected")) {
+            option.classList.add("btn-quad-selected");
+          }
+        });
+      });
+    }
+
+    let addTocartButton = document.querySelector(
+      ".variation_add_to_cart_button"
+    );
+    if (addTocartButton) {
+      addTocartButton.addEventListener("click", async function (evnt) {
+        evnt.preventDefault();
+        let data = {
+          action: "woocommerce_ajax_add_to_cart",
+        };
+        data.product_qty = 1;
+        data.product_id = addTocartButton.value
+          ? addTocartButton.value
+          : document.querySelector("input[name='product_id']").value;
+
+        data.variation_id = document.querySelector("input[name='variation_id']")
+          ?.value
+          ? document.querySelector("input[name='variation_id']").value
+          : null;
+        let variationAlert = document.querySelector(".variation-alert");
+        if (data.variation_id === "0" || data.variation_id === "") {
+          variationAlert.style.opacity = 1;
+          return;
+        }
+
+        try {
+          let res = await fetch(`${woocommerce_scritps_helper.ajaxurl}`, {
+            credentials: "same-origin",
+            method: "POST",
+            body: new URLSearchParams({ ...data }),
+          });
+          const updatedCart = await res.json();
+          let cartCounter = document.querySelector(".shop-cart-counter");
+          let cartCounterUpdated = new DOMParser().parseFromString(
+            updatedCart.fragments[".shop-cart-counter"],
+            "text/xml"
+          );
+          cartCounter.innerHTML = cartCounterUpdated.childNodes[0].innerHTML;
+          let cartContent = document.querySelector(".cart-container");
+          let cartContentUpdated = new DOMParser().parseFromString(
+            updatedCart.fragments[".cart-container"],
+            "text/html"
+          );
+          cartContent.innerHTML =
+            cartContentUpdated.children[0].children[1].children[0].innerHTML;
+
+          if (data.variation_id) {
+            document.querySelector("input[name='variation_id']").value = "";
+            addTocartButton.classList.add("disabled");
+            addTocartButton.classList.add("wc-variation-selection-needed");
+          }
+          const tamanhoOptions = document.querySelectorAll(".tamanho_option");
+          if (tamanhoOptions) {
+            tamanhoOptions.forEach((item) => {
+              item.classList.remove("btn-quad-selected");
+            });
+          }
+          setTimeout(() => {
+            openCart();
+          }, 100);
+        } catch (error) {
+          console.log(error);
+        }
       });
     }
 
@@ -304,7 +401,6 @@
           domElements.navigationBox.style.visibility = "visible";
           e.children[0].style.display = "none";
           e.children[0].classList.remove("showSubNav");
-          // navLogo.style.transform = "translateX(0px)";
           domElements.megaMenuContainer.style.transform = "translateX(0px)";
         });
       }

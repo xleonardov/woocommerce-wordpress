@@ -42,8 +42,7 @@ $gamas = get_terms(
               Filtrar por
               <?= $key !== 'cor' ? "Tamanho " : $attribute ?>:
             </h5>
-            <?php
-            $terms = get_terms(array('taxonomy' => 'pa_' . $key, 'hide_empty' => false)); ?>
+            <?php $terms = get_terms(array('taxonomy' => 'pa_' . $key, 'hide_empty' => false)); ?>
             <div class="flex gap-1 w-full flex-wrap">
               <?php foreach ($terms as $term):
                 if ($type === "color"):

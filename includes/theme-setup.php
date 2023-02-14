@@ -1,11 +1,13 @@
 <?php
 function theme_load_assets()
 {
+    wp_enqueue_style('swiper_css', get_theme_file_uri('/assets/css/swiper-bundle.min.css'));
     wp_enqueue_style('thememaincss', get_theme_file_uri('/build/index.css'));
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=EB+Garamond&family=Roboto+Condensed:wght@300;400;700&display=swap', false);
     wp_enqueue_script('thememainjs', get_theme_file_uri('/assets/js/index.js'), [], '1.0', true);
     wp_enqueue_script('menujs', get_theme_file_uri('/assets/js/menu.js'), [], '1.0', true);
     wp_enqueue_script('acordeaojs', get_theme_file_uri('/assets/js/acordeao.js'), [], '1.0', true);
+    wp_enqueue_script('swiper_js', get_theme_file_uri('/assets/js/swiper-bundle.min.js'), [], '1.0', false);
     wp_localize_script(
         'theme-woocommerce-scripts',
         'woocommerce_scritps_helper',
@@ -65,19 +67,19 @@ if (class_exists('WooCommerce')) {
 if (function_exists('acf_add_options_page')) {
     acf_add_options_page(
         array(
-        'page_title'    => 'Definições Tema',
-        'menu_title'    => 'Definições Tema',
-        'menu_slug'     => 'theme-settings',
-        'capability'    => 'edit_posts',
-        'redirect'      => true,
-        'icon_url'      => 'dashicons-admin-settings'
+            'page_title' => 'Definições Tema',
+            'menu_title' => 'Definições Tema',
+            'menu_slug' => 'theme-settings',
+            'capability' => 'edit_posts',
+            'redirect' => true,
+            'icon_url' => 'dashicons-admin-settings'
         )
     );
     acf_add_options_sub_page(
         array(
-        'page_title'      => 'Definições Tema - Footer',
-        'menu_title'      => 'Footer',
-        'parent_slug'     => 'theme-settings'
+            'page_title' => 'Definições Tema - Footer',
+            'menu_title' => 'Footer',
+            'parent_slug' => 'theme-settings'
         )
     );
 }

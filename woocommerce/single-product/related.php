@@ -15,39 +15,44 @@
  * @version     3.9.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 global $product;
 
-if( ! is_a( $product, 'WC_Product' ) ){
-    $product = wc_get_product(get_the_id());
+if (!is_a($product, 'WC_Product')) {
+	$product = wc_get_product(get_the_id());
 }
 $args = array(
 	'posts_per_page' => 5,
-	'columns'        => 5,
-	'orderby'        => 'rand',
-	'order'          => 'desc',
+	'columns' => 5,
+	'orderby' => 'rand',
+	'order' => 'desc',
 );
 
-$args['related_products'] = array_filter( array_map( 'wc_get_product', wc_get_related_products( $product->get_id(), $args['posts_per_page'], $product->get_upsell_ids() ) ), 'wc_products_array_filter_visible' );
-$related_products =  wc_products_array_orderby( $args['related_products'], $args['orderby'], $args['order'] );
+$args['related_products'] = array_filter(array_map('wc_get_product', wc_get_related_products($product->get_id(), $args['posts_per_page'], $product->get_upsell_ids())), 'wc_products_array_filter_visible');
+$related_products = wc_products_array_orderby($args['related_products'], $args['orderby'], $args['order']);
 
-if ( $related_products ) : ?>
+if ($related_products): ?>
 
 	<section class="related products py-8 mt-6">
-		<h2 class="text-3xl tracking-wide uppercase mb-6"><?= _e( "Sugestões", "wlb_theme") ?></h2>
+		<div class="py-6 md:py-10 border-b border-t border-gray-400">
+			<h2 class="font-roboto text-2xl md:text-4xl uppercase text-center font-bold">
+				<?= _e("Produtos Relacionados", "wlb_theme") ?>
+			</h2>
+		</div>
+
 		<ul class="grid lg:grid-cols-5 gap-4">
-			<?php foreach ( $related_products as $related_product ) : ?>
-					<?php
-					$post_object = get_post( $related_product->get_id() );
-					setup_postdata( $GLOBALS['post'] =& $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
-					wc_get_template_part( 'content', 'product' );
-					?>
+			<?php foreach ($related_products as $related_product): ?>
+				<?php
+				$post_object = get_post($related_product->get_id());
+				setup_postdata($GLOBALS['post'] = & $post_object); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
+				wc_get_template_part('content', 'product');
+				?>
 			<?php endforeach; ?>
 		</ul>
 	</section>
-	<?php
+<?php
 endif;
 
 wp_reset_postdata();
