@@ -50,6 +50,12 @@
         domElements.floatingCart.children[1].replaceWith(
           domElements.floatingCart.children[1].cloneNode(true)
         );
+        let closeCartBtn = document.querySelectorAll(".close-floating-cart");
+        closeCartBtn.forEach((item) => {
+          item.addEventListener("click", () => {
+            closeCart(domElements.floatingCart);
+          });
+        });
       }, 200);
     };
 
@@ -82,9 +88,9 @@
 
         cartContent.innerHTML =
           cartContentUpdated.children[0].children[1].children[0].innerHTML;
-        setTimeout(() => {
-          openCart();
-        }, 100);
+        // setTimeout(() => {
+        //   openCart();
+        // }, 100);
       } catch (error) {
         console.log(error);
       }
@@ -159,10 +165,6 @@
         closeCart();
       });
       domElements.floatingCart.children[1].style.transform = "translateX(0px)";
-      let closeCartBtn = document.querySelector(".close-floating-cart");
-      closeCartBtn.addEventListener("click", () => {
-        closeCart(domElements.floatingCart);
-      });
 
       let allRemoveItems = document.querySelectorAll(".remove_item_from_cart");
 
@@ -170,6 +172,13 @@
         it.addEventListener("click", async (e) => {
           e.preventDefault();
           await modalRemoveItemFromCart(it.dataset.product_id);
+        });
+      });
+
+      let closeCartBtn = document.querySelectorAll(".close-floating-cart");
+      closeCartBtn.forEach((item) => {
+        item.addEventListener("click", () => {
+          closeCart(domElements.floatingCart);
         });
       });
       disableScroll();
@@ -224,9 +233,9 @@
               cartContentUpdated.children[0].children[1].children[0].innerHTML;
             setTimeout(() => {
               openCart();
-              addToCart.parentNode.querySelector(
-                "input[name='quantity']"
-              ).value = 1;
+              // addToCart.parentNode.querySelector(
+              //   "input[name='quantity']"
+              // ).value = 1;
             }, 100);
             if (data.variation_id) {
               let currentSelected =
@@ -392,7 +401,6 @@
           domElements.navigationBox.style.visibility = "visible";
           e.children[0].style.display = "none";
           e.children[0].classList.remove("showSubNav");
-          // navLogo.style.transform = "translateX(0px)";
           domElements.megaMenuContainer.style.transform = "translateX(0px)";
         });
       }

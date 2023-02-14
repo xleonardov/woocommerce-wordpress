@@ -53,6 +53,55 @@ if (post_password_required()) {
   return;
 }
 $gamas = wp_get_post_terms($id, array('gamas'), array("fields" => "names"));
+
+$related_colors = $product->get_upsell_ids();
+$related_used = array();
+$colors = array();
+
+
+if (count($related_colors) > 0) {
+  foreach ($related_colors as $related_color) {
+    $related_color_object = wc_get_product($related_color);
+    $taxonomy = 'pa_cor';
+    $term_names = wp_get_post_terms($related_color_object->get_id(), $taxonomy);
+
+    if (count($term_names) > 0) {
+      foreach ($term_names as $term) {
+        if (in_array($term->term_id, $related_used))
+          continue;
+        $attr = new stdClass();
+        $attr->name = $term->name;
+        $attr->id = $term->term_id;
+        $attr->slug = $term->slug;
+        $attr->url = get_permalink($related_color_object->get_id());
+        $attr->current = false;
+        array_push($colors, $attr);
+        array_push($related_used, $term->term_id);
+      }
+    }
+    $prd_term_names = wp_get_post_terms($product->get_id(), $taxonomy);
+    if (count($prd_term_names) > 0) {
+      foreach ($prd_term_names as $term) {
+        if (in_array($term->term_id, $related_used))
+          continue;
+        $attr = new stdClass();
+        $attr->name = $term->name;
+        $attr->id = $term->term_id;
+        $attr->slug = $term->slug;
+        $attr->url = false;
+        $attr->current = true;
+        array_push($colors, $attr);
+        array_push($related_used, $term->term_id);
+      }
+    }
+  }
+}
+
+if (count($colors) > 0) {
+  usort($colors, fn($a, $b) => strcmp($a->name, $b->name));
+}
+
+
 ?>
 
 <section class="px-4 md:px-6 ">
@@ -69,7 +118,38 @@ $gamas = wp_get_post_terms($id, array('gamas'), array("fields" => "names"));
       <div>
         <?php get_template_part('woocommerce/single-product/product-image'); ?>
       </div>
+      <div>
+        <?php if (count($colors) > 0) { ?>
+          <section class="pt-2 pb-4 md:pt-4 md:pb-8">
+            <ul class="flex gap-2 items-center justify-center">
+              <?php
+              foreach ($colors as $color) {
+                $bg_color = get_field('color', 'term_' . $color->id);
+                ?>
+                <li class="p-0.5 border border-black ">
+                  <?php if ($color->url) { ?>
+                    <a href="<?= $color->url ?>" class="z-[2] relative">
+                    <?php } ?>
+                    <div
+                      class="w-8 h-8 md:w-6 md:h-6 relative overflow-hidden  <?= $color->current ? 'outline outline-black outline-2 shadow-[0_0_0_4px_#fff,0_0_0_6px_#000]' : '' ?> ">
+                      <div class="flex w-full h-full rotate-45 scale-[2]">
+                        <div class="w-full h-full" style="background-color: <?= $bg_color ?>; "></div>
+                      </div>
+                    </div>
+                    <?php if ($color->url) { ?>
+                    </a>
+                  <?php } ?>
+                </li>
+              <?php
+              }
+              ?>
+            </ul>
+          </section>
+        <?php
+        }
 
+        ?>
+      </div>
       <?php
       if ($product->get_type() === "simple") {
         get_template_part('woocommerce/single-product/add-to-cart/simple');

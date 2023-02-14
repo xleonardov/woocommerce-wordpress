@@ -25,7 +25,7 @@ if ($product->is_type('simple')) { //if simple product
             <div class="tamanhos_select">
                 <div class="flex justify-center items-center w-full relative">
                     <div
-                        class="variation-alert bg-red-500 rounded-3xl px-2 py-1 text-white min-w-[160px] uppercase text-xs font-roboto absolute z-[1] -top-10 transition-all duration-200 ease-in-out opacity-0">
+                        class="variation-alert bg-red-500 rounded-3xl px-2 py-1 text-white min-w-[160px] uppercase text-xs font-roboto absolute -top-12 transition-all duration-200 ease-in-out opacity-0 z-10 pointer-events-none">
                         ⚠️ Selecione um tamanho
                     </div>
                     <?php

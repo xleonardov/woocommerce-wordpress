@@ -57,8 +57,12 @@ if ($product->get_type() == 'variable') {
 if (empty($product) || !$product->is_visible()) {
     return;
 }
+$post_thumbnail_id = $product->get_image_id();
+$image = wp_get_attachment_image_url($post_thumbnail_id, 'full');
+$gallery = $product->get_gallery_image_ids();
+
 ?>
-<li <?php wc_product_class('col-span-1 border-b border-gray-400 px-0 pb-4 md:pb-8 group relative', $product); ?>>
+<li <?php wc_product_class('col-span-1 border-b border-gray-400 px-0 pb-4 md:pb-8 ' . ($gallery && count($gallery)) > 1 ? 'group' : '' . 'relative', $product); ?>>
     <?php
     /**
      * Hook: woocommerce_before_shop_loop_item.
@@ -74,23 +78,30 @@ if (empty($product) || !$product->is_visible()) {
     //  * @hooked woocommerce_template_loop_product_thumbnail - 10
     //  */
     // do_action( 'woocommerce_before_shop_loop_item_title' );
-    $post_thumbnail_id = $product->get_image_id();
-    $image = wp_get_attachment_image_url($post_thumbnail_id, 'full');
+    
     ?>
 
-    <div class="relative w-full">
+    <div class="relative w-full ">
         <div class="overflow-hidden aspect-productImg relative md:mx-6">
-            <div class="aspect-productImg absolute bg-white w-full">
+            <div
+                class="aspect-productImg absolute bg-white w-full  <?=($gallery && count($gallery)) > 1 ? 'group-hover:opacity-0 transition-all duration-[350ms] ease-in-out' : '' ?>">
                 <img src="<?php echo $image ?>" class="image-fill" alt="<?php echo $product->get_name() ?>" />
             </div>
+            <?php if ($gallery && count($gallery) > 1) {
+                $image_g = wp_get_attachment_image_url($gallery[1], 'full');
+                ?>
+                <div
+                    class="aspect-productImg absolute bg-white w-full opacity-0  group-hover:opacity-100 transition-all duration-[300ms] ease-in-out">
+                    <img src="<?php echo $image_g ?>" class="image-fill" alt="<?php echo $product->get_name() ?>" />
+                </div>
+            <?php } ?>
         </div>
     </div>
     <div class="font-roboto relative z-20">
         <?php if ($product->get_type() == 'variable') { ?>
-            <div class="absolute w-full bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3
-                                                                        -translate-y-full hidden lg:flex">
+            <div
+                class="absolute w-full bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3 -translate-y-full hidden lg:flex">
                 <?php foreach ($tempArray as $variation) { ?>
-
                     <div
                         class="text-xs xl:text-sm uppercase font-roboto <?php echo $variation['stock'] === 0 ? 'text-gray-400 line-through' : '' ?>">
                         <?php echo $variation['name'] ?>

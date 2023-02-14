@@ -68,6 +68,9 @@ $wrapper_classes = apply_filters(
                     fill="currentColor" />
             </svg>
         </button>
+        <div class="relative ">
+            <div class="swiper-pagination bottom-0"></div>
+        </div>
     </div>
     <div class="flex-viewport" style="display: none;">
         <figure class="woocommerce-product-gallery__wrapper"
@@ -98,6 +101,10 @@ $wrapper_classes = apply_filters(
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
     });
 </script>

@@ -125,3 +125,10 @@ a.woocommerce-product-gallery__trigger {
   width: 2.25rem;
   height: 2.25rem;
 }
+
+.swiper-pagination-bullet {
+  @apply h-3 w-3 border-gray-500 rounded-full border bg-white transition-all duration-300;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  @apply bg-gray-500;
+}
