@@ -16,7 +16,7 @@ global $woocommerce;
 
   <?php get_template_part('template-parts/layout/mega-menu'); ?>
 
-  <header class="bg-white shadow sticky top-0 z-10">
+  <header class="bg-white shadow sticky top-0 z-20">
     <div class="px-4 md:px-6 py-3 grid grid-cols-3 items-center">
       <div class="flex-none">
         <button class="hamburger"><img
