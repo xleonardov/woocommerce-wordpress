@@ -15,19 +15,19 @@
  * @version 3.9.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
-if ( ! $notices ) {
+if (!$notices) {
 	return;
 }
 
 ?>
-<ul class="woocommerce-error p-4 bg-secondary text-white rounded-lg" role="alert">
-	<?php foreach ( $notices as $notice ) : ?>
-		<li<?php echo wc_get_notice_data_attr( $notice ); ?>>
-			<?php echo wc_kses_notice( $notice['notice'] ); ?>
-		</li>
-	<?php endforeach; ?>
+<ul class="woocommerce-error p-4 bg-red-50 border border-red-500 text-black font-roboto" role="alert">
+	<?php foreach ($notices as $notice): ?>
+		<li<?php echo wc_get_notice_data_attr($notice); ?>>
+			<?php echo wc_kses_notice($notice['notice']); ?>
+			</li>
+		<?php endforeach; ?>
 </ul>

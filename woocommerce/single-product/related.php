@@ -30,8 +30,20 @@ $args = array(
 	'order' => 'desc',
 );
 
-$args['related_products'] = array_filter(array_map('wc_get_product', wc_get_related_products($product->get_id(), $args['posts_per_page'], $product->get_upsell_ids())), 'wc_products_array_filter_visible');
-$related_products = wc_products_array_orderby($args['related_products'], $args['orderby'], $args['order']);
+// $args['related_products'] = array_filter(array_map('wc_get_product', wc_get_related_products($product->get_id(), $args['posts_per_page'], $product->get_upsell_ids())), 'wc_products_array_filter_visible');
+// $related_products = wc_products_array_orderby($args['related_products'], $args['orderby'], $args['order']);
+
+$related_products = array();
+
+if (count($product->get_cross_sell_ids()) > 0) {
+	foreach ($product->get_cross_sell_ids() as $product) {
+		$prd = wc_get_product($product);
+		array_push($related_products, $prd);
+	}
+}
+
+// $args['related_products'] = array_filter(array_map('wc_get_product', wc_get_related_products($product->get_id(), 4, $product->get_cross_sell_ids())), 'wc_products_array_filter_visible');
+// $related_products = wc_products_array_orderby($args['related_products'], $args['orderby'], $args['order']);
 
 if ($related_products): ?>
 
@@ -42,7 +54,7 @@ if ($related_products): ?>
 			</h2>
 		</div>
 
-		<ul class="grid lg:grid-cols-5 gap-4">
+		<ul class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 			<?php foreach ($related_products as $related_product): ?>
 				<?php
 				$post_object = get_post($related_product->get_id());

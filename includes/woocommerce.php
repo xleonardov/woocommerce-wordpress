@@ -153,8 +153,8 @@ if (!function_exists('theme_woocommerce_wrapper_before')) {
   function theme_woocommerce_wrapper_before()
   {
     ?>
-        <main id="primary" class="site-main w-full max-w-container mx-auto px-4">
-      <?php
+    <main id="primary" class="site-main w-full max-w-container mx-auto px-4">
+    <?php
   }
 }
 add_action('woocommerce_before_main_content', 'theme_woocommerce_wrapper_before');
@@ -170,8 +170,8 @@ if (!function_exists('theme_woocommerce_wrapper_after')) {
   function theme_woocommerce_wrapper_after()
   {
     ?>
-        </main><!-- #main -->
-    <?php
+    </main><!-- #main -->
+  <?php
   }
 }
 add_action('woocommerce_after_main_content', 'theme_woocommerce_wrapper_after');
@@ -195,74 +195,74 @@ if (!function_exists('theme_woocommerce_floating_cart')) {
     $icons = new Icons;
     $cart = WC()->cart->get_cart();
     ?>
-        <div class="cart-container grid grid-rows-[auto_160px] h-[calc(100vh_-_80px)]">
-          <?php if (count($cart) > 0) { ?>
-              <div class="bg-red-50 overflow-y-auto">
-                <?php foreach ($cart as $cart_item_key => $cart_item) {
-                  $product = $cart_item['data'];
-                  $product_id = $cart_item['product_id'];
-                  $quantity = $cart_item['quantity'];
-                  $subtotal = WC()->cart->get_product_subtotal($product, $cart_item['quantity']);
-                  $post_thumbnail_id = get_post_thumbnail_id($product_id);
-                  $product_thumbnail = wp_get_attachment_image_src($post_thumbnail_id, $size = 'shop-feature');
-                  $product_thumbnail_alt = get_post_meta($post_thumbnail_id, '_wp_attachment_image_alt', true);
-                  $pn = get_field('pn', $product_id);
-                  ?>
-                    <div class="cart-product grid grid-cols-[124px_auto] border-b-[1px] gap-4 py-4">
-                      <div class="cart-product-image w-[124px]">
-                        <img src="<?php echo $product_thumbnail[0]; ?>" alt="<?php echo $product_thumbnail_alt; ?>">
-                      </div>
-                      <div class="cart-product-info grid grid-cols-[auto_24px]">
-                        <div>
-                          <div class="cart-product-info-name text-sm">
-                            <a href="<?php echo get_permalink($product_id) ?>"
-                              class="name font-medium hover:text-secondary transition-all"><?php echo $product->get_name(); ?></a>
-                            <div class="pn text-xs">
-                              <?php echo $pn ?>
-                            </div>
-                            <div class="quantity"><label>Qtd: </label>
-                              <?php echo $quantity ?>
-                            </div>
-                          </div>
-                          <div class="price text-xl font-bold text-secondary">
-                            <?php echo $subtotal ?>
-                          </div>
-                        </div>
-                        <div class="flex justify-end">
-                          <div class="remove_item_from_cart cursor-pointer w-4 h-4" data-product_id="<?php echo $cart_item_key;
-                          ?>">
-                            <?php echo $icons->get_icon('GrClose'); ?></div>
-                        </div>
-                      </div>
-                    </div>
-                <?php
-                }
-                ?>
+    <div class="cart-container grid grid-rows-[auto_160px] h-[calc(100vh_-_80px)]">
+      <?php if (count($cart) > 0) { ?>
+        <div class="bg-red-50 overflow-y-auto">
+          <?php foreach ($cart as $cart_item_key => $cart_item) {
+            $product = $cart_item['data'];
+            $product_id = $cart_item['product_id'];
+            $quantity = $cart_item['quantity'];
+            $subtotal = WC()->cart->get_product_subtotal($product, $cart_item['quantity']);
+            $post_thumbnail_id = get_post_thumbnail_id($product_id);
+            $product_thumbnail = wp_get_attachment_image_src($post_thumbnail_id, $size = 'shop-feature');
+            $product_thumbnail_alt = get_post_meta($post_thumbnail_id, '_wp_attachment_image_alt', true);
+            $pn = get_field('pn', $product_id);
+            ?>
+            <div class="cart-product grid grid-cols-[124px_auto] border-b-[1px] gap-4 py-4">
+              <div class="cart-product-image w-[124px]">
+                <img src="<?php echo $product_thumbnail[0]; ?>" alt="<?php echo $product_thumbnail_alt; ?>">
               </div>
-              <div class="bg-green-100">
-                <h4 class="font-roboto">TOTAL(
-                  <?php echo $woocommerce->cart->cart_contents_count ?> item
-                  <?php echo $woocommerce->cart->cart_contents_count > 1 ? 's' : '' ?>)
-                  <span class="text-xl font-bold text-secondary pl-2">
-                    <?php echo WC()->cart->get_displayed_subtotal(); ?>€
-                  </span>
-                </h4>
-                <div class="text-sm font-roboto">Custo de portes + Taxas calculadas no checkout</div>
-                <div class="grid grid-cols-2 gap-4 w-full bg-white py-4 lg:py-8  ">
-                  <a href="<?php echo wc_get_cart_url() ?>" class="btn btn-outline flex justify-center"><?=
-                       _e("Ver carrinho", "wlb_theme") ?></a>
-                  <a href="<?php echo wc_get_checkout_url() ?>" class="btn btn-primary flex justify-center"><?=
-                       _e("Finalizar compra", "wlb_theme") ?></a>
+              <div class="cart-product-info grid grid-cols-[auto_24px]">
+                <div>
+                  <div class="cart-product-info-name text-sm">
+                    <a href="<?php echo get_permalink($product_id) ?>"
+                      class="name font-medium hover:text-secondary transition-all"><?php echo $product->get_name(); ?></a>
+                    <div class="pn text-xs">
+                      <?php echo $pn ?>
+                    </div>
+                    <div class="quantity"><label>Qtd: </label>
+                      <?php echo $quantity ?>
+                    </div>
+                  </div>
+                  <div class="price text-xl font-bold text-secondary">
+                    <?php echo $subtotal ?>
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <div class="remove_item_from_cart cursor-pointer w-4 h-4" data-product_id="<?php echo $cart_item_key;
+                  ?>">
+                    <?php echo $icons->get_icon('GrClose'); ?></div>
                 </div>
               </div>
-          <?php } else { ?>
-              <p class="tracking-wide p-4 lg:p-8">
-                <?= _e("Ainda não tem produtos no carrinho.", "wlb_theme") ?>
-              </p>
-          <?php } ?>
+            </div>
+          <?php
+          }
+          ?>
         </div>
+        <div class="bg-green-100">
+          <h4 class="font-roboto">TOTAL(
+            <?php echo $woocommerce->cart->cart_contents_count ?> item
+            <?php echo $woocommerce->cart->cart_contents_count > 1 ? 's' : '' ?>)
+            <span class="text-xl font-bold text-secondary pl-2">
+              <?php echo WC()->cart->get_displayed_subtotal(); ?>€
+            </span>
+          </h4>
+          <div class="text-sm font-roboto">Custo de portes + Taxas calculadas no checkout</div>
+          <div class="grid grid-cols-2 gap-4 w-full bg-white py-4 lg:py-8  ">
+            <a href="<?php echo wc_get_cart_url() ?>" class="btn btn-outline flex justify-center"><?=
+                 _e("Ver carrinho", "wlb_theme") ?></a>
+            <a href="<?php echo wc_get_checkout_url() ?>" class="btn btn-primary flex justify-center"><?=
+                 _e("Finalizar compra", "wlb_theme") ?></a>
+          </div>
+        </div>
+      <?php } else { ?>
+        <p class="tracking-wide p-4 lg:p-8">
+          <?= _e("Ainda não tem produtos no carrinho.", "wlb_theme") ?>
+        </p>
+      <?php } ?>
+    </div>
 
-    <?php
+  <?php
   }
 }
 
@@ -341,39 +341,39 @@ function woocommerce_ajax_remove_from_cart_confirmation()
   $product = $cart[$product_id]['data'];
   $icons = new Icons;
   ?>
-    <div
-      class="modal-remove-product-cart fixed top-0 left-0 w-full h-screen bg-transparent z-50 flex justify-center items-center">
-      <div class="overlay w-full h-screen absolute top-0 z-30"></div>
-      <div class="bg-white max-w-md w-full p-4  opacity-0 transition-all translate-y-[10px] z-[51] font-roboto">
-        <div class="flex justify-end mb-4">
-          <div class="modal-remove-product-close cursor-pointer ">
-            <?php echo $icons->get_icon('GrClose'); ?>
-          </div>
-        </div>
-        <div>
-          <p class="mb-4 tracking-wide text-lg">
-            <?php echo _e("Pretende eliminar", "theme-tailwind") ?> <b>
-              <?php echo $product->get_name() ?>
-            </b>
-            <?php echo _e("do carrinho de compras?", "theme-tailwind") ?>
-          </p>
-          <span class="text-xs text-[#8d929b] tracking-wide">
-            <?php echo _e("Após eliminar este produto, para o voltar a ter no carrinho, terá de o adicionar novamente.", "theme-tailwind") ?>
-          </span>
-        </div>
-        <div class="flex space-x-4 justify-end mt-8">
-          <button class="btn btn-primary">
-            <?php
-            echo _e("Cancelar", "theme-tailwind") ?>
-          </button>
-          <button class="btn btn-outline">
-            <?php echo _e("Eliminar", "theme-tailwind") ?>
-          </button>
+  <div
+    class="modal-remove-product-cart fixed top-0 left-0 w-full h-screen bg-transparent z-50 flex justify-center items-center">
+    <div class="overlay w-full h-screen absolute top-0 z-30"></div>
+    <div class="bg-white max-w-md w-full p-4  opacity-0 transition-all translate-y-[10px] z-[51] font-roboto">
+      <div class="flex justify-end mb-4">
+        <div class="modal-remove-product-close cursor-pointer ">
+          <?php echo $icons->get_icon('GrClose'); ?>
         </div>
       </div>
+      <div>
+        <p class="mb-4 tracking-wide text-lg">
+          <?php echo _e("Pretende eliminar", "theme-tailwind") ?> <b>
+            <?php echo $product->get_name() ?>
+          </b>
+          <?php echo _e("do carrinho de compras?", "theme-tailwind") ?>
+        </p>
+        <span class="text-xs text-[#8d929b] tracking-wide">
+          <?php echo _e("Após eliminar este produto, para o voltar a ter no carrinho, terá de o adicionar novamente.", "theme-tailwind") ?>
+        </span>
+      </div>
+      <div class="flex space-x-4 justify-end mt-8">
+        <button class="btn btn-primary">
+          <?php
+          echo _e("Cancelar", "theme-tailwind") ?>
+        </button>
+        <button class="btn btn-outline">
+          <?php echo _e("Eliminar", "theme-tailwind") ?>
+        </button>
+      </div>
     </div>
-    <?php
-    wp_die();
+  </div>
+  <?php
+  wp_die();
 }
 
 add_action('wp_ajax_woocommerce_ajax_remove_from_cart_confirmation', 'woocommerce_ajax_remove_from_cart_confirmation');
@@ -589,25 +589,25 @@ function woocommerce_ajax_filter_products()
   $the_query = new WP_Query($args);
 
   ?>
-    <div id="count">
-      <?php echo $the_query->found_posts ?>
-    </div>
-    <?php
-    woocommerce_product_loop_start();
-    while ($the_query->have_posts()) {
-      $the_query->the_post();
-      do_action('woocommerce_shop_loop');
-      wc_get_template_part('content', 'product');
-    }
-    woocommerce_product_loop_end();
-    $args = array(
-      'category' => $taxonomy,
-      'tax_query' => $args['tax_query'],
-      'total' => $the_query->max_num_pages,
-      'current' => 1
-    );
-    wc_get_template('loop/pagination.php', $args);
-    wp_die();
+  <div id="count">
+    <?php echo $the_query->found_posts ?>
+  </div>
+  <?php
+  woocommerce_product_loop_start();
+  while ($the_query->have_posts()) {
+    $the_query->the_post();
+    do_action('woocommerce_shop_loop');
+    wc_get_template_part('content', 'product');
+  }
+  woocommerce_product_loop_end();
+  $args = array(
+    'category' => $taxonomy,
+    'tax_query' => $args['tax_query'],
+    'total' => $the_query->max_num_pages,
+    'current' => 1
+  );
+  wc_get_template('loop/pagination.php', $args);
+  wp_die();
 }
 
 add_action('wp_ajax_woocommerce_ajax_filter_products', 'woocommerce_ajax_filter_products');
@@ -676,163 +676,163 @@ function woocommerce_ajax_rerender_filters()
   }
 
   ?>
-    <div class="overflow-auto">
-      <?php
-      $query_args = array(
-        'status' => 'publish',
-        'limit' => -1,
-        'orderby' => 'menu_order title',
-        'order' => 'ASC',
-        'tax_query' => $args['tax_query']
-      );
+  <div class="overflow-auto">
+    <?php
+    $query_args = array(
+      'status' => 'publish',
+      'limit' => -1,
+      'orderby' => 'menu_order title',
+      'order' => 'ASC',
+      'tax_query' => $args['tax_query']
+    );
 
-      if (isset($taxonomy) && strlen($taxonomy) > 0) {
-        $query_args['category'] = array($taxonomy);
-      }
+    if (isset($taxonomy) && strlen($taxonomy) > 0) {
+      $query_args['category'] = array($taxonomy);
+    }
 
-      $data = array();
+    $data = array();
 
 
 
-      if (count($new_args) > 0) {
-        foreach (wc_get_products($query_args) as $product) {
-          foreach ($product->get_attributes() as $tax => $attribute) {
-            if (in_array($tax, $toIgnore)) {
-              continue;
-            }
-            $attribute_obj = get_taxonomy($tax);
-            $attribute_name = $attribute_obj->labels->singular_name;
-            $data[$tax]['name'] = $attribute_obj->labels->singular_name;
-            $data[$tax]['slug'] = $attribute_obj->name;
-            foreach ($attribute->get_terms() as $term) {
-              $term_obj = new \stdClass();
-              $term_obj->name = $term->name;
-              $term_obj->slug = $term->slug;
-              $term_obj->term_id = $term->term_id;
-              $term_obj->count = 1;
-              if (array_key_exists($tax, $data)) {
-                if (array_key_exists('terms', $data[$tax])) {
-                  if (array_key_exists($term->term_id, $data[$tax]['terms'])) {
-                    $term_obj->count = $data[$tax]['terms'][$term->term_id]->count + 1;
-                  }
+    if (count($new_args) > 0) {
+      foreach (wc_get_products($query_args) as $product) {
+        foreach ($product->get_attributes() as $tax => $attribute) {
+          if (in_array($tax, $toIgnore)) {
+            continue;
+          }
+          $attribute_obj = get_taxonomy($tax);
+          $attribute_name = $attribute_obj->labels->singular_name;
+          $data[$tax]['name'] = $attribute_obj->labels->singular_name;
+          $data[$tax]['slug'] = $attribute_obj->name;
+          foreach ($attribute->get_terms() as $term) {
+            $term_obj = new \stdClass();
+            $term_obj->name = $term->name;
+            $term_obj->slug = $term->slug;
+            $term_obj->term_id = $term->term_id;
+            $term_obj->count = 1;
+            if (array_key_exists($tax, $data)) {
+              if (array_key_exists('terms', $data[$tax])) {
+                if (array_key_exists($term->term_id, $data[$tax]['terms'])) {
+                  $term_obj->count = $data[$tax]['terms'][$term->term_id]->count + 1;
                 }
               }
-              $data[$tax]['terms'][$term->term_id] = $term_obj;
             }
+            $data[$tax]['terms'][$term->term_id] = $term_obj;
           }
         }
+      }
+    } else {
+      $table_name = $wpdb->prefix . 'sorefoz_attributes_categories_lookup';
+      $queryString = "";
+
+      if (isset($taxonomy) && strlen($taxonomy) > 0) {
+        $queryString = 'SELECT * FROM ' . $table_name . ' WHERE tax_slug = "' . $taxonomy . '" ORDER BY attr_name ASC;';
       } else {
-        $table_name = $wpdb->prefix . 'sorefoz_attributes_categories_lookup';
-        $queryString = "";
+        $queryString = 'SELECT * FROM ' . $table_name . ' ;';
+      }
 
-        if (isset($taxonomy) && strlen($taxonomy) > 0) {
-          $queryString = 'SELECT * FROM ' . $table_name . ' WHERE tax_slug = "' . $taxonomy . '" ORDER BY attr_name ASC;';
-        } else {
-          $queryString = 'SELECT * FROM ' . $table_name . ' ;';
-        }
+      $query = $wpdb->get_results($queryString);
 
-        $query = $wpdb->get_results($queryString);
+      foreach ($query as $row) {
+        $attribute = array(
+          "name" => $row->attr_name,
+          "slug" => $row->attr_slug,
+          "terms" => []
+        );
+        $data[$row->attr_slug] = $attribute;
+      }
 
+      foreach ($data as $attribute) {
         foreach ($query as $row) {
-          $attribute = array(
-            "name" => $row->attr_name,
-            "slug" => $row->attr_slug,
-            "terms" => []
-          );
-          $data[$row->attr_slug] = $attribute;
+          if ($attribute["slug"] !== $row->attr_slug) {
+            continue;
+          }
+          $term = new \stdClass();
+          $term->name = $row->term_name;
+          $term->slug = $row->term_slug;
+          $term->count = $row->product_count;
+          $data[$row->attr_slug]["terms"][$row->term_slug] = $term;
         }
+      }
+    }
 
-        foreach ($data as $attribute) {
-          foreach ($query as $row) {
-            if ($attribute["slug"] !== $row->attr_slug) {
+    ksort($data);
+
+
+    if (count($new_args) > 0) {
+      ?>
+      <div class="mb-4 p-4">
+        <ul>
+          <?php
+          foreach ($new_args as $arg) {
+            if ($arg["terms"][0] === "orderby") {
               continue;
             }
-            $term = new \stdClass();
-            $term->name = $row->term_name;
-            $term->slug = $row->term_slug;
-            $term->count = $row->product_count;
-            $data[$row->attr_slug]["terms"][$row->term_slug] = $term;
-          }
-        }
-      }
-
-      ksort($data);
-
-
-      if (count($new_args) > 0) {
-        ?>
-          <div class="mb-4 p-4">
-            <ul>
-              <?php
-              foreach ($new_args as $arg) {
-                if ($arg["terms"][0] === "orderby") {
-                  continue;
-                }
-                $slug = $arg["terms"][0];
-                $foundField = array_filter(
-                  $data[$arg["taxonomy"]]['terms'],
-                  function ($field) use ($slug) {
-                    return $field->slug === $slug;
-                  }
-                );
-                $firstKey = array_key_first($foundField);
-                ?>
-                  <li class="flex mb-2">
-                    <div
-                      class="clear-filter flex flex-row text-white bg-secondary py-1 px-2 rounded-full items-center space-x-1 cursor-pointer"
-                      data-value="<?php echo $arg['terms'][0] ?>" data-attribute="<?php echo $arg["taxonomy"] ?>"
-                      data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>">
-                      <div class="pointer-events-none">
-                        <?php echo $icons->get_icon('AiOutlineCloseCircle') ?>
-                      </div>
-                      <div class="pointer-events-none text-sm">
-                        <?php echo $foundField[$firstKey]->name ?>
-                      </div>
-                    </div>
-                  </li>
-              <?php } ?>
-            </ul>
-            <button class="clear-all-filters text-sm text-secondary"
-              data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>">Limpar tudo (<?php echo count($new_args) ?>)</button>
-          </div>
-      <?php
-      }
-      foreach ($data as $key => $attribute) { ?>
-          <div class="mb-4 p-4">
-            <h4 class="font-bold uppercase mb-4 border-b">
-              <?php echo $attribute['name'] ?>
-            </h4>
-            <ul
-              class="filters-box overflow-hidden transition-all duration-200 <?php echo count($attribute["terms"]) > 5 ? 'max-h-[160px]' : '' ?>">
-              <?php
-              // var_dump($attribute["terms"]);
-              foreach ($attribute["terms"] as $term) { ?>
-                  <li class="flex items-center space-x-2 mb-2">
-                    <div class="relative w-6 h-6">
-                      <input type="checkbox" name="sidefilter" id="<?php echo $attribute['slug'] . '_' . $term->slug ?>"
-                        value="<?php echo $term->slug ?>" data-attribute="<?php echo $attribute['slug'] ?>"
-                        data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>"
-                        class="appearance-none border border-gray-400 rounded-lg cursor-pointer w-6 h-6 checked:bg-secondary filter-checkbox"
-                        <?php
-                        $cleanSlug = str_replace('pa_', '', $attribute['slug']);
-                        if (isset($arguments[$cleanSlug])) {
-                          if (in_array($term->slug, $arguments[$cleanSlug])) {
-                            echo 'checked="checked"';
-                          }
-                        }
-                        ?>>
-                    </div>
-                    <label class="text-sm" for="<?php echo $attribute['slug'] . '_' . $term->slug ?>">
-                      <?php echo $term->name ?> (<?php echo $term->count ?>)
-                    </label>
-                  </li>
-              <?php } ?>
-            </ul>
-          </div>
-      <?php } ?>
-    </div>
+            $slug = $arg["terms"][0];
+            $foundField = array_filter(
+              $data[$arg["taxonomy"]]['terms'],
+              function ($field) use ($slug) {
+                return $field->slug === $slug;
+              }
+            );
+            $firstKey = array_key_first($foundField);
+            ?>
+            <li class="flex mb-2">
+              <div
+                class="clear-filter flex flex-row text-white bg-secondary py-1 px-2 rounded-full items-center space-x-1 cursor-pointer"
+                data-value="<?php echo $arg['terms'][0] ?>" data-attribute="<?php echo $arg["taxonomy"] ?>"
+                data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>">
+                <div class="pointer-events-none">
+                  <?php echo $icons->get_icon('AiOutlineCloseCircle') ?>
+                </div>
+                <div class="pointer-events-none text-sm">
+                  <?php echo $foundField[$firstKey]->name ?>
+                </div>
+              </div>
+            </li>
+          <?php } ?>
+        </ul>
+        <button class="clear-all-filters text-sm text-secondary"
+          data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>">Limpar tudo (<?php echo count($new_args) ?>)</button>
+      </div>
     <?php
-    wp_die();
+    }
+    foreach ($data as $key => $attribute) { ?>
+      <div class="mb-4 p-4">
+        <h4 class="font-bold uppercase mb-4 border-b">
+          <?php echo $attribute['name'] ?>
+        </h4>
+        <ul
+          class="filters-box overflow-hidden transition-all duration-200 <?php echo count($attribute["terms"]) > 5 ? 'max-h-[160px]' : '' ?>">
+          <?php
+          // var_dump($attribute["terms"]);
+          foreach ($attribute["terms"] as $term) { ?>
+            <li class="flex items-center space-x-2 mb-2">
+              <div class="relative w-6 h-6">
+                <input type="checkbox" name="sidefilter" id="<?php echo $attribute['slug'] . '_' . $term->slug ?>"
+                  value="<?php echo $term->slug ?>" data-attribute="<?php echo $attribute['slug'] ?>"
+                  data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>"
+                  class="appearance-none border border-gray-400 rounded-none cursor-pointer w-6 h-6 checked:bg-secondary filter-checkbox"
+                  <?php
+                  $cleanSlug = str_replace('pa_', '', $attribute['slug']);
+                  if (isset($arguments[$cleanSlug])) {
+                    if (in_array($term->slug, $arguments[$cleanSlug])) {
+                      echo 'checked="checked"';
+                    }
+                  }
+                  ?>>
+              </div>
+              <label class="text-sm" for="<?php echo $attribute['slug'] . '_' . $term->slug ?>">
+                <?php echo $term->name ?> (<?php echo $term->count ?>)
+              </label>
+            </li>
+          <?php } ?>
+        </ul>
+      </div>
+    <?php } ?>
+  </div>
+  <?php
+  wp_die();
 }
 
 add_action('wp_ajax_woocommerce_ajax_rerender_filters', 'woocommerce_ajax_rerender_filters');
@@ -971,12 +971,12 @@ function checkout_fields($fields)
 {
   foreach ($fields as &$fieldset) {
     foreach ($fieldset as &$field) {
-      // var_dump($field);
-      // $field['class'][] = 'grid grid-rows-[16px_40px] gap-2';
       if (isset($field['autocomplete']) && $field['autocomplete'] === "address-line2") {
-        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-lg h-10 mt-4 lg:mt-6 ';
+        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10 mt-4 lg:mt-6 ';
+      } else if (isset($field['type']) && $field['type'] === "textarea") {
+        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-none h-36 resize-none';
       } else {
-        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-lg h-10';
+        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10';
       }
       $field['label_class'][] = 'uppercase text-xs font-semibold tracking-wide';
     }
@@ -1035,21 +1035,21 @@ function custom_add_wc_attribute_type()
   $value = $id ? get_option("wc_attribute_type-$id") : '';
   $value_show = $id ? get_option("wc_attribute_show-$id") : '';
   ?>
-    <div class="form-field">
-      <label for="type-field">Type</label>
-      <select name="type" id="type-field" value="<?php echo esc_attr($value); ?>">
-        <option value="square">Square</option>
-        <option value="radio">Radio</option>
-        <option value="color">Color</option>
-      </select>
-      <p class="description">Set your attribute display style</p>
-    </div>
+  <div class="form-field">
+    <label for="type-field">Type</label>
+    <select name="type" id="type-field" value="<?php echo esc_attr($value); ?>">
+      <option value="square">Square</option>
+      <option value="radio">Radio</option>
+      <option value="color">Color</option>
+    </select>
+    <p class="description">Set your attribute display style</p>
+  </div>
 
-    <div class="form-field">
-      <label for="type-show">Show on frontend?</label>
-      <input type="checkbox" id="type-show" name="show" checked>
-      <p class="description">Chose if this filter appear on frontend.</p>
-    </div>
+  <div class="form-field">
+    <label for="type-show">Show on frontend?</label>
+    <input type="checkbox" id="type-show" name="show" checked>
+    <p class="description">Chose if this filter appear on frontend.</p>
+  </div>
 <?php
 }
 add_action('woocommerce_after_add_attribute_fields', 'custom_add_wc_attribute_type');
@@ -1061,29 +1061,29 @@ function custom_edit_wc_attribute_type()
   $value = $id ? get_option("wc_attribute_type-$id") : '';
   $value_show = $id ? get_option("wc_attribute_show-$id") : '';
   ?>
-    <tr class="form-field">
-      <th scope="row" valign="top">
-        <label for="type-field">Type</label>
-      </th>
-      <td>
-        <select name="type" id="type-field" value="<?php echo esc_attr($value); ?>">
-          <option value="square" <?php echo esc_attr($value) === "square" ? "selected" : "" ?>>Square</option>
-          <option value="radio" <?php echo esc_attr($value) === "radio" ? "selected" : "" ?>>Radio</option>
-          <option value="color" <?php echo esc_attr($value) === "color" ? "selected" : "" ?>>Color</option>
-        </select>
-        <p class="description">Set your attribute display style</p>
-      </td>
-    </tr>
+  <tr class="form-field">
+    <th scope="row" valign="top">
+      <label for="type-field">Type</label>
+    </th>
+    <td>
+      <select name="type" id="type-field" value="<?php echo esc_attr($value); ?>">
+        <option value="square" <?php echo esc_attr($value) === "square" ? "selected" : "" ?>>Square</option>
+        <option value="radio" <?php echo esc_attr($value) === "radio" ? "selected" : "" ?>>Radio</option>
+        <option value="color" <?php echo esc_attr($value) === "color" ? "selected" : "" ?>>Color</option>
+      </select>
+      <p class="description">Set your attribute display style</p>
+    </td>
+  </tr>
 
-    <tr class="form-field">
-      <th scope="row" valign="top">
-        <label for="type-show">Show</label>
-      </th>
-      <td>
-        <input type="checkbox" id="type-show" name="show" <?php echo esc_attr($value_show) ? "checked" : "" ?>>
-        <p class="description">Chose if this filter appear on frontend.</p>
-      </td>
-    </tr>
+  <tr class="form-field">
+    <th scope="row" valign="top">
+      <label for="type-show">Show</label>
+    </th>
+    <td>
+      <input type="checkbox" id="type-show" name="show" <?php echo esc_attr($value_show) ? "checked" : "" ?>>
+      <p class="description">Chose if this filter appear on frontend.</p>
+    </td>
+  </tr>
 <?php
 }
 

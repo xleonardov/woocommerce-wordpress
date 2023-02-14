@@ -17,36 +17,37 @@
  * @version 3.2.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
-$downloads     = WC()->customer->get_downloadable_products();
+$downloads = WC()->customer->get_downloadable_products();
 $has_downloads = (bool) $downloads;
 
-do_action( 'woocommerce_before_account_downloads', $has_downloads ); ?>
+do_action('woocommerce_before_account_downloads', $has_downloads); ?>
 
-<?php if ( $has_downloads ) : ?>
+<?php if ($has_downloads): ?>
 
-	<?php do_action( 'woocommerce_before_available_downloads' ); ?>
+	<?php do_action('woocommerce_before_available_downloads'); ?>
 
-	<?php do_action( 'woocommerce_available_downloads', $downloads ); ?>
+	<?php do_action('woocommerce_available_downloads', $downloads); ?>
 
-	<?php do_action( 'woocommerce_after_available_downloads' ); ?>
+	<?php do_action('woocommerce_after_available_downloads'); ?>
 
-<?php else : ?>
+<?php else: ?>
 	<div class="woocommerce-Message woocommerce-Message--info woocommerce-info">
 		<div class="flex mb-4">
 			<div>
-				<a class="woocommerce-Button button flex items-center justify-center alt wc-forward w-full bg-secondary px-4 py-2 h-12 text-white text-center transition-all duration-200 hover:bg-primary disabled:opacity-20 uppercase tracking-wide rounded-lg text-sm" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
-					<?php esc_html_e( 'Browse products', 'woocommerce' ); ?>
+				<a class="woocommerce-Button button flex items-center justify-center alt wc-forward w-full bg-secondary px-4 py-2 h-12 text-white text-center transition-all duration-200 hover:bg-primary disabled:opacity-20 uppercase tracking-wide rounded-none text-sm"
+					href="<?php echo esc_url(apply_filters('woocommerce_return_to_shop_redirect', wc_get_page_permalink('shop'))); ?>">
+					<?php esc_html_e('Browse products', 'woocommerce'); ?>
 				</a>
 			</div>
 		</div>
 		<p>
-			<?php esc_html_e( 'No downloads available yet.', 'woocommerce' ); ?>
+			<?php esc_html_e('No downloads available yet.', 'woocommerce'); ?>
 		</p>
 	</div>
 <?php endif; ?>
 
-<?php do_action( 'woocommerce_after_account_downloads', $has_downloads ); ?>
+<?php do_action('woocommerce_after_account_downloads', $has_downloads); ?>

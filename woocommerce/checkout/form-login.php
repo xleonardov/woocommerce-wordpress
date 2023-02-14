@@ -15,21 +15,21 @@
  * @version 3.8.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-if ( is_user_logged_in() || 'no' === get_option( 'woocommerce_enable_checkout_login_reminder' ) ) {
+if (is_user_logged_in() || 'no' === get_option('woocommerce_enable_checkout_login_reminder')) {
 	return;
 }
 
 ?>
-<div class="woocommerce-form-login-toggle p-4 bg-white mt-4 rounded-lg text-sm">
-	<?php wc_print_notice( apply_filters( 'woocommerce_checkout_login_message', esc_html__( 'Returning customer?', 'woocommerce' ) ) . ' <a href="#" class="showlogin underline">' . esc_html__( 'Click here to login', 'woocommerce' ) . '</a>', 'notice' ); ?>
+<div class="woocommerce-form-login-toggle p-4 bg-[#EAEAEA] bg-opacity-25 mt-4 rounded-none text-sm font-roboto">
+	<?php wc_print_notice(apply_filters('woocommerce_checkout_login_message', esc_html__('Returning customer?', 'woocommerce')) . ' <a href="#" class="showlogin underline">' . esc_html__('Click here to login', 'woocommerce') . '</a>', 'notice'); ?>
 	<?php
 	woocommerce_login_form(
 		array(
-			'message'  => esc_html__( 'If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing section.', 'woocommerce' ),
+			'message' => esc_html__('If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing section.', 'woocommerce'),
 			'redirect' => wc_get_checkout_url(),
-			'hidden'   => true,
+			'hidden' => true,
 		)
 	); ?>
 </div>

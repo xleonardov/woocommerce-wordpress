@@ -15,51 +15,56 @@
  * @version 4.3.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 $available_gateways = WC()->payment_gateways->get_available_payment_gateways();
 
-if ( $available_gateways ) : ?>
+if ($available_gateways): ?>
 	<form id="add_payment_method" method="post">
 		<div id="payment" class="woocommerce-Payment">
 			<ul class="woocommerce-PaymentMethods payment_methods methods">
 				<?php
 				// Chosen Method.
-				if ( count( $available_gateways ) ) {
-					current( $available_gateways )->set_current();
+				if (count($available_gateways)) {
+					current($available_gateways)->set_current();
 				}
 
-				foreach ( $available_gateways as $gateway ) {
+				foreach ($available_gateways as $gateway) {
 					?>
-					<li class="woocommerce-PaymentMethod woocommerce-PaymentMethod--<?php echo esc_attr( $gateway->id ); ?> payment_method_<?php echo esc_attr( $gateway->id ); ?>">
-						<input id="payment_method_<?php echo esc_attr( $gateway->id ); ?>" type="radio" class="input-radio" name="payment_method" value="<?php echo esc_attr( $gateway->id ); ?>" <?php checked( $gateway->chosen, true ); ?> />
-						<label for="payment_method_<?php echo esc_attr( $gateway->id ); ?>"><?php echo wp_kses_post( $gateway->get_title() ); ?> <?php echo wp_kses_post( $gateway->get_icon() ); ?></label>
+					<li
+						class="woocommerce-PaymentMethod woocommerce-PaymentMethod--<?php echo esc_attr($gateway->id); ?> payment_method_<?php echo esc_attr($gateway->id); ?>">
+						<input id="payment_method_<?php echo esc_attr($gateway->id); ?>" type="radio" class="input-radio"
+							name="payment_method" value="<?php echo esc_attr($gateway->id); ?>" <?php checked($gateway->chosen, true); ?> />
+						<label for="payment_method_<?php echo esc_attr($gateway->id); ?>"><?php echo wp_kses_post($gateway->get_title()); ?> 		<?php echo wp_kses_post($gateway->get_icon()); ?></label>
 						<?php
-						if ( $gateway->has_fields() || $gateway->get_description() ) {
-							echo '<div class=" text-sm woocommerce-PaymentBox woocommerce-PaymentBox--' . esc_attr( $gateway->id ) . ' payment_box payment_method_' . esc_attr( $gateway->id ) . '" style="display: none;">';
+						if ($gateway->has_fields() || $gateway->get_description()) {
+							echo '<div class=" text-sm woocommerce-PaymentBox woocommerce-PaymentBox--' . esc_attr($gateway->id) . ' payment_box payment_method_' . esc_attr($gateway->id) . '" style="display: none;">';
 							$gateway->payment_fields();
 							echo '</div>';
 						}
 						?>
 					</li>
-					<?php
+				<?php
 				}
 				?>
 			</ul>
 
-			<?php do_action( 'woocommerce_add_payment_method_form_bottom' ); ?>
+			<?php do_action('woocommerce_add_payment_method_form_bottom'); ?>
 
 			<div class="form-row">
-				<?php wp_nonce_field( 'woocommerce-add-payment-method', 'woocommerce-add-payment-method-nonce' ); ?>
+				<?php wp_nonce_field('woocommerce-add-payment-method', 'woocommerce-add-payment-method-nonce'); ?>
 				<div class="flex justify-end">
 					<div>
-						<button type="submit" class="woocommerce-Button woocommerce-Button--alt button alt flex items-center justify-center alt wc-forward w-full bg-secondary px-4 py-2 h-12 text-white text-center transition-all duration-200 hover:bg-primary disabled:opacity-20 uppercase tracking-wide rounded-lg text-sm" id="place_order" value="<?php esc_attr_e( 'Add payment method', 'woocommerce' ); ?>"><?php esc_html_e( 'Add payment method', 'woocommerce' ); ?></button>
+						<button type="submit" class="woocommerce-Button woocommerce-Button--alt btn btn-primary flex justify-center"
+							id="place_order" value="<?php esc_attr_e('Add payment method', 'woocommerce'); ?>"><?php esc_html_e('Add payment method', 'woocommerce'); ?></button>
 					</div>
 				</div>
 				<input type="hidden" name="woocommerce_add_payment_method" id="woocommerce_add_payment_method" value="1" />
 			</div>
 		</div>
 	</form>
-<?php else : ?>
-	<p class="woocommerce-notice woocommerce-notice--info woocommerce-info"><?php esc_html_e( 'New payment methods can only be added during checkout. Please contact us if you require assistance.', 'woocommerce' ); ?></p>
+<?php else: ?>
+	<p class="woocommerce-notice woocommerce-notice--info woocommerce-info">
+		<?php esc_html_e('New payment methods can only be added during checkout. Please contact us if you require assistance.', 'woocommerce'); ?>
+	</p>
 <?php endif; ?>
