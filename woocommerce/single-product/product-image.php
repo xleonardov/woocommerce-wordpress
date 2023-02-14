@@ -82,9 +82,9 @@ $wrapper_classes = apply_filters(
                     style="">
                     <a href="<?= $url ?>">
                         <img width="300" height="427" src="<?= $url ?>" class="" alt="" decoding="async" loading="lazy"
-                            title="<?= $product->get_name() . ' - ' . $key + 1 ?>" data-caption="" data-src="<?= $url ?>"
-                            data-large_image="<?= $url ?>" data-large_image_width="1800" data-large_image_height="2560"
-                            draggable="false">
+                            title="<?= $product->get_name() . ' - ' . $key + 1 ?>"
+                            data-caption="<?= $product->get_name() ?>" data-src="<?= $url ?>" data-large_image="<?= $url ?>"
+                            data-large_image_width="1800" data-large_image_height="2560" draggable="false">
                     </a>
                 </div>
                 <div class="swiper-slide woocommerce-product-gallery__trigger">

@@ -22,7 +22,7 @@ do_action('woocommerce_before_cart'); ?>
 <div class="hidden">
 	<div class="inline mr-2 w-8 h-8 text-white animate-spin fill-primary opacity-50 pointer-events-none"></div>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,374px)] gap-4 py-8 tracking-wide">
+<div class="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,374px)] gap-4 py-8 tracking-wide font-roboto">
 	<div class="">
 		<form class="woocommerce-cart-form w-full grid gap-4" action="<?php echo esc_url(wc_get_cart_url()); ?>"
 			method="post">
@@ -51,7 +51,6 @@ do_action('woocommerce_before_cart'); ?>
 							<?php esc_html_e('Subtotal', 'woocommerce'); ?>
 						</div>
 					</div>
-
 					<?php
 					foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 						$_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
@@ -66,7 +65,11 @@ do_action('woocommerce_before_cart'); ?>
 										// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 										'woocommerce_cart_item_remove_link',
 										sprintf(
-											'<a href="%s" class="remove hover:text-secondary transition-all duration-300" aria-label="%s" data-product_id="%s" data-product_sku="%s">' . $icons->get_icon('BsTrash') . '</a>',
+											'<a href="%s" class="remove hover:text-secondary transition-all duration-300 text-gray-400 hover:text-black" aria-label="%s" data-product_id="%s" data-product_sku="%s"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="6" cy="6" r="5.5" stroke="currentColor"/>
+											<path d="M3 9L9 3M3 3L9 9L3 3Z" stroke="currentColor"/>
+											</svg>
+											</a>',
 											esc_url(wc_get_cart_remove_url($cart_item_key)),
 											esc_html__('Remove this item', 'woocommerce'),
 											esc_attr($product_id),
@@ -152,10 +155,10 @@ do_action('woocommerce_before_cart'); ?>
 						<label for="coupon_code" class="block mb-4 uppercase text-sm font-semibold tracking-wide">
 							<?php esc_html_e('Coupon', 'woocommerce'); ?>
 						</label>
-						<div class="grid gap-4 grid-cols-[auto_144px]">
+						<div class="flex items-center space-x-4">
 							<input type="text" name="coupon_code"
-								class="input-text w-full px-4 py-2 uppercase tracking-wide border text-xs" id="coupon_code" value=""
-								placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" />
+								class="input-text w-full px-4 py-2 uppercase tracking-wide border text-xs h-[50px]" id="coupon_code"
+								value="" placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" />
 							<button type="submit" class="btn btn-primary w-48 flex justify-center items-center" name="apply_coupon"
 								value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>"><?php esc_attr_e('Apply coupon', 'woocommerce'); ?></button>
 						</div>
@@ -166,7 +169,7 @@ do_action('woocommerce_before_cart'); ?>
 		</form>
 	</div>
 	<div class="">
-		<div class="bg-[#EAEAEA] bg-opacity-20 p-4">
+		<div class="bg-[#EAEAEA] bg-opacity-25 p-4">
 			<?php do_action('woocommerce_before_cart_collaterals'); ?>
 			<div class="cart-collaterals">
 				<?php

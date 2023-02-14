@@ -15,44 +15,48 @@
  * @version 3.6.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-$page_title = ( 'billing' === $load_address ) ? esc_html__( 'Billing address', 'woocommerce' ) : esc_html__( 'Shipping address', 'woocommerce' );
+$page_title = ('billing' === $load_address) ? esc_html__('Billing address', 'woocommerce') : esc_html__('Shipping address', 'woocommerce');
 
-do_action( 'woocommerce_before_edit_account_address_form' ); ?>
+do_action('woocommerce_before_edit_account_address_form'); ?>
 
-<?php if ( ! $load_address ) : ?>
-	<?php wc_get_template( 'myaccount/my-address.php' ); ?>
-<?php else : ?>
+<?php if (!$load_address): ?>
+	<?php wc_get_template('myaccount/my-address.php'); ?>
+<?php else: ?>
 
 	<form method="post">
 
-		<h3 class="mb-4 uppercase text-sm font-semibold tracking-wide"><?php echo apply_filters( 'woocommerce_my_account_edit_address_title', $page_title, $load_address ); ?></h3><?php // @codingStandardsIgnoreLine ?>
+		<h3 class="mb-4 uppercase text-sm font-semibold tracking-wide">
+			<?php echo apply_filters('woocommerce_my_account_edit_address_title', $page_title, $load_address); ?>
+		</h3>
+		<?php // @codingStandardsIgnoreLine ?>
 
 		<div class="woocommerce-address-fields">
-			<?php do_action( "woocommerce_before_edit_address_form_{$load_address}" ); ?>
+			<?php do_action("woocommerce_before_edit_address_form_{$load_address}"); ?>
 
 			<div class="woocommerce-address-fields__field-wrapper grid grid-cols-1 lg:grid-cols-2 gap-4">
 				<?php
-				foreach ( $address as $key => $field ) {
+				foreach ($address as $key => $field) {
 					$field['label_class'][] = 'uppercase text-xs font-semibold tracking-wide';
-					if(isset($field['autocomplete']) && $field['autocomplete'] === "address-line2"){
-						$field['input_class'][] = 'w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-lg h-10 mt-4 lg:mt-6 ';
-					}else{
-						$field['input_class'][] = 'w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-lg h-10';
+					if (isset($field['autocomplete']) && $field['autocomplete'] === "address-line2") {
+						$field['input_class'][] = 'w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10 mt-4 lg:mt-6 ';
+					} else {
+						$field['input_class'][] = 'w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10';
 					}
-					woocommerce_form_field( $key, $field, wc_get_post_data_by_key( $key, $field['value'] ) );
+					woocommerce_form_field($key, $field, wc_get_post_data_by_key($key, $field['value']));
 				}
 				?>
 			</div>
 
-			<?php do_action( "woocommerce_after_edit_address_form_{$load_address}" ); ?>
+			<?php do_action("woocommerce_after_edit_address_form_{$load_address}"); ?>
 
 			<div class="flex justify-end my-4">
 				<div>
-					<button type="submit" class="button flex items-center justify-center alt wc-forward w-full bg-secondary px-4 py-2 h-12 text-white text-center transition-all duration-200 hover:bg-primary disabled:opacity-20 uppercase tracking-wide rounded-lg text-sm" name="save_address" value="<?php esc_attr_e( 'Save address', 'woocommerce' ); ?>"><?php esc_html_e( 'Save address', 'woocommerce' ); ?></button>
+					<button type="submit" class="button flex items-center justify-center btn btn-primary flex justify-center"
+						name="save_address" value="<?php esc_attr_e('Save address', 'woocommerce'); ?>"><?php esc_html_e('Save address', 'woocommerce'); ?></button>
 				</div>
-				<?php wp_nonce_field( 'woocommerce-edit_address', 'woocommerce-edit-address-nonce' ); ?>
+				<?php wp_nonce_field('woocommerce-edit_address', 'woocommerce-edit-address-nonce'); ?>
 				<input type="hidden" name="action" value="edit_address" />
 			</div>
 		</div>
@@ -61,4 +65,4 @@ do_action( 'woocommerce_before_edit_account_address_form' ); ?>
 
 <?php endif; ?>
 
-<?php do_action( 'woocommerce_after_edit_account_address_form' ); ?>
+<?php do_action('woocommerce_after_edit_account_address_form'); ?>

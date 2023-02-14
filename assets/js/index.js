@@ -259,7 +259,9 @@
       tamanhoOptions.forEach((option) => {
         option.addEventListener("click", (e) => {
           e.preventDefault();
-
+          if (parseInt(option.dataset.stock) <= 0) {
+            return;
+          }
           tamanhoOptions.forEach((item) => {
             item.classList.remove("btn-quad-selected");
           });

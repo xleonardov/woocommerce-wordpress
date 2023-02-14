@@ -12,7 +12,7 @@
   @apply bg-primary;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-transparent rounded-[30px] shadow-[inset_0px_0px_0px_0px_theme(colors.bodyBackground)];
+  @apply bg-transparent rounded-[30px] shadow-[inset_0px_0px_0px_0px_#000];
 }
 
 .img-fill {
@@ -131,4 +131,96 @@ a.woocommerce-product-gallery__trigger {
 }
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
   @apply bg-gray-500;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.woocommerce-NoticeGroup.woocommerce-NoticeGroup-checkout {
+  @apply col-span-2;
+}
+
+@media (max-width: 1024px) {
+  .woocommerce-NoticeGroup.woocommerce-NoticeGroup-checkout {
+    @apply col-span-1;
+  }
+}
+
+.required {
+  @apply text-red-500;
+}
+.select2-container--default .select2-selection--single {
+  @apply w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10 border-[#e5e7eb] flex items-center;
+}
+.select2-dropdown {
+  @apply border-[#e5e7eb];
+}
+.select2-selection__rendered {
+  padding-left: 0px !important;
+  line-height: 1.5 !important;
+}
+#billing_country_field .woocommerce-input-wrapper {
+  @apply w-full p-0 uppercase tracking-wide  text-xs rounded-none  flex items-center opacity-100;
+}
+.includes_tax {
+  @apply block text-gray-500;
+}
+.wc-credit-card-form.wc-payment-form {
+  @apply py-4;
+}
+.wc-stripe-elements-field,
+.wc-stripe-iban-element-field {
+  @apply w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10 border-[#e5e7eb] items-center flex;
+}
+.wc-stripe-elements-field > div {
+  @apply w-full;
+}
+.woocommerce-order-received h1.text-2xl {
+  @apply text-center;
+}
+.tax_label,
+.shipped_via {
+  @apply text-gray-500;
+}
+.woocommerce-bacs-bank-details {
+  @apply text-sm text-left w-full;
+}
+.wc-bacs-bank-details-heading {
+  @apply flex-1 text-left text-sm font-bold mb-4;
+}
+.is-active {
+  @apply text-black;
+}
+#mbway_ifthen_for_woocommerce_phone_field > label {
+  @apply font-semibold;
+}
+#mbway_ifthen_for_woocommerce_phone_field > input {
+  @apply w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10 border-[#e5e7eb] items-center flex;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  top: 7px;
+}
+.wc-bacs-bank-details.order_details.bacs_details > .account_number {
+  @apply flex justify-between w-full;
+}
+.woocommerce-MyAccount-navigation-link {
+  @apply h-[50px];
+}
+.woocommerce-MyAccount-navigation-link.is-active a {
+  @apply uppercase px-8 py-3 font-roboto text-left gap-2 text-white bg-black border border-black w-full;
+}
+
+.woocommerce-MyAccount-navigation-link a {
+  @apply uppercase px-8 py-3 font-roboto text-left gap-2 text-black w-full border flex border-transparent transition-all duration-300 hover:text-white hover:bg-black;
 }
