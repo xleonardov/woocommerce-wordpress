@@ -1,5 +1,11 @@
 <?php 
 $top_area = get_field("top_area", "option");
+$menu_principal_id = get_nav_menu_locations()['footer-main'];
+$menu_secundario_id = get_nav_menu_locations()['footer-secondary'];
+$menu_terciario_id = get_nav_menu_locations()['footer-tertiatry'];
+$menu_principal = apply_filters('mount_menu_tree', $menu_principal_id);
+$menu_secundario = apply_filters('mount_menu_tree', $menu_secundario_id);
+$menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
 ?>
 <section class="py-4 md:py-8 px-4 md:px-6 mt-4">
   <div class="border-t border-gray-400"></div>
@@ -17,6 +23,54 @@ $top_area = get_field("top_area", "option");
         <?php endwhile; ?>
     </div>
   <?php endif; ?>
+  <div class="border-t border-gray-400"></div>
+  <div class="grid grid-cols-1 md:grid-cols-2 py-4 md:py-8">
+    <div>
+      <h3 class="text-lg font-roboto uppercase mb-3"><?php echo __("Pacto", "theme-tailwind") ?></h3> 
+      <ul class="flex space-y-1 md:space-y-0 md:space-x-4">
+      <?php foreach ($menu_principal as $key => $menu_item): ?>
+        <li class="text-sm font-roboto uppercase">
+          <a class="hover:underline" href="<?php echo $menu_item->url;?>">
+            <?php echo $menu_item->title;?>
+          </a>
+        </li>
+      <?php endforeach; ?>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-lg font-roboto uppercase mb-3"><?php echo __("Apoio cliente", "theme-tailwind") ?></h3> 
+      <ul class="flex space-y-1 md:space-y-0 md:space-x-4">
+      <?php foreach ($menu_secundario as $key => $menu_item): ?>
+        <li class="text-sm font-roboto uppercase">
+          <a class="hover:underline" href="<?php echo $menu_item->url;?>">
+            <?php echo $menu_item->title;?>
+          </a>
+        </li>
+      <?php endforeach; ?>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-gray-400"></div>
+  <div class="grid grid-cols-1 md:grid-cols-2 py-4 md:py-8">
+    <div>
+      <ul class="flex space-y-1 md:space-y-0 md:space-x-4 items-center h-full">
+      <?php foreach ($menu_terciario as $key => $menu_item): ?>
+        <li class="text-xs font-roboto uppercase">
+          <a class="hover:underline" href="<?php echo $menu_item->url;?>">
+            <?php echo $menu_item->title;?>
+          </a>
+        </li>
+      <?php endforeach; ?>
+      </ul>
+    </div>
+    <div class="flex space-y-1 md:space-x-2">
+        <img src="<?php echo get_theme_file_uri('/assets/images/easypay.webp');?>" alt="MBWay" width="60" />
+        <img src="<?php echo get_theme_file_uri('/assets/images/mb.webp');?>" alt="Multibanco" width="60" />
+        <img src="<?php echo get_theme_file_uri('/assets/images/mastercard.webp');?>" alt="Mastercard" width="60" />
+        <img src="<?php echo get_theme_file_uri('/assets/images/visa.webp');?>" alt="Visa" width="60" />
+        <img src="<?php echo get_theme_file_uri('/assets/images/paypal.webp');?>" alt="Paypal" width="60" />
+    </div>
+  </div>       
   <div class="w-full border-t border-gray-400 grid grid-cols-1 space-y-4 md:space-y-0 md:grid-cols-3 items-center pt-4">
     <div class="place-self-center md:place-self-start">
       <?php the_custom_logo(); ?>

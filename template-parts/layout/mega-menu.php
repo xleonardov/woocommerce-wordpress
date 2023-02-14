@@ -28,12 +28,13 @@ $menu = apply_filters('mount_menu_tree', $menu_id);
                   <?php if(isset($menu_item->children_arr)) :?>
                     <button class="btn-menu w-full has_sub_menu" data-submenu="<?php echo 'sub_menu_id_'.$menu_item->ID;?>">
                         <?php echo $menu_item->title; ?>
-                      <img width="15" src="<?php echo get_theme_file_uri('/assets/images/add.webp');?>"/> 
+                      <img width="15" class="is_close" src="<?php echo get_theme_file_uri('/assets/images/add.webp');?>"/> 
+                      <img width="15" class="is_open hidden" src="<?php echo get_theme_file_uri('/assets/images/minus.webp');?>"/> 
                     </button>
                     <ul class="flex-col w-full h-0 overflow-hidden transition-all duration-300" id="<?php echo 'sub_menu_id_'.$menu_item->ID ?>">
                         <?php foreach ($menu_item->children_arr as $key => $sub_menu_item): ?>
                         <li class="w-full">
-                          <a class="btn-submenu w-full" href="<?php echo $sub_menu_item->url; ?>"><?php echo $sub_menu_item->title;?></a>
+                          <a class="btn-submenu w-full font-light" href="<?php echo $sub_menu_item->url; ?>"><?php echo $sub_menu_item->title;?></a>
                         </li>
                         <?php endforeach; ?>
                     </ul>
