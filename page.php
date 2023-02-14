@@ -46,6 +46,9 @@
             if (get_row_layout() == 'listagem_de_tamanhos') :
                 get_template_part('template-parts/layout/blocks/listagem_de_tamanhos', 'listagem_de_tamanhos', array('index' => $index));
             endif;
+            if (get_row_layout() == 'cta_manequim') :
+                get_template_part('template-parts/layout/blocks/cta_manequim', 'cta_manequim', array('index' => $index));
+            endif;
             $index++;
         endwhile;
     endif;

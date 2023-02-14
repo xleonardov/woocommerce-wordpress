@@ -27,7 +27,7 @@ $menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
   <div class="grid grid-cols-1 md:grid-cols-2 py-4 md:py-8">
     <div>
       <h3 class="text-lg font-roboto uppercase mb-3"><?php echo __("Pacto", "theme-tailwind") ?></h3> 
-      <ul class="flex space-y-1 md:space-y-0 md:space-x-4">
+      <ul class="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-4">
       <?php foreach ($menu_principal as $key => $menu_item): ?>
         <li class="text-sm font-roboto uppercase">
           <a class="hover:underline" href="<?php echo $menu_item->url;?>">
@@ -38,8 +38,8 @@ $menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
       </ul>
     </div>
     <div>
-      <h3 class="text-lg font-roboto uppercase mb-3"><?php echo __("Apoio cliente", "theme-tailwind") ?></h3> 
-      <ul class="flex space-y-1 md:space-y-0 md:space-x-4">
+      <h3 class="text-lg font-roboto uppercase mt-6 md:mt-0 mb-3"><?php echo __("Apoio cliente", "theme-tailwind") ?></h3> 
+      <ul class="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-4">
       <?php foreach ($menu_secundario as $key => $menu_item): ?>
         <li class="text-sm font-roboto uppercase">
           <a class="hover:underline" href="<?php echo $menu_item->url;?>">
