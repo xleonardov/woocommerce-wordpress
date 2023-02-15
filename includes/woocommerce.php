@@ -54,17 +54,17 @@ function woocommerce_custom_scripts()
   //first check that woo exists to prevent fatal errors
   if (function_exists('is_woocommerce')) {
 
-    if (is_woocommerce() || is_cart() || is_checkout()) {
-      wp_register_script('pacto-wc-functions', get_template_directory_uri() . '/assets/js/woocommerce.js', array('wp-element'), '1.0', true);
-      wp_localize_script(
-        'pacto-wc-functions',
-        'woocommerce_scritps_helper',
-        array(
-          'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php',
-        )
-      );
-      wp_enqueue_script('pacto-wc-functions');
-    }
+    // if (is_woocommerce() || is_cart() || is_checkout()) {
+    wp_register_script('pacto-wc-functions', get_template_directory_uri() . '/assets/js/woocommerce.js', array('wp-element', 'jquery'), '1.0', true);
+    wp_localize_script(
+      'pacto-wc-functions',
+      'woocommerce_scritps_helper',
+      array(
+        'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php',
+      )
+    );
+    wp_enqueue_script('pacto-wc-functions');
+    // }
     //dequeue scripts and styles
     if (!is_woocommerce() && !is_cart() && !is_checkout()) {
       wp_dequeue_style('woocommerce_frontend_styles');
@@ -410,10 +410,13 @@ add_action(
           $new_args = array();
           $new_args['tax_query'] = array("relation" => "AND");
           foreach ($arguments as $key => $argument) {
-            if ($key === 'orderby' || $key === 'paged') {
+            if ($key === 'paged') {
               continue;
             }
-            if ($key === 'page') {
+            if ($key === 'orderby') {
+              $query->set('orderby', 'date');
+              $query->set('order', 'DESC');
+            } else if ($key === 'page') {
               $argument_string = sanitize_text_field($argument);
               $attrs = explode("_", $argument_string);
               $query->query_vars['posts_per_page'] = (intval($attrs[0]) * PERPAGE);
@@ -534,7 +537,7 @@ function woocommerce_ajax_filter_products()
       switch ($argument[0]) {
         case "date":
           $args['orderby'] = 'date';
-          $args['order'] = 'ASC';
+          $args['order'] = 'DESC';
           break;
         case "price":
           $args['meta_key'] = '_price';
@@ -978,7 +981,7 @@ function checkout_fields($fields)
       } else {
         $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10';
       }
-      $field['label_class'][] = 'uppercase text-xs font-semibold tracking-wide';
+      $field['label_class'][] = 'text-xs font-semibold tracking-wide';
     }
   }
   return $fields;
@@ -1133,3 +1136,5 @@ function get_variable_sale_percentage($product)
   }
 }
 add_filter('get_variable_sale_percentage', 'get_variable_sale_percentage');
+
+remove_action('woocommerce_cart_collaterals', 'woocommerce_cross_sell_display');

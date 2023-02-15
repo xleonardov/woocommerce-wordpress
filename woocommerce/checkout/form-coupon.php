@@ -35,7 +35,7 @@ if (!wc_coupons_enabled()) { // @codingStandardsIgnoreLine.
 		<div class="flex mt-4 space-x-4">
 			<p class="form-row form-row-first">
 				<input type="text" name="coupon_code"
-					class="input-text w-full lg:w-44 px-4 py-2 h-10  uppercase tracking-wide border text-xs rounded-none"
+					class="input-text w-full lg:w-44 px-4 py-2 h-10  tracking-wide border text-xs rounded-none"
 					placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" id="coupon_code" value="" />
 			</p>
 

@@ -1,6 +1,10 @@
 <?php
 function theme_load_assets()
 {
+    if (is_page('personalizar')) {
+        wp_enqueue_script('app-personalizados', get_stylesheet_directory_uri() . '/assets/personalizados/js/main.276b05ae.js', array(), null, true);
+        wp_enqueue_style('style-personalizados', get_stylesheet_directory_uri() . '/assets/personalizados/css/main.fb2facf8.css', array(), null, '');
+    }
     wp_enqueue_style('swiper_css', get_theme_file_uri('/assets/css/swiper-bundle.min.css'));
     wp_enqueue_style('thememaincss', get_theme_file_uri('/build/index.css'));
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=EB+Garamond&family=Roboto+Condensed:wght@300;400;700&display=swap', false);

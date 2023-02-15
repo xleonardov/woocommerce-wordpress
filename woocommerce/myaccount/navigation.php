@@ -20,14 +20,28 @@ if (!defined('ABSPATH')) {
 }
 
 do_action('woocommerce_before_account_navigation');
+
+
+$labelsArr = array(
+	'dashboard' => 'Dashboard',
+	'orders' => 'Encomendas',
+	'downloads' => 'Donwloads',
+	'edit-address' => 'Editar Endereços',
+	'edit-account' => 'Editar Conta',
+	'customer-logout' => 'Terminar Sessão',
+);
+
+
+
 ?>
 
 <nav class="woocommerce-MyAccount-navigation font-roboto">
 	<ul class="flex flex-col space-y-4">
-		<?php foreach (wc_get_account_menu_items() as $endpoint => $label): ?>
+		<?php foreach (wc_get_account_menu_items() as $endpoint => $label):
+			?>
 			<li class="uppercase text-xl font-normal <?php echo wc_get_account_menu_item_classes($endpoint); ?>">
 				<a class="hover:text-secondary transition-all duration-200"
-					href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
+					href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($labelsArr[$endpoint]); ?></a>
 			</li>
 		<?php endforeach; ?>
 	</ul>

@@ -15,94 +15,103 @@
  * @version 4.6.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 global $wp;
-$request = explode( '/', $wp->request );
+$request = explode('/', $wp->request);
 
-$order = wc_get_order( $order_id ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$order = wc_get_order($order_id); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
-if ( ! $order ) {
+if (!$order) {
 	return;
 }
 
-$order_items           = $order->get_items( apply_filters( 'woocommerce_purchase_order_item_types', 'line_item' ) );
-$show_purchase_note    = $order->has_status( apply_filters( 'woocommerce_purchase_note_order_statuses', array( 'completed', 'processing' ) ) );
+$order_items = $order->get_items(apply_filters('woocommerce_purchase_order_item_types', 'line_item'));
+$show_purchase_note = $order->has_status(apply_filters('woocommerce_purchase_note_order_statuses', array('completed', 'processing')));
 $show_customer_details = is_user_logged_in() && $order->get_user_id() === get_current_user_id();
-$downloads             = $order->get_downloadable_items();
-$show_downloads        = $order->has_downloadable_item() && $order->is_download_permitted();
+$downloads = $order->get_downloadable_items();
+$show_downloads = $order->has_downloadable_item() && $order->is_download_permitted();
 
-if ( $show_downloads ) {
+if ($show_downloads) {
 	wc_get_template(
 		'order/order-downloads.php',
 		array(
-			'downloads'  => $downloads,
+			'downloads' => $downloads,
 			'show_title' => true,
 		)
 	);
 }
 ?>
 <section class="woocommerce-order-details">
-	<?php do_action( 'woocommerce_order_details_before_order_table', $order ); ?>
-	<h3 class="font-medium text-lg tracking-wide uppercase my-4">Resumo da encomenda</h3>
+	<?php do_action('woocommerce_order_details_before_order_table', $order); ?>
+	<h3 class="my-4 pb-1 text-xl font-medium flex items-center uppercase">Resumo da encomenda</h3>
 	<div class="">
 		<table class="woocommerce-table woocommerce-table--order-details shop_table order_details w-full ">
-	
+
 			<thead>
 				<tr>
-					<th class="woocommerce-table__product-name product-name text-left pb-4 py-1 uppercase text-xs font-semibold tracking-wide"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-					<th class="woocommerce-table__product-table product-total text-right pb-4"><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
+					<th
+						class="woocommerce-table__product-name product-name text-left pb-4 py-1 uppercase  font-semibold tracking-wide">
+						<?php esc_html_e('Product', 'woocommerce'); ?>
+					</th>
+					<th class="woocommerce-table__product-table product-total text-right pb-4 uppercase">
+						<?php esc_html_e('Total', 'woocommerce'); ?>
+					</th>
 				</tr>
 			</thead>
-	
+
 			<tbody>
 				<?php
-				do_action( 'woocommerce_order_details_before_order_table_items', $order );
-	
-				foreach ( $order_items as $item_id => $item ) {
+				do_action('woocommerce_order_details_before_order_table_items', $order);
+
+				foreach ($order_items as $item_id => $item) {
 					$product = $item->get_product();
-	
 					wc_get_template(
 						'order/order-details-item.php',
 						array(
-							'order'              => $order,
-							'item_id'            => $item_id,
-							'item'               => $item,
+							'order' => $order,
+							'item_id' => $item_id,
+							'item' => $item,
 							'show_purchase_note' => $show_purchase_note,
-							'purchase_note'      => $product ? $product->get_purchase_note() : '',
-							'product'            => $product,
+							'purchase_note' => $product ? $product->get_purchase_note() : '',
+							'product' => $product,
 						)
 					);
 				}
-	
-				do_action( 'woocommerce_order_details_after_order_table_items', $order );
+
+				do_action('woocommerce_order_details_after_order_table_items', $order);
 				?>
 			</tbody>
-	
+
 			<tfoot class="pb-4">
 				<?php
 				$i = 0;
-				foreach ( $order->get_order_item_totals() as $key => $total ) {
+				foreach ($order->get_order_item_totals() as $key => $total) {
 					?>
-						<tr>
-							<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide <?= $i === 0 ? 'pt-4':''?>" scope="row"><?php echo esc_html( $total['label'] ); ?></th>
-							<td class="text-right <?= $i === 0 ? 'pt-4':''?>"><?php echo ( 'payment_method' === $key ) ? esc_html( $total['value'] ) : wp_kses_post( $total['value'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
-						</tr>
-						<?php
-						$i++;
+					<tr>
+						<th class="text-left py-1 uppercase text-sm font-semibold tracking-wide <?= $i === 0 ? 'pt-4' : '' ?>"
+							scope="row"><?php echo esc_html($total['label']); ?></th>
+						<td class="text-right <?= $i === 0 ? 'pt-4' : '' ?>"><?php echo ('payment_method' === $key) ? esc_html($total['value']) : wp_kses_post($total['value']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+					</tr>
+					<?php
+					$i++;
 				}
 				?>
-				<?php if ( $order->get_customer_note() ) : ?>
+				<?php if ($order->get_customer_note()): ?>
 					<tr>
-						<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide"><?php esc_html_e( 'Note:', 'woocommerce' ); ?></th>
-						<td class="text-right"><?php echo wp_kses_post( nl2br( wptexturize( $order->get_customer_note() ) ) ); ?></td>
+						<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide">
+							<?php esc_html_e('Note:', 'woocommerce'); ?>
+						</th>
+						<td class="text-right">
+							<?php echo wp_kses_post(nl2br(wptexturize($order->get_customer_note()))); ?>
+						</td>
 					</tr>
 				<?php endif; ?>
 			</tfoot>
 		</table>
 	</div>
-	
-	<?php do_action( 'woocommerce_order_details_after_order_table', $order ); ?>
+
+	<?php do_action('woocommerce_order_details_after_order_table', $order); ?>
 </section>
 
 <?php
@@ -112,9 +121,9 @@ if ( $show_downloads ) {
  * @since 4.4.0
  * @param WC_Order $order Order data.
  */
-do_action( 'woocommerce_after_order_details', $order );
-if( ! ( end($request) == 'my-account' && is_account_page() ) ){ 
-	if ( $show_customer_details ) {
-		wc_get_template( 'order/order-details-customer.php', array( 'order' => $order ) );
+do_action('woocommerce_after_order_details', $order);
+if (!(end($request) == 'my-account' && is_account_page())) {
+	if ($show_customer_details) {
+		wc_get_template('order/order-details-customer.php', array('order' => $order));
 	}
 }

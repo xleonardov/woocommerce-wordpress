@@ -163,42 +163,6 @@ function uploadImage($link, $name)
     }
 }
 
-// function uploadImage($link, $name)
-// {
-//     $name = str_replace(' ', '-', $name);
-//     $name = strtolower(preg_replace('/[^A-Za-z0-9\-]/', '', $name));
-//     $tmp = explode('/', getimagesize($link)['mime']);
-//     $imagetype = end($tmp);
-//     $filename = $name . '.' . $imagetype;
-//
-//     $uploaddir = wp_upload_dir();
-//     $uploadfile = $uploaddir['path'] . '/' . $filename;
-//     $contents = file_get_contents($link);
-//     if ($contents) {
-//         $savefile = fopen($uploadfile, 'w');
-//         fwrite($savefile, $contents);
-//         fclose($savefile);
-//
-//         $wp_filetype = wp_check_filetype(basename($filename), null);
-//         $attachment = array(
-//         'post_mime_type' => $wp_filetype['type'],
-//         'post_title' => $filename,
-//         'post_content' => '',
-//         'post_status' => 'inherit'
-//         );
-//
-//         $attach_id = wp_insert_attachment($attachment, $uploadfile);
-//         $imagenew = get_post($attach_id);
-//         $fullsizepath = get_attached_file($imagenew->ID);
-//         $attach_data = wp_generate_attachment_metadata($attach_id, $fullsizepath);
-//         wp_update_attachment_metadata($attach_id, $attach_data);
-//
-//         return $attach_id;
-//     } else {
-//         return null;
-//     }
-// }
-
 function backdot_migrate_rest($request)
 {
     global $wpdb;
@@ -586,8 +550,355 @@ function set_upsells_and_cross_sells($response)
     return rest_ensure_response($response);
 }
 
-// add_action('backdot_products_sync', 'backdot_migrate');
+function getRequestHeaders()
+{
+    $headers = array();
+    foreach ($_SERVER as $key => $value) {
+        if (substr($key, 0, 5) <> 'HTTP_') {
+            continue;
+        }
+        $header = str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))));
+        $headers[$header] = $value;
+    }
+    return $headers;
+}
 
-// wp_schedule_single_event(time() + 60, 'backdot_products_sync');
+add_action('rest_api_init', 'email_route');
+function email_route()
+{
+    register_rest_route(
+        'personalizados',
+        'send-email',
+        array(
+            'methods' => 'POST',
+            'callback' => 'sendEmailPersonalizados'
+        )
+    );
+}
+
+function sendEmailPersonalizados($request)
+{
+    $accessToken = 'Bearer webaniceday';
+    $auth = getRequestHeaders();
+    if ($auth['Authorization']) {
+        if ($auth['Authorization'] == $accessToken) {
+            $data = $request->get_params();
+            $headers = array('Content-Type: text/html; charset=UTF-8');
+            $body = '<head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+              </head>
+              
+              <!--[if mso]>
+              <style type=”text/css”>
+              .body-text {
+              font-family: Arial, sans-serif;
+              }
+              </style>
+              <![endif]-->
+              
+              
+                <div style="direction: ltr">
+                  <div style="direction: ltr">
+                    <div style="direction: ltr; margin: 0px auto; max-width: 640px; width: 100%;">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
+                        style="direction: ltr; width: 100%" width="100%">
+                        <tbody style="direction: ltr">
+                          <tr style="direction: ltr">
+                            <td style="direction: ltr; font-size: 0px; padding: 0 4%; text-align: center; vertical-align: top;"
+                              align="center" valign="top">
+                              <div
+                                style="font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;width: 100%;">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"
+                                  style="direction: ltr; max-width: 640px;">
+                                  <tbody style="direction: ltr">
+                                    <tr style="direction: ltr">
+                                      <td style="direction: ltr; vertical-align: top; padding: 0" valign="top">
+                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
+                                          style="direction: ltr; max-width: 640px;" width="100%">
+                                          <tbody>
+                                            <tr style="direction: ltr">
+                                              <td align="center" style="padding-top: 20px; padding-bottom: 0px;">
+                                                <div style="text-align:right; width: 32px; height: 59px;">
+                                                  <img height="auto"
+                                                    src="https://i.imgur.com/Xr8r4Yq.png"
+                                                    style="direction: ltr; border: 0; display: block; outline: none; text-decoration: none; height: auto; width: 100%;"
+                                                    width="100" class="CToWUd" />
+                                                </div>
+                                              </td>
+                                            </tr>
+                                            <tr style="direction: ltr">
+                                              <td align="center" style="
+                                                direction: ltr;
+                                                font-size: 0px;
+                                                padding: 0;
+                                                padding-top: 0px;
+                                                padding-bottom: 0px;
+                                                word-break: break-word;
+                                                padding-left: 0px;
+                                                padding-right: 0px;
+                                              ">
+                                                <div style="
+                                                  width: 100%;
+                                                  direction: ltr;
+                                                  border-collapse: collapse;
+                                                  border-spacing: 0px;
+                                                  padding-left: 0px;
+                                                  padding-right: 0px;
+                                                ">
+                                                  <div style="
+                                                    width: 100%;
+                                                    direction: ltr;
+                                                    border-collapse: collapse;
+                                                    border-spacing: 0px;
+                                                    padding-left: 0px;
+                                                    padding-top: 0px;
+                                                    padding-bottom: 26px;
+                                                    padding-right: 0px;
+                                                    border-radius: 4px;
+                                                  ">
+                                                    <table align="start" border="0" cellpadding="0" cellspacing="0"
+                                                      role="presentation" style="
+                                                      direction: ltr;
+                                                      border-collapse: collapse;
+                                                      border-spacing: 0px;
+                                                    ">
+                                                      <tbody style="direction: ltr">
+                                                        <tr style="direction: ltr">
+                                                          <td style="direction: ltr">
+                                                            <div style="
+                                                              direction: ltr;
+                                                              font-weight: 500;
+                                                              font-family: \'Inter\', Arial,
+                                                                sans-serif;
+                                                              text-align: start;
+                                                              color: #333333;
+                                                              font-size: 18px;
+                                                              font-weight: 500;
+                                                              line-height: 20px;
+                                                              margin-top: 0px;
+                                                              padding-bottom: 16px;
+                                                              text-align: center;
+                                                            ">
+                                                              Novo pedido de personalização.
+                                                            </div>
+                                                          </td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                  </div>
+                                                </div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td style="padding-top: 26px;padding-bottom: 42px;">
+                                              <div
+                                              style="direction: ltr; font-weight: 400; font-family: \'Inter\', Arial, sans-serif; text-align: left; color: #000; font-size: 10px; line-height: 12px; margin-top: 0px;">
+                                              Nome:
+                                            </div>
+                                            <div
+                                              style="direction: ltr; font-weight: 400;font-family: \'Inter\', Arial, sans-serif;text-align: left;color: #111827;font-size: 16px;line-height: 28px;margin-top: 0px; padding-bottom:8px">
+                                              ' . $data['nome'] . '
+                                            </div>
+              
+                                            <div
+                                              style="direction: ltr; font-weight: 400; font-family: \'Inter\', Arial, sans-serif; text-align: left; color: #000; font-size: 10px; line-height: 12px; margin-top: 0px;">
+                                              Email:
+                                            </div>
+                                            <div
+                                              style="direction: ltr; font-weight: 400;font-family: \'Inter\', Arial, sans-serif;text-align: left;color: #111827;font-size: 16px;line-height: 28px;margin-top: 0px; padding-bottom:8px">
+                                              ' . $data['email'] . '
+                                            </div>';
+            if ($data['observacoes']) {
+                $body .= ' <div
+                                                style="direction: ltr; font-weight: 400; font-family: \'Inter\', Arial, sans-serif; text-align: left; color: #000; font-size: 10px; line-height: 12px; margin-top: 0px;">
+                                                Observações:
+                                              </div>
+                                              <div
+                                                style="direction: ltr; font-weight: 400;font-family: \'Inter\', Arial, sans-serif;text-align: left;color: #111827;font-size: 16px;line-height: 28px;margin-top: 0px; padding-bottom:8px">
+                                                ' . $data['observacoes'] . '
+                                              </div>';
+            }
+
+            $body .= '
+                                              <div
+                                              style="direction: ltr; font-weight: 400; font-family: \'Inter\', Arial, sans-serif; text-align: left; color: #000; font-size: 12px; line-height: 12px; margin-top: 0px;">
+                                              Artigos:
+                                            </div>
+                                            
+                                            <table style="border-collapse: separate; border-spacing: 0px 8px; padding-top:16px; overflow:auto;direction: ltr; max-width: 640px;" width="100%">
+                                            <thead>
+                                            <tr>
+                                              <th style="text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 400; padding-left:8px; padding-right: 8px; font-size: 12px;">
+                                                Modalidade
+                                              </th>
+                                              <th style="text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 400; padding-left:8px; padding-right: 8px; font-size: 12px;">
+                                                Categoria
+                                              </th>
+                                              <th style="text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 400; padding-left:8px; padding-right: 8px; font-size: 12px;">
+                                                Género
+                                              </th>
+                                              <th style="text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 400; padding-left:8px; padding-right: 8px; font-size: 12px;">
+                                                Produto
+                                              </th>
+                                              <th style="text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 400; padding-left:8px; padding-right: 8px; font-size: 12px;">
+                                                Quantidade
+                                              </th>
+                                            </tr>
+                                            </thead>
+          <tbody>';
+            foreach ($data['items'] as $key => $item) {
+                $body .= '
+                        <tr>
+                        <td style="background-color:#000; text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 400; padding:8px; font-size: 12px; color:#fff; border: 1px solid #000;  ">';
+                if ($item['modalidade']) {
+                    $body .= $item['modalidade']['nome'];
+                } else {
+                    $body .= '-';
+                }
+                $body .= '
+                        </td>
+
+                        <td style=" text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 700; padding:8px; font-size: 12px; color:#000; border-top: 1px solid #BFBFBF;  border-bottom: 1px solid #BFBFBF;">
+                        ';
+                if ($item['gama']) {
+                    $body .= $item['gama']['nome'];
+                } else {
+                    $body .= '-';
+                }
+                $body .= '
+                        </td>
+
+                        <td style=" text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 400; padding:8px; font-size: 12px; color:#000; border-top: 1px solid #BFBFBF;  border-bottom: 1px solid #BFBFBF;  ">
+                        ';
+
+                if ($item['tipo']) {
+                    $body .= $item['tipo'];
+                } else {
+                    $body .= '-';
+                }
+
+                $body .= '
+                        </td>
+
+                        <td style=" text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 400; padding:8px; font-size: 12px; color:#000; border-top: 1px solid #BFBFBF;  border-bottom: 1px solid #BFBFBF;  ">
+                        ';
+                if ($item['produto']) {
+                    $body .= $item['produto']['nome'];
+                } else {
+                    $body .= '-';
+                }
+                $body .= '
+                        </td>
+
+                        <td style=" text-align:left; font-family: \'Inter\', Arial, sans-serif; font-weight: 400; padding:8px; font-size: 12px; color:#000; border-top: 1px solid #BFBFBF;  border-bottom: 1px solid #BFBFBF; border-right: 1px solid #BFBFBF;  ">
+                        ';
+                if ($item['produto']) {
+                    $body .= $item['produto']['quantidade'];
+                } else {
+                    $body .= '-';
+                }
+
+
+                $body .= '
+                        </td>
+                        </tr>
+                        ';
+            }
+
+            $body .= '</tbody>
+          </table>
+
+          </td>
+        </tr>
+
+        <tr style="direction: ltr">
+          <td align="center" style="
+            direction: ltr;
+            font-size: 0px;
+            padding: 0;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            word-break: break-word;
+          ">
+            <div>
+              <a href="https://pacto.cc" target="_blank" style="text-decoration: none">
+                <div style="text-align:right; width: 96px; height: 15px;">
+                <img height="auto"
+                  src="https://i.imgur.com/D4FXC5T.png"
+                  style="direction: ltr; border: 0; display: block; outline: none; text-decoration: none; height: auto; width: 100%;"
+                  width="100" class="CToWUd" />
+                </div>
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr style="direction: ltr">
+          <td align="center" style="padding-top: 20px; padding-bottom: 20px;">
+            <div style="
+            direction: ltr;
+            font-weight: 400;
+            font-family: \'Inter\', Arial,
+              sans-serif;
+            text-align: center;
+            color: #333333;
+            font-size: 8px;
+            line-height: 12px;
+            margin-top: 20px;
+            padding-top: 24px;
+          ">
+              Developed by <a href="https://willbe.co"
+                style="text-decoration: underline; color: #333333;">Willbe
+                Collective</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>';
+
+            wp_mail('carvalho@willbecollective.pt', 'Pacto.cc - Produtos Personalizados - ' . $data['nome'], $body, $headers);
+
+            $response = new WP_REST_Response('Email enviado 👍');
+            $response->set_status(200);
+        } else {
+            $response = new WP_REST_Response('Forbiden');
+            $response->set_status(403);
+        }
+    } else {
+        $response = new WP_REST_Response('No token provided');
+        $response->set_status(403);
+    }
+    return rest_ensure_response($response);
+}
+
+function register_personalizados()
+{
+    wp_register_script('app-personalizados', get_stylesheet_directory_uri() . '/assets/personalizados/js/main.276b05ae.js', array(), null, true);
+    wp_register_style('style-personalizados', get_stylesheet_directory_uri() . '/assets/personalizados/css/main.fb2facf8.css', array(), null, '');
+}
+
+add_action('wp_enqueue_scripts', 'register_personalizados');
+
+function willbe_price_personalizados_shortcode()
+{
+    $body = '<noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>';
+    return $body;
+}
+
+add_shortcode('personalizados', 'willbe_price_personalizados_shortcode');
+
 
 add_filter('wc_product_has_unique_sku', '__return_false', PHP_INT_MAX);

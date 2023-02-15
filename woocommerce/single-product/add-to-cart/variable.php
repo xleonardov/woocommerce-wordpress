@@ -33,18 +33,31 @@ if ($product->is_type('simple')) { //if simple product
                     $tempArray = [];
                     foreach ($available_variations as $variation) {
                         foreach ($variation['attributes'] as $key => $attribute) {
-                            $variation_obj = new WC_Product_variation($variation['variation_id']);
-                            array_push($tempArray, array('name' => $attribute, 'stock' => $variation_obj->get_stock_quantity(), 'id' => $variation_obj->get_id()));
+                            $terms = get_terms(array('taxonomy' => str_replace('attribute_', '', $key), 'hide_empty' => false));
+                            $attribute_terms[$key] = $terms;
                         }
                     }
+                    foreach ($available_variations as $variation) {
+                        foreach ($variation['attributes'] as $key => $attribute) {
+                            $found_key = array_search($attribute, array_column($attribute_terms[$key], 'slug'));
+                            $variation_obj = new WC_Product_variation($variation['variation_id']);
+                            $vo = new stdClass();
+                            $vo->id = $variation_obj->get_id();
+                            $vo->name = $attribute_terms[$key][$found_key]->name;
+                            $vo->stock = $variation_obj->get_stock_quantity();
+                            $vo->order = $found_key;
+                            array_push($tempArray, $vo);
+                        }
+                    }
+                    usort($tempArray, fn($a, $b) => strcmp($a->order, $b->order));
                     ?>
                     <div class="flex gap-1 items-center justify-center flex-wrap relative">
                         <?php foreach ($tempArray as $variation) { ?>
                             <button
-                                class="tamanho_option  <?= $variation['stock'] <= 0 ? 'btn-quad-disabled' : 'btn-quad' ?> "
-                                data-value="<?= $variation['id'] ?>" data-name="<?= $variation['name'] ?>"
-                                data-stock="<?= $variation['stock'] ?>">
-                                <?= $variation['name'] ?></button>
+                                class="tamanho_option  <?= $variation->stock <= 0 ? 'btn-quad-disabled' : 'btn-quad' ?> "
+                                data-value="<?= $variation->id ?>" data-name="<?= $variation->name ?>"
+                                data-stock="<?= $variation->stock ?>">
+                                <?= $variation->name ?></button>
                         <?php } ?>
                     </div>
                 </div>
@@ -63,9 +76,10 @@ if ($product->is_type('simple')) { //if simple product
                         <?php echo $product->get_price_html(); ?>
                     </div>
                     <?php if ($percentage && $percentage > 0) { ?>
-                        <div>
+                        <div class="ml-2">
                             <span class="bg-amarelo text-white rounded-sm text-sm px-1 py-px sm:px-2 sm:py-1 font-roboto">
-                                <?= $percentage ?> %
+                                -
+                                <?= $percentage ?>%
                             </span>
                         </div>
                     <?php } ?>

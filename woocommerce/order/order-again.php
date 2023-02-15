@@ -15,9 +15,9 @@
  * @version 3.5.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 
-<p class="order-again">
-	<a href="<?php echo esc_url( $order_again_url ); ?>" class="button"><?php esc_html_e( 'Order again', 'woocommerce' ); ?></a>
+<p class="order-again pt-4">
+	<a href="<?php echo esc_url($order_again_url); ?>" class="underline text-sm hover:text-secondary duration-200"><?php esc_html_e('Order again', 'woocommerce'); ?></a>
 </p>

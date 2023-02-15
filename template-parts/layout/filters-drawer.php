@@ -11,7 +11,7 @@ $gamas = get_terms(
 
 ?>
 <div class="filters-drawer invisible w-full h-screen fixed top-0 z-40 left-0">
-  <div class="overlay bg-black bg-opacity-30 w-full h-screen absolute top-0 z-30 opacity-0 transition-all duration-200">
+  <div class="overlay bg-[#0000004d] w-full h-screen absolute top-0 z-30 opacity-0 transition-all duration-200">
   </div>
   <div
     class="filters-drawer-container bg-white w-full max-w-md h-full absolute right-0 z-40  translate-x-[100%] transition-all duration-200 flex flex-col"
@@ -117,11 +117,10 @@ $gamas = get_terms(
             <div class="grid grid-cols-2 gap-1">
               <?php foreach ($gamas as $gama) { ?>
                 <div class="flex items-center space-x-2">
-                  <input type="radio" id="<?= $gama->term_id ?>" class="w-4 h-4 f-radio" name="gamas"
+                  <input type="radio" class="w-4 h-4 f-radio" id="gamas<?='_' . $gama->slug ?>" name="gamas"
                     value="<?= $gama->slug ?>" <?= isset($_GET['gamas']) && $_GET['gamas'] === $gama->slug ? 'checked' : '' ?>>
                   <label for="<?= $gama->term_id ?>" class="uppercase"> <?= $gama->name ?></label>
                 </div>
-
               <?php } ?>
             </div>
           </div>

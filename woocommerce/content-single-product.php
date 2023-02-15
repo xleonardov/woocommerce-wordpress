@@ -166,7 +166,7 @@ if (count($colors) > 0) {
             <?= $icons->get_icon('AiFillGift') ?>
           </span>
           <span class="text-sm">
-            Envio grátis em compras superiores a 50€
+            Envio grátis em compras superiores a 60€
           </span>
         </li>
         <li class="flex items-center space-x-2">

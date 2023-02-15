@@ -24,34 +24,28 @@ $id = $product->get_id();
 
 if ($product->get_type() == 'variable') {
 
+    $attribute_terms = array();
     $tempArray = [];
     $available_variations = $product->get_available_variations();
+
     foreach ($available_variations as $variation) {
         foreach ($variation['attributes'] as $key => $attribute) {
-            $variation_obj = new WC_Product_variation($variation['variation_id']);
-            array_push($tempArray, array('name' => $attribute, 'stock' => $variation_obj->get_stock_quantity()));
+            $terms = get_terms(array('taxonomy' => str_replace('attribute_', '', $key), 'hide_empty' => false));
+            $attribute_terms[$key] = $terms;
         }
     }
-
-    $sizes = array(
-        0 => "XXS",
-        1 => "XS",
-        2 => "S",
-        3 => "M",
-        4 => "L",
-        5 => "XL",
-        6 => "XXL",
-        7 => "3XL",
-        8 => "4XL",
-        9 => "5XL"
-    );
-
-    $new_arr = array();
-
-    foreach ($sizes as $size) {
-        $key = array_search(strtolower($size), array_column($tempArray, 'name'));
-        array_push($new_arr, $tempArray[$key]);
+    foreach ($available_variations as $variation) {
+        foreach ($variation['attributes'] as $key => $attribute) {
+            $found_key = array_search($attribute, array_column($attribute_terms[$key], 'slug'));
+            $variation_obj = new WC_Product_variation($variation['variation_id']);
+            $vo = new stdClass();
+            $vo->name = $attribute_terms[$key][$found_key]->name;
+            $vo->stock = $variation_obj->get_stock_quantity();
+            $vo->order = $found_key;
+            array_push($tempArray, $vo);
+        }
     }
+    usort($tempArray, fn($a, $b) => strcmp($a->order, $b->order));
 }
 // Ensure visibility.
 if (empty($product) || !$product->is_visible()) {
@@ -102,8 +96,8 @@ $gallery = $product->get_gallery_image_ids();
                 class="absolute w-full bg-white bg-opacity-50 left-0 py-2 justify-center item-center gap-2 -top-3 -translate-y-full hidden lg:flex">
                 <?php foreach ($tempArray as $variation) { ?>
                     <div
-                        class="text-xs xl:text-sm uppercase font-roboto <?php echo $variation['stock'] === 0 ? 'text-gray-400 line-through' : '' ?>">
-                        <?php echo $variation['name'] ?>
+                        class="text-xs xl:text-sm uppercase font-roboto <?php echo $variation->stock === 0 ? 'text-gray-400 line-through' : '' ?>">
+                        <?php echo $variation->name ?>
                     </div>
                 <?php } ?>
             </div>

@@ -38,11 +38,11 @@ do_action('woocommerce_before_edit_account_address_form'); ?>
 			<div class="woocommerce-address-fields__field-wrapper grid grid-cols-1 lg:grid-cols-2 gap-4">
 				<?php
 				foreach ($address as $key => $field) {
-					$field['label_class'][] = 'uppercase text-xs font-semibold tracking-wide';
+					$field['label_class'][] = 'text-xs font-semibold tracking-wide';
 					if (isset($field['autocomplete']) && $field['autocomplete'] === "address-line2") {
-						$field['input_class'][] = 'w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10 mt-4 lg:mt-6 ';
+						$field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10 mt-4 lg:mt-6 ';
 					} else {
-						$field['input_class'][] = 'w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10';
+						$field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10';
 					}
 					woocommerce_form_field($key, $field, wc_get_post_data_by_key($key, $field['value']));
 				}
@@ -53,8 +53,8 @@ do_action('woocommerce_before_edit_account_address_form'); ?>
 
 			<div class="flex justify-end my-4">
 				<div>
-					<button type="submit" class="button flex items-center justify-center btn btn-primary flex justify-center"
-						name="save_address" value="<?php esc_attr_e('Save address', 'woocommerce'); ?>"><?php esc_html_e('Save address', 'woocommerce'); ?></button>
+					<button type="submit" class="button btn btn-primary flex justify-center" name="save_address"
+						value="<?php esc_attr_e('Save address', 'woocommerce'); ?>"><?php esc_html_e('Save address', 'woocommerce'); ?></button>
 				</div>
 				<?php wp_nonce_field('woocommerce-edit_address', 'woocommerce-edit-address-nonce'); ?>
 				<input type="hidden" name="action" value="edit_address" />

@@ -38,7 +38,8 @@ if ($product->is_type('simple')) { //if simple product
 		<?php if ($percentage && $percentage > 0) { ?>
 			<div>
 				<span class="bg-amarelo text-white rounded-sm text-sm px-1 py-px sm:px-2 sm:py-1 font-roboto">
-					<?= $percentage ?> %
+					-
+					<?= $percentage ?>%
 				</span>
 			</div>
 		<?php } ?>
