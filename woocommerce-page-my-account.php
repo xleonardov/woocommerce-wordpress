@@ -1,4 +1,3 @@
-
 <?php
 // Template Name: Woocomerce Page My Account
 

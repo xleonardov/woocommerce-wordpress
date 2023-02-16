@@ -4,7 +4,7 @@
  *
  * @link https://woocommerce.com/
  *
- * @package bizclick
+ * @package pacto
  */
 define('PERPAGE', 16);
 /**
@@ -189,57 +189,54 @@ if (!function_exists('theme_woocommerce_floating_cart_fragment')) {
 add_filter('woocommerce_add_to_cart_fragments', 'theme_woocommerce_floating_cart_fragment');
 
 if (!function_exists('theme_woocommerce_floating_cart')) {
-  function theme_woocommerce_floating_cart()
-  {
-    global $woocommerce;
-    $icons = new Icons;
-    $cart = WC()->cart->get_cart();
-    ?>
+    function theme_woocommerce_floating_cart()
+    {
+        global $woocommerce;
+        $icons = new Icons;
+        $cart = WC()->cart->get_cart();
+        ?>
     <div class="cart-container grid grid-rows-[auto_160px] h-[calc(100vh_-_80px)]">
-      <?php if (count($cart) > 0) { ?>
-        <div class="bg-red-50 overflow-y-auto">
-          <?php foreach ($cart as $cart_item_key => $cart_item) {
-            $product = $cart_item['data'];
-            $product_id = $cart_item['product_id'];
-            $quantity = $cart_item['quantity'];
-            $subtotal = WC()->cart->get_product_subtotal($product, $cart_item['quantity']);
-            $post_thumbnail_id = get_post_thumbnail_id($product_id);
-            $product_thumbnail = wp_get_attachment_image_src($post_thumbnail_id, $size = 'shop-feature');
-            $product_thumbnail_alt = get_post_meta($post_thumbnail_id, '_wp_attachment_image_alt', true);
-            $pn = get_field('pn', $product_id);
-            ?>
-            <div class="cart-product grid grid-cols-[124px_auto] border-b-[1px] gap-4 py-4">
+        <?php if (count($cart) > 0) { ?>
+        <div class="overflow-y-auto">
+            <?php foreach ($cart as $cart_item_key => $cart_item) {
+                $product = $cart_item['data'];
+                $product_id = $cart_item['product_id'];
+                $quantity = $cart_item['quantity'];
+                $subtotal = WC()->cart->get_product_subtotal($product, $cart_item['quantity']);
+                $post_thumbnail_id = get_post_thumbnail_id($product_id);
+                $product_thumbnail = wp_get_attachment_image_src($post_thumbnail_id, $size = 'shop-feature');
+                $product_thumbnail_alt = get_post_meta($post_thumbnail_id, '_wp_attachment_image_alt', true);
+                $pn = get_field('pn', $product_id);
+                ?>
+            <div class="cart-product grid grid-cols-[auto_124px_1fr] border-b-[1px] py-4">
+              <div class="flex items-center justify-center flex-none">
+                <button class="remove_item_from_cart cursor-pointer w-4 h-4" data-product_id="<?php echo $cart_item_key;
+                ?>">
+                  <?php echo $icons->get_icon('GrClose'); ?></button>
+              </div>
               <div class="cart-product-image w-[124px]">
                 <img src="<?php echo $product_thumbnail[0]; ?>" alt="<?php echo $product_thumbnail_alt; ?>">
               </div>
-              <div class="cart-product-info grid grid-cols-[auto_24px]">
-                <div>
-                  <div class="cart-product-info-name text-sm">
-                    <a href="<?php echo get_permalink($product_id) ?>"
-                      class="name font-medium hover:text-secondary transition-all"><?php echo $product->get_name(); ?></a>
-                    <div class="pn text-xs">
-                      <?php echo $pn ?>
-                    </div>
-                    <div class="quantity"><label>Qtd: </label>
-                      <?php echo $quantity ?>
-                    </div>
+              <div class="cart-product-info flex flex-col justify-between">
+                <div class="cart-product-info-name text-sm mt-8">
+                  <a href="<?php echo get_permalink($product_id) ?>"
+                    class="name font-roboto"><?php echo $product->get_name(); ?></a>
+                </div>
+                <div class="flex items-center gap-3 mb-8">
+                  <div class="quantity"><label>x</label>
+                    <?php echo $quantity ?>
                   </div>
-                  <div class="price text-xl font-bold text-secondary">
+                  <div class="price text-lg font-roboto font-bold">
                     <?php echo $subtotal ?>
                   </div>
                 </div>
-                <div class="flex justify-end">
-                  <div class="remove_item_from_cart cursor-pointer w-4 h-4" data-product_id="<?php echo $cart_item_key;
-                  ?>">
-                    <?php echo $icons->get_icon('GrClose'); ?></div>
-                </div>
               </div>
             </div>
-          <?php
-          }
-          ?>
+                <?php
+            }
+            ?>
         </div>
-        <div class="bg-green-100">
+        <div class="">
           <h4 class="font-roboto">TOTAL(
             <?php echo $woocommerce->cart->cart_contents_count ?> item
             <?php echo $woocommerce->cart->cart_contents_count > 1 ? 's' : '' ?>)
@@ -249,21 +246,21 @@ if (!function_exists('theme_woocommerce_floating_cart')) {
           </h4>
           <div class="text-sm font-roboto">Custo de portes + Taxas calculadas no checkout</div>
           <div class="grid grid-cols-2 gap-4 w-full bg-white py-4 lg:py-8  ">
-            <a href="<?php echo wc_get_cart_url() ?>" class="btn btn-outline flex justify-center"><?=
+            <a href="<?php echo wc_get_cart_url() ?>" class="btn btn-outline flex justify-center"><?php echo
                  _e("Ver carrinho", "wlb_theme") ?></a>
-            <a href="<?php echo wc_get_checkout_url() ?>" class="btn btn-primary flex justify-center"><?=
+            <a href="<?php echo wc_get_checkout_url() ?>" class="btn btn-primary flex justify-center"><?php echo
                  _e("Finalizar compra", "wlb_theme") ?></a>
           </div>
         </div>
-      <?php } else { ?>
+        <?php } else { ?>
         <p class="tracking-wide p-4 lg:p-8">
-          <?= _e("Ainda não tem produtos no carrinho.", "wlb_theme") ?>
+            <?php echo _e("Ainda não tem produtos no carrinho.", "wlb_theme") ?>
         </p>
-      <?php } ?>
+        <?php } ?>
     </div>
 
-  <?php
-  }
+        <?php
+    }
 }
 
 add_filter('woocommerce_add_to_cart_fragments', 'theme_add_to_cart_fragment');

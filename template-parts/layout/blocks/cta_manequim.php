@@ -29,6 +29,9 @@ $produtos = get_sub_field("produtos");
       <ul class="flex justify-around flex-none">
       <?php foreach ($produtos as $key => $item): ?>
             <?php $produto = wc_get_product($item); ?>
+            <?php if($key !== 0) : ?>
+          <li class="mx-4 border-l border-gray-400 h-full"></li>
+            <?php endif; ?>
         <li>
           <button data-target="<?php echo 'cta_manequim_'.$produto->get_id();?>" class="btn-cta-manequim">
             <?php echo $produto->get_image()?> 

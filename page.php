@@ -49,6 +49,9 @@
             if (get_row_layout() == 'cta_manequim') :
                 get_template_part('template-parts/layout/blocks/cta_manequim', 'cta_manequim', array('index' => $index));
             endif;
+            if (get_row_layout() == 'produtos_em_destaque') :
+                get_template_part('template-parts/layout/blocks/produtos_em_destaque', 'produtos_em_destaque', array('index' => $index));
+            endif;
             $index++;
         endwhile;
     endif;

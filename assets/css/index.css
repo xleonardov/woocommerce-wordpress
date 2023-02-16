@@ -7,7 +7,39 @@
   @apply text-white bg-black border border-black;
   @apply hover:text-black hover:bg-white hover:border-black;
 }
-
+.pagina-simples h1,
+.pagina-simples h2,
+.pagina-simples h3,
+.pagina-simples h4,
+.pagina-simples h5,
+.pagina-simples h6 {
+  @apply font-roboto mb-6 mt-12;
+}
+.pagina-simples p,
+.pagina-simples li {
+  @apply font-garamond text-base md:text-lg;
+}
+.pagina-simples p {
+  @apply mb-3;
+}
+.pagina-simples ul {
+  @apply list-disc ml-4 mb-4;
+}
+.pagina-simples ol {
+  @apply list-decimal ml-4 mb-4;
+}
+.pagina-simples a {
+  @apply underline;
+}
+.pagina-simples h2 {
+  @apply text-xl md:text-2xl;
+}
+.pagina-simples h3 {
+  @apply text-2xl;
+}
+.pagina-simples h4 {
+  @apply text-xl;
+}
 ::-webkit-scrollbar {
   @apply w-1 h-1;
 }
@@ -20,7 +52,6 @@
 ::-webkit-scrollbar-track {
   @apply bg-transparent rounded-[30px] shadow-[inset_0px_0px_0px_0px_#000];
 }
-
 .img-fill {
   @apply object-cover object-center absolute inset-0 p-0 border-none m-auto block w-0 h-0 min-w-full max-w-full min-h-full max-h-full;
 }
