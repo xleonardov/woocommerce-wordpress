@@ -902,3 +902,40 @@ add_shortcode('personalizados', 'willbe_price_personalizados_shortcode');
 
 
 add_filter('wc_product_has_unique_sku', '__return_false', PHP_INT_MAX);
+
+add_action('wp_ajax_nopriv_subscribe_to_egoi_newsletter', 'subscribe_to_egoi_newsletter');
+add_action('wp_ajax_subscribe_to_egoi_newsletter', 'subscribe_to_egoi_newsletter');
+
+function subscribe_to_egoi_newsletter()
+{
+    $list_id = 1;
+    $api_key = "";
+
+    $data = json_decode(stripslashes($_POST['data']));
+    $data = json_encode($data);
+    $curl = curl_init();
+
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => "https://api.egoiapp.com/lists/" . $list_id . "/contacts",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => array(
+                "Apikey: " . $api_key,
+                "Content-Type: application/json"
+            ),
+        )
+    );
+    $response = curl_exec($curl);
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    echo $status;
+    die;
+}
