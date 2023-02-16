@@ -1,14 +1,24 @@
-<?php get_header(); ?>
+<?php
+// Template Name: Woocomerce Page My Account
+
+get_header(); ?>
 
 <div class="w-full">
-    <?php if (!is_front_page()) : ?>
-        <section class="px-4 md:px-6 font-roboto text-sm my-4 md:my-8">
-            <div class="border-t border-b border-gray-400 py-2">
-                <?php echo do_shortcode(' [wpseo_breadcrumb] '); ?>
-            </div>
-        </section>
-    <?php endif; ?>
-    <?php
+  <?php
+    /*
+    if (!is_front_page()) : ?>
+    <section class="px-4 md:px-6 font-roboto text-sm my-4 md:my-8">
+    <div class="border-t border-b border-gray-400 py-2">
+    <?php echo do_shortcode(' [wpseo_breadcrumb] '); ?>
+    </div>
+    </section>
+    <?php endif;  */?>
+  <section class="w-full px-4 md:px-6 mx-auto my-4 md:my-8">
+    <?php echo
+      the_content();
+    ?>
+  </section>
+  <?php
     $index = 0;
     if (have_rows('layout_de_pagina')) :
         while (have_rows('layout_de_pagina')):
@@ -37,24 +47,10 @@
             if (get_row_layout() == 'grid_texto_img_btn') :
                 get_template_part('template-parts/layout/blocks/grid_texto_img_btn', 'grid_texto_img_btn', array('index' => $index));
             endif;
-            if (get_row_layout() == 'grid_masonry') :
-                get_template_part('template-parts/layout/blocks/grid_masonry', 'grid_masonry', array('index' => $index));
-            endif;
-            if (get_row_layout() == 'acordeao') :
-                get_template_part('template-parts/layout/blocks/acordeao', 'acordeao', array('index' => $index));
-            endif;
-            if (get_row_layout() == 'listagem_de_tamanhos') :
-                get_template_part('template-parts/layout/blocks/listagem_de_tamanhos', 'listagem_de_tamanhos', array('index' => $index));
-            endif;
-            if (get_row_layout() == 'cta_manequim') :
-                get_template_part('template-parts/layout/blocks/cta_manequim', 'cta_manequim', array('index' => $index));
-            endif;
-            if (get_row_layout() == 'produtos_em_destaque') :
-                get_template_part('template-parts/layout/blocks/produtos_em_destaque', 'produtos_em_destaque', array('index' => $index));
-            endif;
             $index++;
         endwhile;
     endif;
+
     ?>
 </div>
 <?php get_footer(); ?>
