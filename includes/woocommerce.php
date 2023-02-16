@@ -1135,3 +1135,38 @@ function get_variable_sale_percentage($product)
 add_filter('get_variable_sale_percentage', 'get_variable_sale_percentage');
 
 remove_action('woocommerce_cart_collaterals', 'woocommerce_cross_sell_display');
+
+function wlb_display_order_data_in_admin( $order ){ ?>
+  <div class="order_data_column" style="width:100%">
+      <h3><?php _e( 'Shipment Tracking', 'woocommerce' ); ?><a href="#" class="edit_address"><?php _e( 'Edit', 'woocommerce' ); ?></a></h3>
+      <div class="address">
+      <?php
+          echo '<p><strong>' . __( 'Shipping Company' ) . ':</strong>' . get_post_meta( $order->id, '_wlb_shipping_company', true ) . '</p>'; 
+          echo '<p><strong>' . __( 'Tracking Code' ) . ':</strong>' . get_post_meta( $order->id, '_wlb_tracking_code', true ) . '</p>';
+          ?>
+      </div>
+      <div class="edit_address">
+      <?php
+          woocommerce_wp_select( array( // Text Field type
+            'id'          => '_wlb_shipping_company',
+            'label'       => __( 'Shipping Company', 'woocommerce' ),
+            'options'     => array(
+                ''        => __( 'Select Shipping Company', 'woocommerce' ),
+                'mrw'        => __( 'MRW', 'woocommerce' ),
+                'correos_express'    => __('Correos Express', 'woocommerce' ),
+                'ctt' => __('CTT', 'woocommerce' ),
+            ),
+            'wrapper_class' => '_billing_company_field'
+        ) );?>
+          <?php woocommerce_wp_text_input( array( 'id' => '_wlb_tracking_code', 'label' => __( 'Tracking Code' ), 'wrapper_class' => '_billing_company_field' ) ); ?>
+      </div>
+      
+  </div>
+<?php }
+add_action( 'woocommerce_admin_order_data_after_shipping_address', 'wlb_display_order_data_in_admin' );
+
+function wlb_save_extra_details( $post_id, $post ){
+  update_post_meta( $post_id, '_wlb_shipping_company', wc_clean( $_POST[ '_wlb_shipping_company' ] ) );
+  update_post_meta( $post_id, '_wlb_tracking_code', wc_clean( $_POST[ '_wlb_tracking_code' ] ) );
+}
+add_action( 'woocommerce_before_save_order_items', 'wlb_save_extra_details', 45, 2 );
