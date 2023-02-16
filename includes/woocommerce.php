@@ -195,7 +195,7 @@ if (!function_exists('theme_woocommerce_floating_cart')) {
         $icons = new Icons;
         $cart = WC()->cart->get_cart();
         ?>
-    <div class="cart-container grid grid-rows-[auto_160px] h-[calc(100vh_-_80px)]">
+    <div class="cart-container grid grid-rows-[auto_130px] md:grid-rows-[auto_160px] h-[calc(100vh_-_80px)]">
         <?php if (count($cart) > 0) { ?>
         <div class="overflow-y-auto">
             <?php foreach ($cart as $cart_item_key => $cart_item) {
@@ -246,9 +246,9 @@ if (!function_exists('theme_woocommerce_floating_cart')) {
           </h4>
           <div class="text-sm font-roboto">Custo de portes + Taxas calculadas no checkout</div>
           <div class="grid grid-cols-2 gap-4 w-full bg-white py-4 lg:py-8  ">
-            <a href="<?php echo wc_get_cart_url() ?>" class="btn btn-outline flex justify-center"><?php echo
+            <a href="<?php echo wc_get_cart_url() ?>" class="text-sm btn btn-outline flex justify-center"><?php echo
                  _e("Ver carrinho", "wlb_theme") ?></a>
-            <a href="<?php echo wc_get_checkout_url() ?>" class="btn btn-primary flex justify-center"><?php echo
+            <a href="<?php echo wc_get_checkout_url() ?>" class="text-sm btn btn-primary flex justify-center"><?php echo
                  _e("Finalizar compra", "wlb_theme") ?></a>
           </div>
         </div>

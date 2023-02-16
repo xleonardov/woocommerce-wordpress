@@ -25,7 +25,7 @@ defined('ABSPATH') || exit;
 		</div>
 	</div>
 
-	<div class="font-roboto mt-8 md:mt-0 pt-4 md:pt-0 border-t border-t-gray-400 md:border-none">
+	<div class="font-roboto  pt-4 md:pt-0 border-t border-t-gray-400 md:border-none">
 		<div class="woocommerce-MyAccount-content bg-white rounded-none ">
 			<?php do_action('woocommerce_account_content'); ?>
 		</div>

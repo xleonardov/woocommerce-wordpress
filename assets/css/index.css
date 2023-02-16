@@ -299,3 +299,18 @@ input[type="number"] {
 #search-modal.opened {
   @apply opacity-100 visible pointer-events-auto scale-100;
 }
+.woocommerce-orders-table__cell-order-number {
+  @apply col-span-1;
+}
+.woocommerce-orders-table__cell-order-date {
+  @apply col-span-1 text-right md:text-left;
+}
+.woocommerce-orders-table__cell-order-status {
+  @apply col-span-2;
+}
+.woocommerce-orders-table__cell-order-total {
+  @apply col-span-1;
+}
+.woocommerce-orders-table__cell-order-actions {
+  @apply col-span-1 text-right md:text-left;
+}

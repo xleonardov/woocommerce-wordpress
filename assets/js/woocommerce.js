@@ -311,7 +311,6 @@
             });
           }
         }
-        console.log(Object.entries(newQueryParams).length);
         if (Object.entries(newQueryParams).length > 0) {
           const pill_container = document.createElement("li");
           const pill = document.createElement("button");
@@ -324,8 +323,8 @@
           pill.dataset.taxonomy = taxonomy;
           pill_container.append(pill);
           pill.innerHTML = `Limpar Filtros`;
-          pill_container.addEventListener("click", () => {
-            clearAllFilters(pill_container);
+          pill.addEventListener("click", () => {
+            clearAllFilters(pill);
           });
           activeFilters.append(pill_container);
         }
@@ -451,8 +450,8 @@
         pill.dataset.taxonomy = taxonomy;
         pill_container.append(pill);
         pill.innerHTML = `Limpar Filtros`;
-        pill_container.addEventListener("click", () => {
-          clearAllFilters(pill_container);
+        pill.addEventListener("click", () => {
+          clearAllFilters(pill);
         });
         activeFilters.append(pill_container);
       }
