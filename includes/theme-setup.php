@@ -2,7 +2,7 @@
 function theme_load_assets()
 {
     if (is_page('personalizar')) {
-        wp_enqueue_script('app-personalizados', get_stylesheet_directory_uri() . '/assets/personalizados/js/main.276b05ae.js', array(), null, true);
+        wp_enqueue_script('app-personalizados', get_stylesheet_directory_uri() . '/assets/personalizados/js/main.63cf8e73.js', array(), null, true);
         wp_enqueue_style('style-personalizados', get_stylesheet_directory_uri() . '/assets/personalizados/css/main.fb2facf8.css', array(), null, '');
     }
     wp_enqueue_style('swiper_css', get_theme_file_uri('/assets/css/swiper-bundle.min.css'));

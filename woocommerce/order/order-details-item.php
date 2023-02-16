@@ -38,8 +38,9 @@ if (!apply_filters('woocommerce_order_item_visible', true, $item)) {
 		}
 
 		?>
-		<div class="flex space-x-2">
-			<div class=""><img src="<?= $imageUrl ?>" class="w-32" /> </div>
+		<div class="flex space-x-2 py-2">
+			<div class="relative w-24 md:h-32 flex-none"><img src="<?= $imageUrl ?>" class="img-fill md:object-contain" />
+			</div>
 			<div>
 				<?php
 
