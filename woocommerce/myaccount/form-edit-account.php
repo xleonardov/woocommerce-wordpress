@@ -32,7 +32,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 					<?php esc_html_e('First name', 'woocommerce'); ?>&nbsp;<span class="required">*</span>
 				</label>
 				<input type="text"
-					class="woocommerce-Input woocommerce-Input--text input-text w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10"
+					class="woocommerce-Input woocommerce-Input--text input-text w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10"
 					name="account_first_name" id="account_first_name" autocomplete="given-name"
 					value="<?php echo esc_attr($user->first_name); ?>" />
 			</p>
@@ -41,7 +41,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 					<?php esc_html_e('Last name', 'woocommerce'); ?>&nbsp;<span class="required">*</span>
 				</label>
 				<input type="text"
-					class="woocommerce-Input woocommerce-Input--text input-text w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10"
+					class="woocommerce-Input woocommerce-Input--text input-text w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10"
 					name="account_last_name" id="account_last_name" autocomplete="family-name"
 					value="<?php echo esc_attr($user->last_name); ?>" />
 			</p>
@@ -52,7 +52,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 					<?php esc_html_e('Display name', 'woocommerce'); ?>&nbsp;<span class="required">*</span>
 				</label>
 				<input type="text"
-					class="woocommerce-Input woocommerce-Input--text input-text w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10"
+					class="woocommerce-Input woocommerce-Input--text input-text w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10"
 					name="account_display_name" id="account_display_name" value="<?php echo esc_attr($user->display_name); ?>" />
 				<span><em class="not-italic text-xs text-gray-500">
 						<?php esc_html_e('This will be how your name will be displayed in the account section and in reviews', 'woocommerce'); ?>
@@ -65,7 +65,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 					<?php esc_html_e('Email address', 'woocommerce'); ?>&nbsp;<span class="required">*</span>
 				</label>
 				<input type="email"
-					class="woocommerce-Input woocommerce-Input--email input-text w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10"
+					class="woocommerce-Input woocommerce-Input--email input-text w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10"
 					name="account_email" id="account_email" autocomplete="email"
 					value="<?php echo esc_attr($user->user_email); ?>" />
 			</p>
@@ -81,7 +81,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 					<?php esc_html_e('Current password (leave blank to leave unchanged)', 'woocommerce'); ?>
 				</label>
 				<input type="password"
-					class="woocommerce-Input woocommerce-Input--password input-text w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10"
+					class="woocommerce-Input woocommerce-Input--password input-text w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10"
 					name="password_current" id="password_current" autocomplete="off" />
 			</p>
 			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
@@ -89,7 +89,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 					<?php esc_html_e('New password (leave blank to leave unchanged)', 'woocommerce'); ?>
 				</label>
 				<input type="password"
-					class="woocommerce-Input woocommerce-Input--password input-text w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10"
+					class="woocommerce-Input woocommerce-Input--password input-text w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10"
 					name="password_1" id="password_1" autocomplete="off" />
 			</p>
 			<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
@@ -97,7 +97,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
 					<?php esc_html_e('Confirm new password', 'woocommerce'); ?>
 				</label>
 				<input type="password"
-					class="woocommerce-Input woocommerce-Input--password input-text w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10"
+					class="woocommerce-Input woocommerce-Input--password input-text w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10"
 					name="password_2" id="password_2" autocomplete="off" />
 			</p>
 		</fieldset>

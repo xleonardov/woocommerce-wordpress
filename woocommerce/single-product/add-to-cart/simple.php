@@ -69,7 +69,8 @@ if ($product->is_in_stock()): ?>
 					<?php if ($percentage) { ?>
 						<div>
 							<span class="bg-amarelo text-white rounded-sm text-sm px-1 py-px sm:px-2 sm:py-1 font-roboto">
-								<?= $percentage ?>
+								-
+								<?= $percentage ?>%
 							</span>
 						</div>
 					<?php } ?>

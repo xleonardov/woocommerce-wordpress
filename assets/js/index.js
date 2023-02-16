@@ -30,6 +30,9 @@
       results: document.getElementById("products-list"),
       termsList: document.getElementById("search-terms-list"),
       searchHistory: document.getElementById("search-history"),
+      closeSearch: document.querySelector(".close-search"),
+      triggerSearch: document.querySelector("#trigger-search"),
+      searchModal: document.querySelector("#search-modal"),
     };
 
     const disableScroll = () => {
@@ -58,6 +61,27 @@
         });
       }, 200);
     };
+
+    if (domElements.triggerSearch) {
+      if (domElements.searchModal) {
+        domElements.triggerSearch.addEventListener("click", () => {
+          if (!domElements.searchModal.classList.contains("opened")) {
+            domElements.searchModal.classList.add("opened");
+            disableScroll();
+          }
+        });
+      }
+    }
+    if (domElements.closeSearch) {
+      if (domElements.searchModal) {
+        domElements.closeSearch.addEventListener("click", () => {
+          if (domElements.searchModal.classList.contains("opened")) {
+            domElements.searchModal.classList.remove("opened");
+            enableScroll();
+          }
+        });
+      }
+    }
 
     const removeItemFromCart = async (product_id) => {
       let data = {

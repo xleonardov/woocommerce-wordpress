@@ -35,15 +35,15 @@ if (is_user_logged_in()) {
 			<label class="uppercase text-xs font-semibold tracking-wide" for="username">
 				<?php esc_html_e('Username or email', 'woocommerce'); ?>&nbsp;<span class="required">*</span>
 			</label>
-			<input type="text" class="input-text w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10"
+			<input type="text" class="input-text w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10"
 				name="username" id="username" autocomplete="username" />
 		</p>
 		<p class="form-row form-row-last mt-2">
 			<label class="uppercase text-xs font-semibold tracking-wide" for="password">
 				<?php esc_html_e('Password', 'woocommerce'); ?>&nbsp;<span class="required">*</span>
 			</label>
-			<input class="input-text w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10"
-				type="password" name="password" id="password" autocomplete="current-password" />
+			<input class="input-text w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10" type="password"
+				name="password" id="password" autocomplete="current-password" />
 		</p>
 	</div>
 	<div class="clear"></div>

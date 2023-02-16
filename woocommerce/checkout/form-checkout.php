@@ -37,10 +37,10 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 			<?php if ($checkout->get_checkout_fields()): ?>
 				<?php do_action('woocommerce_checkout_before_customer_details'); ?>
 				<div class="grid gap-4" id="customer_details">
-					<div class="col-1 bg-white rounded-none p-4">
+					<div class="col-1 bg-white rounded-none py-4">
 						<?php do_action('woocommerce_checkout_billing'); ?>
 					</div>
-					<div class="col-2 bg-white rounded-none p-4">
+					<div class="col-2 bg-white rounded-none py-4">
 						<?php do_action('woocommerce_checkout_shipping'); ?>
 					</div>
 				</div>

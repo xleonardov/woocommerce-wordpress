@@ -70,7 +70,7 @@ $col = 1;
 			</address>
 			<div class="mt-4">
 				<a href="<?php echo esc_url(wc_get_endpoint_url('edit-address', $name)); ?>"
-					class="edit uppercase transition-all <?= $address ? 'underline text-sm hover:text-secondary duration-200' : ' justify-center alt wc-forward w-full bg-secondary px-4 py-2  text-white text-center  duration-200 hover:bg-primary disabled:opacity-20 tracking-wide rounded-none text-base' ?>	"><?php echo $address ? esc_html__('Edit', 'woocommerce') : esc_html__('Add', 'woocommerce'); ?></a>
+					class="edit uppercase transition-all <?= $address ? 'underline text-sm hover:text-secondary duration-200' : 'btn btn-primary flex justify-center' ?>	"><?php echo $address ? esc_html__('Edit', 'woocommerce') : esc_html__('Add', 'woocommerce'); ?></a>
 			</div>
 		</div>
 

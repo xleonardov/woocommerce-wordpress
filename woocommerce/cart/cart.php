@@ -159,8 +159,10 @@ do_action('woocommerce_before_cart'); ?>
 							<input type="text" name="coupon_code"
 								class="input-text w-full px-4 py-2 uppercase tracking-wide border text-xs h-[50px]" id="coupon_code"
 								value="" placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" />
-							<button type="submit" class="btn btn-primary w-48 flex justify-center items-center" name="apply_coupon"
-								value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>"><?php esc_attr_e('Apply coupon', 'woocommerce'); ?></button>
+							<div>
+								<button type="submit" class="btn btn-primary w-48 flex justify-center items-center" name="apply_coupon"
+									value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>"><?php esc_attr_e('Apply coupon', 'woocommerce'); ?></button>
+							</div>
 						</div>
 						<?php do_action('woocommerce_cart_coupon'); ?>
 					</div>
