@@ -986,3 +986,26 @@ function subscribe_to_egoi_newsletter()
     echo $status;
     die;
 }
+//inicio de copia
+add_filter('login_headerurl', 'login_logo_url');
+function login_logo_url($url)
+{
+    return 'https://willbe.co';
+}
+
+function wlb_login_logo()
+{
+    ?>
+    <style type="text/css">
+        #login h1 a, .login h1 a {
+            background-image: url(http://pacto.willbe.co/wp-content/uploads/2023/02/willbe-e-pacto.png);
+            min-height: 70px;
+            width: 70%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            padding-bottom: 30px;
+        }
+    </style>
+<?php }
+add_action('login_enqueue_scripts', 'wlb_login_logo');
+//fim de copia
