@@ -314,3 +314,6 @@ input[type="number"] {
 .woocommerce-orders-table__cell-order-actions {
   @apply col-span-1 text-right md:text-left;
 }
+.shipping-item .woocommerce-Price-amount.amount {
+  @apply font-semibold;
+}

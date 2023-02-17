@@ -30,7 +30,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 ?>
 
 <form name="checkout" method="post"
-	class="checkout woocommerce-checkout grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,374px)] gap-4 py-4 tracking-wide font-roboto"
+	class="checkout woocommerce-checkout grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,450px)] gap-4 py-4 tracking-wide font-roboto"
 	action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data">
 	<div>
 		<div class="w-full">

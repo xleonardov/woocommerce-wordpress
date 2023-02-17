@@ -33,7 +33,7 @@ defined('ABSPATH') || exit;
 			<th class="text-left py-1 uppercase text-sm font-normal">
 				<?php esc_html_e('Subtotal', 'woocommerce'); ?>
 			</th>
-			<td class="text-right py-1 text-base font-semibold" data-title="<?php esc_attr_e('Subtotal', 'woocommerce'); ?>">
+			<td class="text-right py-1 text-base " data-title="<?php esc_attr_e('Subtotal', 'woocommerce'); ?>">
 				<?php wc_cart_totals_subtotal_html(); ?></td>
 		</tr>
 
@@ -42,7 +42,7 @@ defined('ABSPATH') || exit;
 				<th class="text-left py-1 uppercase text-sm font-normal">
 					<?php wc_cart_totals_coupon_label($coupon); ?>
 				</th>
-				<td class="text-right py-1 text-base font-semibold"
+				<td class="text-right py-1 text-base"
 					data-title="<?php echo esc_attr(wc_cart_totals_coupon_label($coupon, false)); ?>"><?php wc_cart_totals_coupon_html($coupon); ?></td>
 			</tr>
 		<?php endforeach; ?>
@@ -61,7 +61,7 @@ defined('ABSPATH') || exit;
 				<th class="text-left py-1 uppercase text-sm font-normal">
 					<?php esc_html_e('Shipping', 'woocommerce'); ?>
 				</th>
-				<td class="text-right py-1 text-base font-semibold" data-title="<?php esc_attr_e('Shipping', 'woocommerce'); ?>">
+				<td class="text-right py-1 text-base " data-title="<?php esc_attr_e('Shipping', 'woocommerce'); ?>">
 					<?php woocommerce_shipping_calculator(); ?></td>
 			</tr>
 
@@ -72,7 +72,7 @@ defined('ABSPATH') || exit;
 				<th class="text-left py-1 uppercase text-sm font-normal">
 					<?php echo esc_html($fee->name); ?>
 				</th>
-				<td class="text-right py-1 text-base font-semibold" data-title="<?php echo esc_attr($fee->name); ?>"><?php wc_cart_totals_fee_html($fee); ?></td>
+				<td class="text-right py-1 text-base " data-title="<?php echo esc_attr($fee->name); ?>"><?php wc_cart_totals_fee_html($fee); ?></td>
 			</tr>
 		<?php endforeach; ?>
 
@@ -93,18 +93,17 @@ defined('ABSPATH') || exit;
 						<th class="text-left py-1 uppercase text-sm font-normal">
 							<?php echo esc_html($tax->label) . $estimated_text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</th>
-						<td class="text-right py-1 text-base font-semibold" data-title="<?php echo esc_attr($tax->label); ?>"><?php echo wp_kses_post($tax->formatted_amount); ?></td>
+						<td class="text-right py-1 text-base " data-title="<?php echo esc_attr($tax->label); ?>"><?php echo wp_kses_post($tax->formatted_amount); ?></td>
 					</tr>
 				<?php
 				}
 			} else {
 				?>
 				<tr class="tax-total">
-					<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide">
+					<th class="text-left py-1 uppercase text-sm  tracking-wide">
 						<?php echo esc_html(WC()->countries->tax_or_vat()) . $estimated_text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</th>
-					<td class="text-right py-1 text-base font-semibold"
-						data-title="<?php echo esc_attr(WC()->countries->tax_or_vat()); ?>"><?php wc_cart_totals_taxes_total_html(); ?>
+					<td class="text-right py-1 text-base " data-title="<?php echo esc_attr(WC()->countries->tax_or_vat()); ?>"><?php wc_cart_totals_taxes_total_html(); ?>
 					</td>
 				</tr>
 			<?php

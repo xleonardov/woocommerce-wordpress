@@ -972,13 +972,13 @@ function checkout_fields($fields)
   foreach ($fields as &$fieldset) {
     foreach ($fieldset as &$field) {
       if (isset($field['autocomplete']) && $field['autocomplete'] === "address-line2") {
-        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10 mt-4 lg:mt-6 ';
+        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-sm rounded-none h-10 mt-4 lg:mt-6 ';
       } else if (isset($field['type']) && $field['type'] === "textarea") {
-        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-none h-36 resize-none';
+        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-sm rounded-none h-36 resize-none';
       } else {
-        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-xs rounded-none h-10';
+        $field['input_class'][] = 'w-full px-4 py-2 tracking-wide border text-sm rounded-none h-10';
       }
-      $field['label_class'][] = 'text-xs font-semibold tracking-wide';
+      $field['label_class'][] = 'text-sm font-normal tracking-wide';
     }
   }
   return $fields;
