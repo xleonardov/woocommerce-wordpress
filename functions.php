@@ -8,47 +8,6 @@ require_once ABSPATH . 'wp-admin/includes/image.php';
 require_once ABSPATH . "wp-config.php";
 require_once ABSPATH . "wp-includes/wp-db.php";
 add_filter('wpgs_show_featured_image_in_gallery', '__return_false', 20);
-add_action(
-    'rest_api_init',
-    function () {
-        register_rest_route(
-            'produtos',
-            '/backdot-sync',
-            array(
-                'methods' => 'post',
-                'callback' => 'backdot_migrate_rest',
-                'permission_callback' => '__return_true',
-            )
-        );
-        register_rest_route(
-            'produtos',
-            '/sync-related',
-            array(
-                'methods' => 'post',
-                'callback' => 'set_upsells_and_cross_sells',
-                'permission_callback' => '__return_true',
-            )
-        );
-        register_rest_route(
-            'produtos',
-            '/categories-sync',
-            array(
-                'methods' => 'post',
-                'callback' => 'sync_categories',
-                'permission_callback' => '__return_true',
-            )
-        );
-        register_rest_route(
-            'produtos',
-            '/create-attributes',
-            array(
-                'methods' => 'post',
-                'callback' => 'create_attributes',
-                'permission_callback' => '__return_true',
-            )
-        );
-    }
-);
 
 
 
@@ -273,7 +232,10 @@ function backdot_migrate_rest($request)
                 $variation->set_sale_price($sl->sale_price_with_taxes);
                 $variation->save();
                 $variId = $variation->get_id();
-                update_post_meta($variId, 'wcwp_wholesale', $sl->btb_price);
+                $btb_price = round((floatval($sl->btb_price) * 1.23), 2);
+                update_post_meta($variId, 'wcwp_wholesale', $btb_price);
+                update_post_meta($variId, 'wcwp_b2b-int', $btb_price);
+
             }
         } else {
             $newProduct = new WC_Product_Simple();
@@ -298,10 +260,11 @@ function backdot_migrate_rest($request)
             $newProduct->set_height($product->sellable_items[0]->height);
             $newProduct->save();
             $newProductId = $newProduct->get_id();
-            update_post_meta($newProductId, 'wcwp_wholesale', $product->sellable_items[0]->btb_price);
+            $btb_price = round((floatval($product->sellable_items[0]->btb_price) * 1.23), 2);
+            update_post_meta($newProductId, 'wcwp_wholesale', $btb_price);
+            update_post_meta($newProductId, 'wcwp_b2b-int', $btb_price);
             update_post_meta($newProductId, '_sku', $product->sku);
             insert_product_attributes($newProductId, $attributes);
-
         }
 
 
@@ -550,6 +513,103 @@ function set_upsells_and_cross_sells($response)
     return rest_ensure_response($response);
 }
 
+
+function set_btb_prices($response)
+{
+    global $wpdb;
+    $args = array(
+        'limit' => -1,
+    );
+
+    $products = wc_get_products($args);
+    foreach ($products as $product) {
+
+        $product_id = $product->get_id();
+
+        if ($product->get_type() === 'variable') {
+            $variations = $product->get_available_variations();
+            foreach ($variations as $variation) {
+                $btb_price = get_post_meta($variation['variation_id'], 'wcwp_wholesale', true);
+                $new_btb_price = round((floatval($btb_price) * 1.23), 2);
+                update_post_meta($variation['variation_id'], 'wcwp_wholesale', $new_btb_price);
+                update_post_meta($variation['variation_id'], 'wcwp_b2b-int', $new_btb_price);
+            }
+        } else {
+            $btb_price = get_post_meta($product_id, 'wcwp_wholesale', true);
+            $new_btb_price = round((floatval($btb_price) * 1.23), 2);
+            update_post_meta($product_id, 'wcwp_wholesale', $new_btb_price);
+            update_post_meta($product_id, 'wcwp_b2b-int', $new_btb_price);
+        }
+    }
+
+
+    $response = new WP_REST_Response("Done! 👍");
+    $response->set_status(200);
+
+    return rest_ensure_response($response);
+}
+
+add_action(
+    'rest_api_init',
+    function () {
+        register_rest_route(
+            'personalizados',
+            'send-email',
+            array(
+                'methods' => 'POST',
+                'callback' => 'sendEmailPersonalizados'
+            )
+        );
+        register_rest_route(
+            'produtos',
+            '/backdot-sync',
+            array(
+                'methods' => 'post',
+                'callback' => 'backdot_migrate_rest',
+                'permission_callback' => '__return_true',
+            )
+        );
+        register_rest_route(
+            'produtos',
+            '/sync-related',
+            array(
+                'methods' => 'post',
+                'callback' => 'set_upsells_and_cross_sells',
+                'permission_callback' => '__return_true',
+            )
+        );
+        register_rest_route(
+            'produtos',
+            '/update-btb',
+            array(
+                'methods' => 'post',
+                'callback' => 'set_btb_prices',
+                'permission_callback' => '__return_true',
+            )
+        );
+
+        register_rest_route(
+            'produtos',
+            '/categories-sync',
+            array(
+                'methods' => 'post',
+                'callback' => 'sync_categories',
+                'permission_callback' => '__return_true',
+            )
+        );
+        register_rest_route(
+            'produtos',
+            '/create-attributes',
+            array(
+                'methods' => 'post',
+                'callback' => 'create_attributes',
+                'permission_callback' => '__return_true',
+            )
+        );
+    }
+);
+
+
 function getRequestHeaders()
 {
     $headers = array();
@@ -561,19 +621,6 @@ function getRequestHeaders()
         $headers[$header] = $value;
     }
     return $headers;
-}
-
-add_action('rest_api_init', 'email_route');
-function email_route()
-{
-    register_rest_route(
-        'personalizados',
-        'send-email',
-        array(
-            'methods' => 'POST',
-            'callback' => 'sendEmailPersonalizados'
-        )
-    );
 }
 
 function sendEmailPersonalizados($request)
