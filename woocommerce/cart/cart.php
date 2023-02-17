@@ -22,12 +22,12 @@ do_action('woocommerce_before_cart'); ?>
 <div class="hidden">
 	<div class="inline mr-2 w-8 h-8 text-white animate-spin fill-primary opacity-50 pointer-events-none"></div>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,374px)] gap-4 py-8 tracking-wide font-roboto">
+<div class="grid grid-cols-1 md:grid-cols-[1fr_minmax(0,374px)] gap-4 py-8 tracking-wide font-roboto">
 	<div class="">
 		<form class="woocommerce-cart-form w-full grid gap-4" action="<?php echo esc_url(wc_get_cart_url()); ?>"
 			method="post">
 			<?php //do_action( 'woocommerce_before_cart_table' ); ?>
-			<div class="w-full bg-white p-4">
+			<div class="w-full">
 				<div class="grid gap-4 items-center cart-content ">
 					<div colspan="6" class="actions hidden">
 						<button type="submit" class="button" name="update_cart"
@@ -35,7 +35,8 @@ do_action('woocommerce_before_cart'); ?>
 						<?php do_action('woocommerce_cart_actions'); ?>
 						<?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
 					</div>
-					<div class=" grid-cols-[28px_160px_2fr_1fr_1fr_1fr] uppercase text-sm font-semibold hidden lg:grid">
+					<div
+						class="md:grid-cols-[12px_64px_2fr_1fr_1fr_1fr] lg:grid-cols-[28px_100px_2fr_1fr_1fr_1fr] uppercase text-sm font-semibold hidden lg:grid">
 						<div class="product-remove pb-4">&nbsp;</div>
 						<div class="product-thumbnail pb-4">&nbsp;</div>
 						<div class="product-name">
@@ -58,8 +59,8 @@ do_action('woocommerce_before_cart'); ?>
 						if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key)) {
 							$product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key); ?>
 							<div
-								class="grid border-b pb-4 last:border-none last:pb-0 grid-cart-products gap-y-4 lg:grid-cols-[28px_160px_2fr_1fr_1fr_1fr] items-center woocommerce-cart-form__cart-item <?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
-								<div class="remove-product flex justify-end lg:justify-start">
+								class="grid border-b pb-4 last:border-none last:pb-0 grid-cart-products gap-y-4 grid-cols-[12px_64px_2fr_1fr] lg:grid-cols-[28px_100px_2fr_1fr_1fr_1fr] items-center woocommerce-cart-form__cart-item <?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
+								<div class="remove-product flex justify-end md:justify-start">
 									<?php
 									echo apply_filters(
 										// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -79,7 +80,7 @@ do_action('woocommerce_before_cart'); ?>
 									);
 									?>
 								</div>
-								<div class="image-product">
+								<div class="image-product w-16 lg:w-24">
 									<?php
 									$thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
 
@@ -90,7 +91,7 @@ do_action('woocommerce_before_cart'); ?>
 									}
 									?>
 								</div>
-								<div class="name-product text-xs font-medium lg:text-base">
+								<div class="name-product text-xs font-medium md:text-base">
 									<?php
 									if (!$product_permalink) {
 										echo wp_kses_post(apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key) . '&nbsp;');
@@ -109,12 +110,31 @@ do_action('woocommerce_before_cart'); ?>
 									}
 									?>
 								</div>
-								<div class="price-product hidden lg:block">
+								<div class="price-product md:block flex flex-col text-sm text-right lg:text-left">
+									<?php if ($_product->get_sale_price()) {
+
+										$percentage = 0;
+										if ($_product->get_sale_price()) {
+											$percentage = round(((floatval($_product->get_regular_price()) - floatval($_product->get_sale_price())) / floatval($_product->get_regular_price())) * 100);
+										}
+
+										?>
+										<div class="flex space-x-2 items-center mb-2">
+											<div class="text-sm text-gray-500 line-through">
+												<?= number_format($_product->get_regular_price(), 2) ?>€
+											</div>
+											<div>
+												<span class="bg-amarelo text-white rounded-sm text-sm px-1 py-px sm:px-2 sm:py-1 font-roboto">
+													<?='-' . $percentage ?>%
+												</span>
+											</div>
+										</div>
+									<?php } ?>
 									<?php
 									echo apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key); // PHPCS: XSS ok.
 									?>
 								</div>
-								<div class="quantity-product">
+								<div class="quantity-product col-span-2 lg:col-auto">
 									<?php
 									if ($_product->is_sold_individually()) {
 										$product_quantity = sprintf('1 <input type="hidden" class="qty" name="cart[%s][qty]" value="1" />', $cart_item_key);
@@ -136,7 +156,7 @@ do_action('woocommerce_before_cart'); ?>
 									echo apply_filters('woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item); // PHPCS: XSS ok.
 									?>
 								</div>
-								<div class="subtotal-product text-sm lg:text-base">
+								<div class="subtotal-product text-sm md:text-base col-span-2 lg:col-auto pl-4 lg:pl-0">
 									<?php
 									echo apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key); // PHPCS: XSS ok.
 									?>
@@ -149,13 +169,13 @@ do_action('woocommerce_before_cart'); ?>
 				</div>
 			</div>
 			<?php //do_action( 'woocommerce_after_cart_table' ); ?>
-			<div class="bg-white p-4">
+			<div class="">
 				<?php if (wc_coupons_enabled()) { ?>
 					<div class="coupon">
 						<label for="coupon_code" class="block mb-4 uppercase text-sm font-semibold tracking-wide">
 							<?php esc_html_e('Coupon', 'woocommerce'); ?>
 						</label>
-						<div class="flex items-center space-x-4">
+						<div class="flex items-center space-y-2 md:space-y-0 md:space-x-4 flex-col  md:flex-row">
 							<input type="text" name="coupon_code"
 								class="input-text w-full px-4 py-2 uppercase tracking-wide border text-xs h-[50px]" id="coupon_code"
 								value="" placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" />

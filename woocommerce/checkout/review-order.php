@@ -25,7 +25,7 @@ defined('ABSPATH') || exit;
 	<table class="w-full">
 		<thead>
 			<tr>
-				<th class="product-name text-left py-1 uppercase text-xs font-semibold tracking-wide">
+				<th class="product-name text-left py-1 uppercase text-sm font-semibold tracking-wide">
 					<?php esc_html_e('Product', 'woocommerce'); ?>
 				</th>
 				<th class="product-total text-right py-1 text-sm">
@@ -45,9 +45,15 @@ defined('ABSPATH') || exit;
 					?>
 					<tr
 						class="<?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
-						<td class="product-name text-left py-1 uppercase text-xs font-semibold tracking-wide">
-							<?php echo wp_kses_post(apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key)) . '&nbsp;'; ?>
-							<?php echo apply_filters('woocommerce_checkout_cart_item_quantity', ' <strong class="product-quantity">' . sprintf('&times;&nbsp;%s', $cart_item['quantity']) . '</strong>', $cart_item, $cart_item_key); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<td class="product-name text-left py-1 uppercase text-sm tracking-wide">
+							<?php
+							$prd_name = wp_kses_post(apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key));
+							// $dots = '';
+							// if (strlen($prd_name) > 30) {
+							// 	$dots = '...';
+							// }
+							echo $prd_name . '&nbsp;'; ?>
+							<?php echo apply_filters('woocommerce_checkout_cart_item_quantity', ' <span class="product-quantity">' . sprintf('&times;&nbsp;%s', $cart_item['quantity']) . '</span>', $cart_item, $cart_item_key); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							<?php echo wc_get_formatted_cart_item_data($cart_item); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</td>
 						<td class="product-total text-right py-1 text-sm">
@@ -64,7 +70,7 @@ defined('ABSPATH') || exit;
 		<tfoot>
 
 			<tr class="cart-subtotal">
-				<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide">
+				<th class="text-left py-1 uppercase text-sm  tracking-wide">
 					<?php esc_html_e('Subtotal', 'woocommerce'); ?>
 				</th>
 				<td class="text-right py-1 text-sm">
@@ -74,7 +80,7 @@ defined('ABSPATH') || exit;
 
 			<?php foreach (WC()->cart->get_coupons() as $code => $coupon): ?>
 				<tr class="cart-discount coupon-<?php echo esc_attr(sanitize_title($code)); ?>">
-					<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide">
+					<th class="text-left py-1 uppercase text-sm  tracking-wide">
 						<?php wc_cart_totals_coupon_label($coupon); ?>
 					</th>
 					<td class="text-right py-1 text-sm">
@@ -95,7 +101,7 @@ defined('ABSPATH') || exit;
 
 			<?php foreach (WC()->cart->get_fees() as $fee): ?>
 				<tr class="fee">
-					<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide">
+					<th class="text-left py-1 uppercase text-sm  tracking-wide">
 						<?php echo esc_html($fee->name); ?>
 					</th>
 					<td class="text-right py-1 text-sm">
@@ -108,7 +114,7 @@ defined('ABSPATH') || exit;
 				<?php if ('itemized' === get_option('woocommerce_tax_total_display')): ?>
 					<?php foreach (WC()->cart->get_tax_totals() as $code => $tax): // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited ?>
 						<tr class="tax-rate tax-rate-<?php echo esc_attr(sanitize_title($code)); ?>">
-							<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide">
+							<th class="text-left py-1 uppercase text-sm font-semibold tracking-wide">
 								<?php echo esc_html($tax->label); ?>
 							</th>
 							<td class="text-right py-1 text-sm">
@@ -118,7 +124,7 @@ defined('ABSPATH') || exit;
 					<?php endforeach; ?>
 				<?php else: ?>
 					<tr class="tax-total">
-						<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide">
+						<th class="text-left py-1 uppercase text-sm font-semibold tracking-wide">
 							<?php echo esc_html(WC()->countries->tax_or_vat()); ?>
 						</th>
 						<td class="text-right py-1 text-sm">

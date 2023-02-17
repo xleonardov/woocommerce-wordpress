@@ -99,7 +99,7 @@ if ($show_downloads) {
 				?>
 				<?php if ($order->get_customer_note()): ?>
 					<tr>
-						<th class="text-left py-1 uppercase text-xs font-semibold tracking-wide">
+						<th class="text-left py-1 uppercase text-sm font-normal tracking-wide">
 							<?php esc_html_e('Note:', 'woocommerce'); ?>
 						</th>
 						<td class="text-right">

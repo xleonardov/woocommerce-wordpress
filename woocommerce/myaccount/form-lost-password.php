@@ -21,7 +21,7 @@ do_action('woocommerce_before_lost_password_form');
 ?>
 
 <div class="w-full">
-    <?php if (!is_front_page()) : ?>
+    <?php if (!is_front_page()): ?>
         <section class="font-roboto text-sm my-4 md:my-8">
             <div class="border-t border-b border-gray-400 py-2">
                 <?php echo do_shortcode(' [wpseo_breadcrumb] '); ?>
@@ -35,10 +35,10 @@ do_action('woocommerce_before_lost_password_form');
         <p>
             <?php echo apply_filters('woocommerce_lost_password_message', esc_html__('Lost your password? Please enter your username or email address. You will receive a link to create a new password via email.', 'woocommerce')); ?>
         </p>
-		<?php // @codingStandardsIgnoreLine ?>
+        <?php // @codingStandardsIgnoreLine ?>
 
         <p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
-            <label class="uppercase text-xs font-semibold tracking-wide" for="user_login">
+            <label class="uppercase text-sm font-normal tracking-wide" for="user_login">
                 <?php esc_html_e('Username or email', 'woocommerce'); ?>
             </label>
             <input
