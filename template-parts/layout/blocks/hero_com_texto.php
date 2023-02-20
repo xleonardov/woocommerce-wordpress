@@ -2,6 +2,7 @@
 $titulo = get_sub_field("titulo");
 $texto = get_sub_field("texto");
 $imagem = get_sub_field("imagem");
+$full_width = get_sub_field("full-width");
 ?>
 <section class="px-4 md:px-6">
   <?php if($titulo) :?>
@@ -13,7 +14,7 @@ $imagem = get_sub_field("imagem");
   </div>
   <?php endif; ?>
   <?php if($texto) : ?>
-  <div class="font-garamond text-lg max-w-screen-2xl mx-auto columns-1 md:columns-2 gap-8 md:gap-16 xl:gap-32">
+<div class="font-garamond text-lg <?php $full_width ? '':'max-w-screen-2xl '?> mx-auto columns-1 md:columns-2 gap-8 md:gap-16 xl:gap-32">
         <?php echo $texto ?>
   </div>
   <?php endif; ?>

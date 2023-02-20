@@ -76,9 +76,9 @@
   @apply hover:invert;
 }
 .btn-submenu {
-  @apply uppercase px-6 py-2 text-center gap-2 transition-all duration-300 inline-flex;
+  @apply uppercase px-6 py-1 text-center gap-2 transition-all duration-300 inline-flex;
   @apply bg-white text-black font-roboto  justify-between items-center;
-  @apply hover:invert;
+  @apply hover:underline;
 }
 .btn-social {
   @apply w-9 h-9 transition-all bg-black duration-300 border flex justify-center items-center border-black;

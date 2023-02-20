@@ -6,7 +6,7 @@ $label_btn = get_sub_field("label_btn");
 $link_btn = get_sub_field("link_btn");?>
 <section class="px-4 md:px-6">
   <div class="<?php if($index != 0) : echo 'border-t border-b border-gray-400'; 
- endif; ?> py-4 md:py-8 xl:py-16 grid grid-cols-1 md:grid-cols-2 items-center md:place-items-center">
+ endif; ?> grid grid-cols-1 md:grid-cols-2 items-center md:place-items-center">
     <div class="mb-4 md:mb-0 w-full">
       <?php if($titulo) : ?>
         <h1 class="font-roboto text-3xl md:text-4xl xl:text-5xl font-bold uppercase mb-4"><?php echo $titulo; ?></h1> 

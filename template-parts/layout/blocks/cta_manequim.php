@@ -3,7 +3,7 @@ $imagem = get_sub_field("imagem");
 $produtos = get_sub_field("produtos");
 ?>
 <section class="px-4 md:px-6">
-  <div class="grid grid-cols-1 gap-4 md:gap-8 grid-rows-[auto_85vh] md:grid-cols-2 md:grid-rows-1">
+  <div class="grid max-w-7xl mx-auto grid-cols-1 gap-4 md:gap-8 grid-rows-[auto_85vh] md:grid-cols-2 md:grid-rows-1">
     <div class="flex items-center justify-center">
       <div class="relative aspect-[4/5] max-h-[90vh] md:max-h-[80vh]">
         <img class="md:object-contain" src="<?php echo $imagem ?>" alt="Pacto #dresstowin"/>

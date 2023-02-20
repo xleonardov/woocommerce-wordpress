@@ -22,13 +22,15 @@ foreach ($all_terms as $key => $termo) {
 <section class="px-4 md:px-6">
 <?php foreach ($selected_terms as $key => $termo):?>
 <div>
-  <h3 class="uppercase text-2xl md:text-4xl font-medium font-roboto py-4 md:py-6 border-t border-b border-gray-400"><?php echo $termo->name ?></h3>
+    <?php if(str_contains(get_page_link(), "guia-de-tamanhos")) : ?>
+    <h3 class="uppercase text-2xl md:text-4xl font-medium font-roboto py-4 md:py-6 border-t border-b border-gray-400"><?php echo $termo->name ?></h3>
+    <?php endif; ?>
   <div class="flex flex-col lg:flex-row lg:items-center gap-4 py-4 md:py-8 max-w-screen-2xl mx-auto">
     <div class="flex-none flex justify-center">
       <img src="<?php echo $termo->modelo?>"/> 
     </div>
     <div class="relative flex-1 overflow-x-auto lg:flex lg:justify-center">
-      <img class="object-contain min-w-[600px]" src="<?php echo $termo->tamanhos?>"/> 
+      <img class="object-contain min-w-[600px] max-w-[800px]" src="<?php echo $termo->tamanhos?>"/> 
     </div>
   </div>
   <div class="mb-8 md:mb-16">
