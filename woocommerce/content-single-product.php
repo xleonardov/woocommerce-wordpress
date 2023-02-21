@@ -196,7 +196,7 @@ if (count($colors) > 0) {
         <?php else: ?>
             <?php foreach ($collection_gallery as $key => $item): ?>
             <div
-              class="<?php echo ($key == 0) ? 'md:col-span-2 aspect-[1/1.6] md:aspect-[1.6/1]' : 'col-span-1 aspect-[1/1.6]'; ?> w-full  relative">
+              class="<?php echo ($key == 0) ? 'md:col-span-2 aspect-[1.6/1]' : 'col-span-1 aspect-[1/1.6]'; ?> w-full  relative">
               <img src="<?php echo $item; ?>" class="img-fill" alt="<?php echo $product->get_name(); ?>" />
             </div>
             <?php endforeach; ?>

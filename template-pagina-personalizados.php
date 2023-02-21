@@ -5,9 +5,9 @@ get_header(); ?>
 
 
 <div class="w-full">
-  <?php if (!is_front_page()): ?>
+  <?php if (!is_front_page()) : ?>
     <section class="px-4 md:px-6 font-roboto text-sm my-4 md:my-8">
-      <div class="border-t border-b border-gray-400 py-2">
+      <div class="border-t border-b border-gray-400 py-2 text-gray-400">
         <?php echo do_shortcode(' [wpseo_breadcrumb] '); ?>
       </div>
     </section>

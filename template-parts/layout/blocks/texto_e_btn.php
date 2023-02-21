@@ -5,7 +5,7 @@ $texto = get_sub_field("texto");
 $label_btn = get_sub_field("label_btn");
 $link_btn = get_sub_field("link_btn");?>
 <section class="px-4 md:px-6">
-  <div class="<?php if($index != 0) : echo 'border-t border-b border-gray-400'; 
+  <div class="<?php if($index != 0) : echo 'border-t border-b border-gray-400 py-8 md:py-16'; 
  endif; ?> grid grid-cols-1 md:grid-cols-2 items-center md:place-items-center">
     <div class="mb-4 md:mb-0 w-full">
       <?php if($titulo) : ?>

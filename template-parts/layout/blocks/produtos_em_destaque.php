@@ -7,7 +7,7 @@ $produtos = get_sub_field("produtos");
   <?php if($titulo) : ?>
     <h2 class="uppercase font-roboto text-center text-2xl md:text-4xl font-bold py-4 md:py-8 border-b border-gray-400"><?php echo $titulo; ?></h2>
   <?php endif; ?>
-  <ul class="grid grid-cols-2 gap-4 md:gap-8 md:grid-cols-4">
+  <ul class="grid grid-cols-2 gap-4 lg:gap-16 sm:grid-cols-2 lg:grid-cols-4">
   <?php foreach ($produtos as $key => $item):
         $produto = wc_get_product($item); 
         $nome = $produto->get_name();
@@ -51,19 +51,19 @@ $produtos = get_sub_field("produtos");
         ?>
     <li class="relative group">
       <a href="<?php echo get_permalink($produto->get_id());?>">
-        <div class="relative aspect-[211/300] w-full max-h-[300px] ">
+        <div class="relative aspect-productImg w-full  ">
           <?php foreach ($imagens as $key => $imagem): ?>
-            <div class="bg-white absolute left-1/2 aspect-[211/300] h-full -translate-x-1/2 <?php echo $key!==0?'opacity-0 pointer-events-none':''?> transition-all duration-300 group-hover:opacity-100">
+            <div class="bg-white absolute left-1/2 aspect-productImg h-full -translate-x-1/2 <?php echo $key!==0?'opacity-0 pointer-events-none':''?> transition-all duration-300 group-hover:opacity-100">
               <img src="<?php echo $imagem ?>" alt="<?php echo $nome?>" class="object-contain"/>
             </div>
           <?php endforeach; ?>
-        </div>
-        <div>
-          <ul class="flex flex-wrap p-4 gap-2 justify-center items-center">
+          <ul class="hidden lg:flex flex-wrap px-2 gap-2 justify-center items-center absolute bottom-5 w-full">
             <?php foreach ($variations as $key => $variation): ?>
               <li class="font-roboto uppercase text-xs md:text-sm <?php echo $variation['stock'] <= 0?'line-through text-gray-400':''?>"><?php echo $variation['name'] ?></li>
             <?php endforeach; ?>
           </ul>
+        </div>
+        <div>
           <h3 class="text-sm md:text-base uppercase px-2 text-center mb-2 font-roboto"><?php echo $nome; ?></h3>
           <div class="text-sm md:text-base uppercase px-2 text-center font-roboto"><?php echo $produto->get_price_html(); ?></div>
         </div>

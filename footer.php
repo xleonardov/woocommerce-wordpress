@@ -28,7 +28,7 @@ $menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
     </div>
   <?php endif; ?>
   <div class="border-t border-gray-400"></div>
-  <div class="grid grid-cols-1 md:grid-cols-2 py-4 md:py-8">
+  <div class="grid grid-cols-2 py-4 md:py-8">
     <div>
       <h3 class="text-lg font-roboto uppercase mb-3">
         <?php echo __("Pacto", "theme-tailwind") ?>
@@ -44,7 +44,7 @@ $menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
       </ul>
     </div>
     <div>
-      <h3 class="text-lg font-roboto uppercase mt-6 md:mt-0 mb-3">
+      <h3 class="text-lg font-roboto uppercase mb-3">
         <?php echo __("Apoio cliente", "theme-tailwind") ?>
       </h3>
       <ul class="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-4">
@@ -77,13 +77,13 @@ $menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
   </div>
   <div class="w-full border-t border-gray-400 grid grid-cols-1 space-y-4 md:space-y-0 md:grid-cols-3 items-center pt-4">
     <div class="place-self-center md:place-self-start">
-      <?php the_custom_logo(); ?>
+        <img src="<?php echo get_theme_file_uri('assets/images/logo_pacto.svg')?>" width="120"/>
     </div>
     <div class="font-roboto text-sm flex justify-center text-center font-light">
       <?php echo date("Y"); ?>&nbsp;PACTO © Todos os direitos reservados
     </div>
     <div class="justify-self-center md:justify-self-end"><img
-        src="<?php echo get_theme_file_uri('/assets/images/logo_willbe.webp'); ?>" /></div>
+        src="<?php echo get_theme_file_uri('/assets/images/logo_willbe.svg'); ?>" /></div>
   </div>
 </section>
 
