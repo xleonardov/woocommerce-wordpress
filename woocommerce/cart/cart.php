@@ -175,7 +175,7 @@ do_action('woocommerce_before_cart'); ?>
 						<label for="coupon_code" class="block mb-4 uppercase text-sm font-semibold tracking-wide">
 							<?php esc_html_e('Coupon', 'woocommerce'); ?>
 						</label>
-						<div class="flex items-center space-y-2 md:space-y-0 md:space-x-4 flex-col  md:flex-row">
+						<div class="flex items-center space-x-4 flex-row">
 							<input type="text" name="coupon_code"
 								class="input-text w-full px-4 py-2 uppercase tracking-wide border text-xs h-[50px]" id="coupon_code"
 								value="" placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" />

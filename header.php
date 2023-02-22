@@ -50,8 +50,9 @@ $icons = new Icons();
             src="<?php echo get_theme_file_uri('/assets/images/hamburger.webp'); ?>" /></button>
       </div>
       <div class="flex-1 flex justify-center">
-        <?php //the_custom_logo(); ?>
-        <img src="<?php echo get_theme_file_uri('assets/images/logo_pacto.svg')?>" width="120"/>
+        <a href="<?= site_url() ?>" aria-label="Pacto.cc">
+          <img src="<?php echo get_theme_file_uri('assets/images/logo_pacto.svg') ?>" width="120" />
+        </a>
       </div>
       <div class="flex gap-4 md:gap-6 justify-self-end">
         <button class="w-4 h-4" id="trigger-search">
