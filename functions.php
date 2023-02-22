@@ -916,7 +916,7 @@ function sendEmailPersonalizados($request)
 </div>
 </div>';
 
-            wp_mail('carvalho@willbecollective.pt', 'Pacto.cc - Produtos Personalizados - ' . $data['nome'], $body, $headers);
+            wp_mail('info@pacto.cc', 'Pacto.cc - Produtos Personalizados - ' . $data['nome'], $body, $headers);
 
             $response = new WP_REST_Response('Email enviado 👍');
             $response->set_status(200);
@@ -997,7 +997,8 @@ function wlb_login_logo()
 {
     ?>
     <style type="text/css">
-        #login h1 a, .login h1 a {
+        #login h1 a,
+        .login h1 a {
             background-image: url(http://pacto.willbe.co/wp-content/uploads/2023/02/willbe-e-pacto.png);
             min-height: 70px;
             width: 70%;

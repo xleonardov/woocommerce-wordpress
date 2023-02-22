@@ -15,7 +15,7 @@ $gamas = get_terms(
   </div>
   <div
     class="filters-drawer-container bg-white w-full max-w-md h-full absolute right-0 z-40  overflow-y-auto translate-x-[100%] transition-all duration-200 flex flex-col"
-    id="modal-cart">
+    id="modal-filters">
     <form class="grid grid-rows-[auto_1fr_auto] h-screen font-roboto" id="filters-form">
       <input type="hidden" name="taxonomy"
         value="<?php echo property_exists($args['category'], 'slug') ? $args['category']->slug : '' ?>" />

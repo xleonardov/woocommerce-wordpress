@@ -52,6 +52,9 @@
             if (get_row_layout() == 'produtos_em_destaque') :
                 get_template_part('template-parts/layout/blocks/produtos_em_destaque', 'produtos_em_destaque', array('index' => $index));
             endif;
+            if (get_row_layout() == 'formulario_contacto') :
+                get_template_part('template-parts/layout/blocks/formulario_contacto', 'formulario_contacto', array('index' => $index));
+            endif;
             $index++;
         endwhile;
     endif;
