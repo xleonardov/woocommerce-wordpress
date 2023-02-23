@@ -916,7 +916,7 @@ function sendEmailPersonalizados($request)
 </div>
 </div>';
 
-            wp_mail('carvalho@willbecollective.pt', 'Pacto.cc - Produtos Personalizados - ' . $data['nome'], $body, $headers);
+            wp_mail('info@pacto.cc', 'Pacto.cc - Produtos Personalizados - ' . $data['nome'], $body, $headers);
 
             $response = new WP_REST_Response('Email enviado 👍');
             $response->set_status(200);
@@ -997,8 +997,9 @@ function wlb_login_logo()
 {
     ?>
     <style type="text/css">
-        #login h1 a, .login h1 a {
-            background-image: url(http://pacto.willbe.co/wp-content/uploads/2023/02/willbe-e-pacto.png);
+        #login h1 a,
+        .login h1 a {
+            background-image: url(http://pacto.cc/wp-content/uploads/2023/02/willbe-e-pacto.png);
             min-height: 70px;
             width: 70%;
             background-size: contain;
@@ -1009,3 +1010,39 @@ function wlb_login_logo()
 <?php }
 add_action('login_enqueue_scripts', 'wlb_login_logo');
 //fim de copia
+
+add_action('woocommerce_cart_calculate_fees', function () {
+    if (is_admin()) {
+        return;
+    }
+
+    $payment_method = WC()->session->get('chosen_payment_method');
+
+
+    if ($payment_method === 'cod') {
+        $amount = 3; // How much the fee should be
+        $tax = 0; // empty value equals to Standard tax rate
+        $title = 'Pagamento na entrega';
+
+        WC()->cart->add_fee($title, floatval($amount), false, $tax);
+    }
+}, 10, 0);
+
+/**
+ * By default WooCommerce doesn't update checkout when changing payment
+ * method so we need to trigger update here
+ */
+add_action('wp_head', function () {
+    ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            /**
+             * Trigger checkout update when changing payment method
+             */
+            $(document.body).on('change', 'input[name="payment_method"]', function () {
+                $(document.body).trigger('update_checkout');
+            });
+        });
+    </script>
+<?php
+}, 10, 0);

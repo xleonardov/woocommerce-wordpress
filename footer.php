@@ -9,13 +9,13 @@ $menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
 ?>
 <section class="py-4 md:py-8 px-4 md:px-6 mt-4">
   <div class="border-t border-gray-400"></div>
-  <?php if (have_rows('top_area', 'option')) : ?>
+  <?php if (have_rows('top_area', 'option')): ?>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 py-4 md:py-8 leading-tight">
-        <?php while (have_rows('top_area', 'option')):
-            the_row();
-            $titulo = get_sub_field('titulo');
-            $conteudo = get_sub_field('conteudo');
-            ?>
+      <?php while (have_rows('top_area', 'option')):
+        the_row();
+        $titulo = get_sub_field('titulo');
+        $conteudo = get_sub_field('conteudo');
+        ?>
         <div>
           <h3 class="font-roboto text-lg uppercase mb-3">
             <?php echo $titulo; ?>
@@ -24,7 +24,7 @@ $menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
             <?php echo $conteudo ?>
           </div>
         </div>
-        <?php endwhile; ?>
+      <?php endwhile; ?>
     </div>
   <?php endif; ?>
   <div class="border-t border-gray-400"></div>
@@ -61,7 +61,8 @@ $menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
   <div class="border-t border-gray-400"></div>
   <div class="grid grid-cols-1 md:grid-cols-2 py-4 md:py-8">
     <div>
-      <ul class="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-4 items-start mb-4 md:mb-0 md:items-center h-full">
+      <ul
+        class="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-4 items-start mb-4 md:mb-0 md:items-center h-full">
         <?php foreach ($menu_terciario as $key => $menu_item): ?>
           <li class="text-xs font-roboto uppercase">
             <a class="hover:underline" href="<?php echo $menu_item->url; ?>">
@@ -72,18 +73,21 @@ $menu_terciario = apply_filters('mount_menu_tree', $menu_terciario_id);
       </ul>
     </div>
     <div class="flex md:justify-end justify-start">
-      <img src="<?php echo get_theme_file_uri('/assets/images/payment_logos.webp'); ?>" class="object-contain" width="333" alt="payment methods" />
+      <img src="<?php echo get_theme_file_uri('/assets/images/payment_logos.webp'); ?>" class="object-contain"
+        width="333" alt="payment methods" />
     </div>
   </div>
   <div class="w-full border-t border-gray-400 grid grid-cols-1 space-y-4 md:space-y-0 md:grid-cols-3 items-center pt-4">
     <div class="place-self-center md:place-self-start">
-        <img src="<?php echo get_theme_file_uri('assets/images/logo_pacto.svg')?>" width="120"/>
+      <img src="<?php echo get_theme_file_uri('assets/images/logo_pacto.svg') ?>" width="120" />
     </div>
     <div class="font-roboto text-sm flex justify-center text-center font-light">
       <?php echo date("Y"); ?>&nbsp;PACTO © Todos os direitos reservados
     </div>
-    <div class="justify-self-center md:justify-self-end"><img
-        src="<?php echo get_theme_file_uri('/assets/images/logo_willbe.svg'); ?>" /></div>
+    <div class="justify-self-center md:justify-self-end">
+      <a href="https://willbe.co" target="_blank" aria-label="Willbe Collective"> <img
+          src="<?php echo get_theme_file_uri('/assets/images/logo_willbe.svg'); ?>" /></a>
+    </div>
   </div>
 </section>
 

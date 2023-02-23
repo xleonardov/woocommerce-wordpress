@@ -142,7 +142,7 @@
 }
 
 .price-box del .woocommerce-Price-amount.amount bdi {
-  @apply line-through text-gray-500 sm:text-lg mx-0 font-roboto;
+  @apply line-through text-gray-500 text-base sm:text-lg mx-0 font-roboto;
 }
 
 .price-box ins .woocommerce-Price-amount.amount bdi {
@@ -316,4 +316,23 @@ input[type="number"] {
 }
 .shipping-item .woocommerce-Price-amount.amount {
   @apply font-semibold;
+}
+.form-submit-box p {
+  @apply flex items-center flex-col space-y-4;
+}
+.wpcf7-not-valid-tip {
+  @apply text-xs;
+}
+.wpcf7-response-output {
+  @apply font-roboto text-sm;
+  border-width: 1px !important;
+}
+.form-submit-box input {
+  border-radius: 0px !important;
+}
+
+.wpcf7 form.invalid .wpcf7-response-output,
+.wpcf7 form.unaccepted .wpcf7-response-output,
+.wpcf7 form.payment-required .wpcf7-response-output {
+  border-color: #dc3232; /* Red */
 }
