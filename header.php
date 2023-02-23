@@ -50,7 +50,7 @@ $icons = new Icons();
             src="<?php echo get_theme_file_uri('/assets/images/hamburger.webp'); ?>" /></button>
       </div>
       <div class="flex-1 flex justify-center">
-        <a href="<?= site_url() ?>" aria-label="Pacto.cc">
+        <a href="<?php echo site_url() ?>" aria-label="Pacto.cc">
           <img src="<?php echo get_theme_file_uri('assets/images/logo_pacto.svg') ?>" width="120" />
         </a>
       </div>
@@ -63,8 +63,8 @@ $icons = new Icons();
         </a>
         <div class="shopping-bag icons w-6 h-6 mr-[10px]">
           <button class="open-floating-cart shop-cart relative cursor-pointer">
-            <div class="w-4 h-4">
-              <img src="<?php echo get_theme_file_uri('assets/images/bag.webp'); ?>" />
+            <div class="w-4 h-4 relative">
+              <img src="<?php echo get_theme_file_uri('assets/images/bag.webp'); ?>" class="object-contain"/>
             </div>
             <span
               class="shop-cart-counter absolute top-[-10px] right-[-10px] bg-primary text-white p-[10px] text-xs rounded-full w-4 h-4 flex justify-center items-center">
