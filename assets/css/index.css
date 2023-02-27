@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+.pswp__img--placeholder--blank {
+  background-color: #fff !important;
+}
 .personalizar-btn {
   @apply uppercase px-8 py-3 font-roboto text-center gap-2 transition-all duration-300 inline-flex;
   @apply text-white bg-black border border-black;

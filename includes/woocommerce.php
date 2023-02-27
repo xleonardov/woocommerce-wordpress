@@ -514,7 +514,6 @@ function woocommerce_ajax_filter_products()
         $splited = explode("=", $value);
         $arguments[$splited[0]] = explode("_", $splited[1]);
     }
-
     $found_key_page = array_key_exists('page', $arguments);
 
     if ($found_key_page === true) {
@@ -587,17 +586,17 @@ function woocommerce_ajax_filter_products()
                 'field' => 'slug',
                 'terms' => $argument,
                 'operator' => 'IN',
+                'stock_status' => 'outofstock'
                 )
             );
+            var_dump($new_args);
         }
     }
-
 
     if (count($new_args) > 0) {
         array_push($args['tax_query'], $new_args);
     }
     $the_query = new WP_Query($args);
-
     ?>
   <div id="count">
     <?php echo $the_query->found_posts ?>
