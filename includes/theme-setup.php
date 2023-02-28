@@ -87,6 +87,7 @@ if (function_exists('acf_add_options_page')) {
         )
     );
 }
+add_filter('woocommerce_product_backorders_allowed', '__return_false');
 
 /*
 Admin Login
