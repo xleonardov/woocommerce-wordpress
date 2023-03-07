@@ -1,3 +1,347 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.pswp__img--placeholder--blank {
+  background-color: #fff !important;
+}
+.personalizar-btn {
+  @apply uppercase px-8 py-3 font-roboto text-center gap-2 transition-all duration-300 inline-flex;
+  @apply text-white bg-black border border-black;
+  @apply hover:text-black hover:bg-white hover:border-black;
+}
+.pagina-simples h1,
+.pagina-simples h2,
+.pagina-simples h3,
+.pagina-simples h4,
+.pagina-simples h5,
+.pagina-simples h6 {
+  @apply font-roboto mb-6 mt-12;
+}
+.pagina-simples p,
+.pagina-simples li {
+  @apply font-garamond text-base md:text-lg;
+}
+.pagina-simples p {
+  @apply mb-3;
+}
+.pagina-simples ul {
+  @apply list-disc ml-4 mb-4;
+}
+.pagina-simples ol {
+  @apply list-decimal ml-4 mb-4;
+}
+.pagina-simples a {
+  @apply underline;
+}
+.pagina-simples h2 {
+  @apply text-xl md:text-2xl;
+}
+.pagina-simples h3 {
+  @apply text-2xl;
+}
+.pagina-simples h4 {
+  @apply text-xl;
+}
+::-webkit-scrollbar {
+  @apply w-1 h-1;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-[30px];
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent rounded-[30px] shadow-[inset_0px_0px_0px_0px_#000];
+}
+.img-fill {
+  @apply object-cover object-center absolute inset-0 p-0 border-none m-auto block w-0 h-0 min-w-full max-w-full min-h-full max-h-full;
+}
+.btn {
+  @apply uppercase px-8 py-3 font-roboto text-center gap-2 transition-all duration-300 inline-flex;
+}
+.btn-primary {
+  @apply text-white bg-black border border-black;
+  @apply hover:text-black hover:bg-white hover:border-black;
+}
+.btn-negative {
+  @apply text-black bg-white border border-white;
+  @apply hover:text-white hover:bg-transparent hover:border-white;
+}
+.btn-outline {
+  @apply text-black bg-white border border-black;
+  @apply hover:text-white hover:bg-black hover:border-black;
+}
+.btn-menu {
+  @apply uppercase px-4 py-3 text-center gap-2 transition-all duration-300 inline-flex;
+  @apply bg-white text-black font-roboto text-xl justify-between items-center;
+  @apply hover:invert;
+}
+.btn-submenu {
+  @apply uppercase px-6 py-1 text-center gap-2 transition-all duration-300 inline-flex;
+  @apply bg-white text-black font-roboto  justify-between items-center;
+  @apply hover:underline;
+}
+.btn-social {
+  @apply w-9 h-9 transition-all bg-black duration-300 border flex justify-center items-center border-black;
+  @apply cursor-pointer;
+  @apply hover:invert hover:border-white;
+}
+.btn-facebook {
+  background-image: url("../assets/images/facebook.webp");
+}
+.btn-youtube {
+  background-image: url("../assets/images/youtube.webp");
+}
+.btn-instagram {
+  background-image: url("../assets/images/instagram.webp");
+}
+
+.loop-price del span.woocommerce-Price-amount.amount {
+  @apply pr-2 line-through text-gray-400;
+}
+.loop-price ins {
+  text-decoration: none;
+}
+
+.btn-quad {
+  @apply uppercase font-roboto text-center transition-all duration-300 inline-flex;
+  @apply text-black bg-white border border-black w-10 h-10 text-xs flex items-center justify-center;
+  @apply hover:text-white hover:bg-black hover:border-black;
+}
+
+.btn-quad-selected,
+.btn-quad.current {
+  @apply relative flex items-center justify-center w-10 h-10 text-white uppercase transition-all duration-500 font-roboto z-10 text-xs border;
+  @apply bg-black;
+}
+.btn-quad-disabled {
+  @apply relative flex items-center justify-center w-10 h-10 text-black uppercase transition-all duration-500 font-roboto z-10 text-xs border opacity-50 cursor-not-allowed bg-gray-300;
+  @apply after:absolute after:w-3/4 after:h-px after:bg-black after:-rotate-45;
+}
+
+.btn-selector {
+  @apply uppercase font-roboto text-center transition-all duration-300 inline-flex;
+  @apply text-black bg-white border border-black px-4 h-10 text-xs flex items-center justify-center;
+  @apply hover:text-white hover:bg-black hover:border-black;
+}
+
+.btn-big {
+  @apply relative flex items-center justify-center gap-2 py-3 px-8 uppercase transition-all duration-300 font-roboto z-10 text-lg;
+  @apply text-white bg-black border border-black;
+  @apply hover:text-black hover:bg-white hover:border-black;
+}
+
+.flex-control-nav {
+  display: none;
+}
+.price-box {
+  text-decoration: none;
+}
+.price-box del,
+.price-box ins {
+  text-decoration: none;
+}
+
+.price-box del .woocommerce-Price-amount.amount bdi {
+  @apply line-through text-gray-500 text-base sm:text-lg mx-0 font-roboto;
+}
+
+.price-box ins .woocommerce-Price-amount.amount bdi {
+  @apply text-black mx-2 text-xl sm:text-2xl font-bold font-roboto;
+}
+
+.flex-viewport {
+  display: none !important;
+}
+a.woocommerce-product-gallery__trigger {
+  display: none !important;
+}
+
+.swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after,
+.swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after {
+  display: none;
+  content: none;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.swiper-pagination-bullet {
+  @apply h-3 w-3 border-gray-500 rounded-full border bg-white transition-all duration-300;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  @apply bg-gray-500;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.woocommerce-NoticeGroup.woocommerce-NoticeGroup-checkout {
+  @apply col-span-2;
+}
+
+@media (max-width: 1024px) {
+  .woocommerce-NoticeGroup.woocommerce-NoticeGroup-checkout {
+    @apply col-span-1;
+  }
+}
+
+.required {
+  @apply text-red-500;
+}
+.select2-container--default .select2-selection--single {
+  @apply w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10 border-[#e5e7eb] flex items-center;
+}
+.select2-dropdown {
+  @apply border-[#e5e7eb];
+}
+.select2-selection__rendered {
+  padding-left: 0px !important;
+  line-height: 1.5 !important;
+}
+#billing_country_field .woocommerce-input-wrapper {
+  @apply w-full p-0 uppercase tracking-wide  text-xs rounded-none  flex items-center opacity-100;
+}
+.includes_tax {
+  @apply block text-gray-500;
+}
+.wc-credit-card-form.wc-payment-form {
+  @apply py-4;
+}
+.wc-stripe-elements-field,
+.wc-stripe-iban-element-field {
+  @apply w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10 border-[#e5e7eb] items-center flex;
+}
+.wc-stripe-elements-field > div {
+  @apply w-full;
+}
+.woocommerce-order-received h1.text-2xl {
+  @apply text-center;
+}
+.tax_label,
+.shipped_via {
+  @apply text-gray-500;
+}
+.woocommerce-bacs-bank-details {
+  @apply text-sm text-left w-full;
+}
+.wc-bacs-bank-details-heading {
+  @apply flex-1 text-left text-sm font-bold mb-4;
+}
+.is-active {
+  @apply text-black;
+}
+#mbway_ifthen_for_woocommerce_phone_field > label {
+  @apply font-semibold;
+}
+#mbway_ifthen_for_woocommerce_phone_field > input {
+  @apply w-full px-4 py-2 uppercase tracking-wide border text-xs rounded-none h-10 border-[#e5e7eb] items-center flex;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  top: 7px;
+}
+.wc-bacs-bank-details.order_details.bacs_details > .account_number {
+  @apply flex justify-between w-full;
+}
+.woocommerce-MyAccount-navigation-link {
+  @apply h-[50px];
+}
+.woocommerce-MyAccount-navigation-link.is-active a {
+  @apply uppercase px-8 py-3 font-roboto text-left gap-2 text-white bg-black border border-black w-full;
+}
+
+.woocommerce-MyAccount-navigation-link a {
+  @apply uppercase px-8 py-3 font-roboto text-left gap-2 text-black w-full border flex border-transparent transition-all duration-300 hover:text-white hover:bg-black;
+}
+.order-status-processing {
+  @apply rounded-[12px] px-4 py-0.5 text-sm text-[#2D3748] bg-[#D9DFE6];
+}
+
+.order-status-pending,
+.order-status-on-hold {
+  @apply rounded-[12px] px-4 py-0.5 text-sm text-[#975A16] bg-[#F7E9B7];
+}
+
+.order-status-completed {
+  @apply rounded-[12px] px-4 py-0.5 text-sm text-[#276749] bg-[#C3EDD3];
+}
+
+.order-status-cancelled,
+.order-status-failed {
+  @apply rounded-[12px] px-4 py-0.5 text-sm text-[#9B2C2C] bg-[#FBC1C1];
+}
+
+.order-status-refunded {
+  @apply rounded-[12px] px-4 py-0.5 text-sm text-[#9C4221] bg-[#F1C4A6];
+}
+.btn-pill {
+  @apply bg-black rounded-full text-white text-[10px] uppercase pl-2 flex items-center h-6 pr-6 relative cursor-pointer;
+  @apply after:absolute after:rounded-full after:w-4 after:h-4 after:bg-white after:right-1 after:top-1 after:content-["✕"] after:text-black after:flex after:items-center after:justify-center;
+}
+#search-modal {
+  @apply transition-all scale-50 duration-200 opacity-0 invisible pointer-events-none fixed z-[9999] w-screen h-screen;
+}
+#search-modal.opened {
+  @apply opacity-100 visible pointer-events-auto scale-100;
+}
+.woocommerce-orders-table__cell-order-number {
+  @apply col-span-1;
+}
+.woocommerce-orders-table__cell-order-date {
+  @apply col-span-1 text-right md:text-left;
+}
+.woocommerce-orders-table__cell-order-status {
+  @apply col-span-2;
+}
+.woocommerce-orders-table__cell-order-total {
+  @apply col-span-1;
+}
+.woocommerce-orders-table__cell-order-actions {
+  @apply col-span-1 text-right md:text-left;
+}
+.shipping-item .woocommerce-Price-amount.amount {
+  @apply font-semibold;
+}
+.form-submit-box p {
+  @apply flex items-center flex-col space-y-4;
+}
+.wpcf7-not-valid-tip {
+  @apply text-xs;
+}
+.wpcf7-response-output {
+  @apply font-roboto text-sm;
+  border-width: 1px !important;
+}
+.form-submit-box input {
+  border-radius: 0px !important;
+}
+
+.wpcf7 form.invalid .wpcf7-response-output,
+.wpcf7 form.unaccepted .wpcf7-response-output,
+.wpcf7 form.payment-required .wpcf7-response-output {
+  border-color: #dc3232; /* Red */
+}
+.cta_category_bg {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 181, 216, 0) 59%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}

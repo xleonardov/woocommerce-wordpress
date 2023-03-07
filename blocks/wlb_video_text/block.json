@@ -1,0 +1,16 @@
+{
+  "name": "wlb/video_text",
+  "title": "willbe - Video & Text",
+  "description": "Video and text overlay",
+  "category": "theme",
+  "icon": "carrot",
+  "apiVersion": 2,
+  "keywords": [],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "blocks/wlb_video_text/block.php"
+  },
+  "supports": {
+    "anchor": true
+  }
+}
