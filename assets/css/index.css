@@ -338,3 +338,10 @@ input[type="number"] {
 .wpcf7 form.payment-required .wpcf7-response-output {
   border-color: #dc3232; /* Red */
 }
+.cta_category_bg {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 181, 216, 0) 59%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}

@@ -41,7 +41,16 @@ if ($tracking_code) { ?>
 		Siga a sua encomenda.
 	</p>
 	<p style="text-align:center; padding-bottom:1rem;">
-		O seu código de rastreio<br /><b>
+		O seu código de rastreio<br />
+		<?php if ($shipping_company === 'gls') {
+			echo 'GLS';
+		} else if ($shipping_company === 'correos_express') {
+			echo 'Correos Express';
+		} else if ($shipping_company === 'ctt') {
+			echo 'CTT';
+		} ?>
+		<br />
+		<b>
 			<?= $tracking_code ?>
 		</b>
 	</p>

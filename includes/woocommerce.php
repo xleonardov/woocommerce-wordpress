@@ -154,7 +154,7 @@ if (!function_exists('theme_woocommerce_wrapper_before')) {
     {
         ?>
         <main id="primary" class="site-main w-full max-w-container mx-auto px-4">
-        <?php
+            <?php
     }
 }
 add_action('woocommerce_before_main_content', 'theme_woocommerce_wrapper_before');
@@ -171,7 +171,7 @@ if (!function_exists('theme_woocommerce_wrapper_after')) {
     {
         ?>
         </main><!-- #main -->
-    <?php
+        <?php
     }
 }
 add_action('woocommerce_after_main_content', 'theme_woocommerce_wrapper_after');
@@ -246,7 +246,7 @@ if (!function_exists('theme_woocommerce_floating_cart')) {
                                 </div>
                             </div>
                         </div>
-                    <?php
+                        <?php
                     }
                     ?>
                 </div>
@@ -273,7 +273,7 @@ if (!function_exists('theme_woocommerce_floating_cart')) {
             <?php } ?>
         </div>
 
-    <?php
+        <?php
     }
 }
 
@@ -807,7 +807,7 @@ function woocommerce_ajax_rerender_filters()
                 <button class="clear-all-filters text-sm text-secondary"
                     data-taxonomy="<?php echo isset($taxonomy) ? $taxonomy : '' ?>">Limpar tudo (<?php echo count($new_args) ?>)</button>
             </div>
-        <?php
+            <?php
         }
         foreach ($data as $key => $attribute) { ?>
             <div class="mb-4 p-4">
@@ -1062,7 +1062,7 @@ function custom_add_wc_attribute_type()
         <input type="checkbox" id="type-show" name="show" checked>
         <p class="description">Chose if this filter appear on frontend.</p>
     </div>
-<?php
+    <?php
 }
 add_action('woocommerce_after_add_attribute_fields', 'custom_add_wc_attribute_type');
 
@@ -1096,7 +1096,7 @@ function custom_edit_wc_attribute_type()
             <p class="description">Chose if this filter appear on frontend.</p>
         </td>
     </tr>
-<?php
+    <?php
 }
 
 add_action('woocommerce_after_edit_attribute_fields', 'custom_edit_wc_attribute_type');
