@@ -484,9 +484,11 @@ add_action(
 function rewrite_posts_clauses($clauses, $query)
 {
     global $wpdb;
-    if ($query->is_search) {
-        $clauses["where"] = " AND wp_posts.post_type = 'product' " . $clauses["where"];
-        $clauses['orderby'] = "wp_posts.post_date DESC";
+    if (!is_admin()) {
+        if ($query->is_search) {
+            $clauses["where"] = " AND wp_posts.post_type = 'product' " . $clauses["where"];
+            $clauses['orderby'] = "wp_posts.post_date DESC";
+        }
     }
     return $clauses;
 }
