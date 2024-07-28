@@ -1,4 +1,6 @@
-## Getting Started
+# WooCommerce with tailwind & Wordpress <i>(by [LeonV](https://github.com/xleonardov))</i>
+
+## Getting Started 
 
 First you need to install the theme on your wordpress installation.
 
