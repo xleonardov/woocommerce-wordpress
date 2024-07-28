@@ -15,6 +15,7 @@
       <?php echo __("Alguma coisa correu mal, ou o link estava errado ou a página foi removida.", "theme_tailwind");?> 
     </p>
     <a class="btn btn-primary" href="/"><?php echo __("Voltar ao início", "theme_tailwind");?></a>
+    <p>There has been error occured!</p>
   </div>
 </section>
 </div>
